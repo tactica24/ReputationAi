@@ -55,15 +55,17 @@ async def health_check():
     }
 
 
-# CORS middleware
-origins = os.getenv("CORS_ORIGINS", "*").split(",")
+# CORS middleware - PRIVATE APP: Only allow specific origins
+# Set CORS_ORIGINS environment variable to your frontend domain(s)
+# Example: "https://yourdomain.com,https://www.yourdomain.com"
+origins = os.getenv("CORS_ORIGINS", "http://localhost:3000,http://localhost:5173").split(",")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=origins,  # Restricted to specific origins only
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "PATCH"],  # Specific methods only
+    allow_headers=["Content-Type", "Authorization"],  # Specific headers onlyent-Type", "Authorization"],
 )
 
 # Security
@@ -470,9 +472,10 @@ class ApplicationResponse(BaseModel):
 async def submit_application(
     application: ApplicationSubmission,
     background_tasks: BackgroundTasks,
+    current_user: dict = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Submit a protection application"""
+    """Submit a protection application (requires authentication)"""
     # Validate required agreements
     if not application.agreement or not application.privacy:
         raise HTTPException(

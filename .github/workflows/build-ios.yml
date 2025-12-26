@@ -1,0 +1,51 @@
+name: Build iOS App
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        working-directory: ./mobile
+        run: npm ci
+      
+      - name: Install CocoaPods
+        working-directory: ./mobile/ios
+        run: pod install
+      
+      - name: Build iOS App
+        working-directory: ./mobile/ios
+        run: |
+          xcodebuild -workspace ReputationAI.xcworkspace \
+                     -scheme ReputationAI \
+                     -configuration Release \
+                     -archivePath build/ReputationAI.xcarchive \
+                     archive
+      
+      - name: Export IPA
+        working-directory: ./mobile/ios
+        run: |
+          xcodebuild -exportArchive \
+                     -archivePath build/ReputationAI.xcarchive \
+                     -exportPath build \
+                     -exportOptionsPlist ExportOptions.plist
+      
+      - name: Upload IPA
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release-ipa
+          path: mobile/ios/build/*.ipa

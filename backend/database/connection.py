@@ -71,7 +71,8 @@ def get_mongo():
     Get MongoDB database instance
     """
     if mongo_db is None:
-        raise Exception("MongoDB not initialized")
+        logger.warning("MongoDB not available - using PostgreSQL fallback")
+        return None
     return mongo_db
 
 

@@ -1,0 +1,583 @@
+// ===========================
+// Navigation Scroll Effect
+// ===========================
+const navbar = document.getElementById('navbar');
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('navMenu');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
+// ===========================
+// Mobile Menu Toggle
+// ===========================
+hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+    hamburger.classList.toggle('active');
+});
+
+// Close mobile menu when clicking on a link
+const navLinks = document.querySelectorAll('.nav-menu a');
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        hamburger.classList.remove('active');
+    });
+});
+
+// ===========================
+// Smooth Scrolling
+// ===========================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            const offset = 80; // Navbar height
+            const targetPosition = target.offsetTop - offset;
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// ===========================
+// Animated Counters
+// ===========================
+function animateCounter(element, target, duration = 2000) {
+    const start = 0;
+    const increment = target / (duration / 16);
+    let current = start;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            element.textContent = formatNumber(target);
+            clearInterval(timer);
+        } else {
+            element.textContent = formatNumber(Math.floor(current));
+        }
+    }, 16);
+}
+
+function formatNumber(num) {
+    if (num >= 1000000) {
+        return (num / 1000000).toFixed(1) + 'M';
+    } else if (num >= 1000) {
+        return (num / 1000).toFixed(1) + 'K';
+    }
+    return num.toString();
+}
+
+// ===========================
+// Intersection Observer for Animations
+// ===========================
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+            
+            // Trigger counter animation for metric cards
+            if (entry.target.classList.contains('metric-card')) {
+                const valueElement = entry.target.querySelector('.metric-value');
+                const value = valueElement.textContent.trim();
+                
+                // Only animate numeric values
+                if (!isNaN(value) && value !== '') {
+                    animateCounter(valueElement, parseFloat(value));
+                }
+            }
+            
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Observe all cards and sections for animation
+const animatedElements = document.querySelectorAll(`
+    .summary-card,
+    .problem-card,
+    .example-card,
+    .flow-step,
+    .feature-card,
+    .pricing-card,
+    .timeline-item,
+    .metric-card,
+    .risk-card,
+    .market-card
+`);
+
+animatedElements.forEach(el => {
+    observer.observe(el);
+});
+
+// ===========================
+// Add Animation Styles Dynamically
+// ===========================
+const style = document.createElement('style');
+style.textContent = `
+    .summary-card,
+    .problem-card,
+    .example-card,
+    .flow-step,
+    .feature-card,
+    .pricing-card,
+    .timeline-item,
+    .metric-card,
+    .risk-card,
+    .market-card {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .animate-in {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+`;
+document.head.appendChild(style);
+
+// ===========================
+// Pricing Card Interaction
+// ===========================
+const pricingCards = document.querySelectorAll('.pricing-card');
+pricingCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        pricingCards.forEach(c => {
+            if (c !== this) {
+                c.style.opacity = '0.5';
+            }
+        });
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        pricingCards.forEach(c => {
+            c.style.opacity = '1';
+        });
+    });
+});
+
+// ===========================
+// CTA Button Handlers
+// ===========================
+const ctaButtons = document.querySelectorAll('.btn-primary, .cta-button');
+ctaButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        // Check if button text suggests starting a trial or demo
+        const buttonText = button.textContent.toLowerCase();
+        if (buttonText.includes('trial') || buttonText.includes('started') || buttonText.includes('demo')) {
+            e.preventDefault();
+            showModal('signup');
+        }
+    });
+});
+
+// ===========================
+// Simple Modal System
+// ===========================
+function showModal(type) {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-body">
+                ${type === 'signup' ? getSignupForm() : getDemoForm()}
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    setTimeout(() => modal.classList.add('active'), 10);
+    
+    // Close modal handlers
+    const closeBtn = modal.querySelector('.modal-close');
+    closeBtn.addEventListener('click', () => closeModal(modal));
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal(modal);
+    });
+    
+    // Form submission handler
+    const form = modal.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            handleFormSubmit(form, type);
+        });
+    }
+}
+
+function closeModal(modal) {
+    modal.classList.remove('active');
+    setTimeout(() => modal.remove(), 300);
+}
+
+function getSignupForm() {
+    return `
+        <h2>Start Your Free Trial</h2>
+        <p class="modal-subtitle">Get 14 days of full access, no credit card required</p>
+        <form class="modal-form">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="name" required placeholder="John Doe">
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="email" required placeholder="john@example.com">
+            </div>
+            <div class="form-group">
+                <label>Company (Optional)</label>
+                <input type="text" name="company" placeholder="Acme Inc.">
+            </div>
+            <div class="form-group">
+                <label>Use Case</label>
+                <select name="usecase" required>
+                    <option value="">Select your use case</option>
+                    <option value="personal">Personal Reputation</option>
+                    <option value="executive">Executive Protection</option>
+                    <option value="brand">Brand Monitoring</option>
+                    <option value="media">Media/Journalism</option>
+                    <option value="academic">Academic Institution</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-large">Start Free Trial</button>
+        </form>
+    `;
+}
+
+function getDemoForm() {
+    return `
+        <h2>Schedule a Demo</h2>
+        <p class="modal-subtitle">See how AI Guardian can protect your reputation</p>
+        <form class="modal-form">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="name" required placeholder="John Doe">
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="email" required placeholder="john@example.com">
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" name="phone" placeholder="+1 (555) 123-4567">
+            </div>
+            <div class="form-group">
+                <label>Company</label>
+                <input type="text" name="company" required placeholder="Acme Inc.">
+            </div>
+            <div class="form-group">
+                <label>Preferred Date</label>
+                <input type="date" name="date" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-large">Schedule Demo</button>
+        </form>
+    `;
+}
+
+function handleFormSubmit(form, type) {
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+    
+    // Show success message
+    const modalBody = form.closest('.modal-body');
+    modalBody.innerHTML = `
+        <div class="success-message">
+            <div class="success-icon">✓</div>
+            <h2>${type === 'signup' ? 'Welcome to AI Guardian!' : 'Demo Scheduled!'}</h2>
+            <p>${type === 'signup' 
+                ? 'Check your email for login credentials and setup instructions.' 
+                : 'We\'ll send you a calendar invitation shortly.'}</p>
+            <button class="btn btn-primary" onclick="this.closest('.modal-overlay').querySelector('.modal-close').click()">
+                Close
+            </button>
+        </div>
+    `;
+    
+    console.log('Form submitted:', data);
+}
+
+// Add modal styles
+const modalStyle = document.createElement('style');
+modalStyle.textContent = `
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        backdrop-filter: blur(5px);
+    }
+    
+    .modal-overlay.active {
+        opacity: 1;
+    }
+    
+    .modal-content {
+        background: var(--dark-card);
+        border: 1px solid var(--dark-border);
+        border-radius: var(--radius-xl);
+        max-width: 500px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+    }
+    
+    .modal-overlay.active .modal-content {
+        transform: scale(1);
+    }
+    
+    .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: transparent;
+        border: none;
+        font-size: 2rem;
+        color: var(--text-secondary);
+        cursor: pointer;
+        line-height: 1;
+        padding: 0.5rem;
+        transition: var(--transition);
+    }
+    
+    .modal-close:hover {
+        color: var(--primary-color);
+    }
+    
+    .modal-body {
+        padding: 2rem;
+    }
+    
+    .modal-body h2 {
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+    }
+    
+    .modal-subtitle {
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+    }
+    
+    .modal-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .form-group label {
+        color: var(--text-secondary);
+        font-weight: 500;
+        font-size: 0.875rem;
+    }
+    
+    .form-group input,
+    .form-group select {
+        background: var(--dark-bg);
+        border: 1px solid var(--dark-border);
+        border-radius: var(--radius-sm);
+        padding: 0.75rem;
+        color: var(--text-primary);
+        font-size: 1rem;
+        font-family: inherit;
+        transition: var(--transition);
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+    
+    .success-message {
+        text-align: center;
+        padding: 2rem 1rem;
+    }
+    
+    .success-icon {
+        width: 80px;
+        height: 80px;
+        background: var(--gradient-success);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: white;
+        margin: 0 auto 1.5rem;
+    }
+    
+    .success-message h2 {
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+    }
+    
+    .success-message p {
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+    }
+`;
+document.head.appendChild(modalStyle);
+
+// ===========================
+// Floating Cards Animation
+// ===========================
+const floatingCards = document.querySelectorAll('.floating-card');
+floatingCards.forEach((card, index) => {
+    // Add random slight movements
+    setInterval(() => {
+        const randomX = Math.random() * 10 - 5;
+        const randomY = Math.random() * 10 - 5;
+        card.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }, 2000 + index * 500);
+});
+
+// ===========================
+// Parallax Scrolling Effect
+// ===========================
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const parallaxElements = document.querySelectorAll('.hero-visual');
+    
+    parallaxElements.forEach(el => {
+        const speed = 0.5;
+        el.style.transform = `translateY(${scrolled * speed}px)`;
+    });
+});
+
+// ===========================
+// Active Navigation Link
+// ===========================
+const sections = document.querySelectorAll('section[id]');
+
+function updateActiveNav() {
+    const scrollY = window.pageYOffset;
+    
+    sections.forEach(section => {
+        const sectionHeight = section.offsetHeight;
+        const sectionTop = section.offsetTop - 100;
+        const sectionId = section.getAttribute('id');
+        const navLink = document.querySelector(`.nav-menu a[href="#${sectionId}"]`);
+        
+        if (navLink && scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+            navLink.classList.add('active');
+        }
+    });
+}
+
+window.addEventListener('scroll', updateActiveNav);
+
+// Add active link style
+const navStyle = document.createElement('style');
+navStyle.textContent = `
+    .nav-menu a.active {
+        color: var(--primary-color);
+        position: relative;
+    }
+    
+    .nav-menu a.active::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--gradient-primary);
+    }
+`;
+document.head.appendChild(navStyle);
+
+// ===========================
+// Initialize on Page Load
+// ===========================
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('AI Reputation Guardian Website Loaded');
+    updateActiveNav();
+    
+    // Add entrance animation to hero section
+    setTimeout(() => {
+        document.querySelector('.hero-content').style.opacity = '1';
+        document.querySelector('.hero-content').style.transform = 'translateY(0)';
+    }, 100);
+});
+
+// Add hero entrance animation styles
+const heroStyle = document.createElement('style');
+heroStyle.textContent = `
+    .hero-content {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+`;
+document.head.appendChild(heroStyle);
+
+// ===========================
+// Keyboard Navigation
+// ===========================
+document.addEventListener('keydown', (e) => {
+    // Close modal on ESC key
+    if (e.key === 'Escape') {
+        const modal = document.querySelector('.modal-overlay');
+        if (modal) {
+            closeModal(modal);
+        }
+    }
+});
+
+// ===========================
+// Performance: Debounce Scroll Events
+// ===========================
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Apply debouncing to scroll-heavy functions
+const debouncedUpdateNav = debounce(updateActiveNav, 100);
+window.removeEventListener('scroll', updateActiveNav);
+window.addEventListener('scroll', debouncedUpdateNav);
+
+console.log('All interactive features initialized successfully! 🚀');

@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Reputation & Identity Guardian - Protect Your Digital Identity</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <span class="logo-icon">🛡️</span>
+                    <span class="logo-text">AI Guardian</span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#problem">Problem</a></li>
+                    <li><a href="#solution">Solution</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#roadmap">Roadmap</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="cta-button">Get Started</button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Protect Your Identity from 
+                    <span class="gradient-text">AI-Generated Threats</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Monitor, detect, and respond to deepfakes, synthetic voices, and AI-generated 
+                    misinformation targeting your reputation in real-time.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">Start Free Trial</button>
+                    <button class="btn btn-secondary">Watch Demo</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">99.7%</div>
+                        <div class="stat-label">Detection Accuracy</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">&lt;30s</div>
+                        <div class="stat-label">Alert Response Time</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Continuous Monitoring</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-card card-1">
+                    <div class="card-icon">⚠️</div>
+                    <div class="card-text">Deepfake Detected</div>
+                </div>
+                <div class="floating-card card-2">
+                    <div class="card-icon">✓</div>
+                    <div class="card-text">Identity Verified</div>
+                </div>
+                <div class="floating-card card-3">
+                    <div class="card-icon">🔍</div>
+                    <div class="card-text">Scanning 1.2M sources</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Executive Summary -->
+    <section class="executive-summary">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Why It Matters</span>
+                <h2>The Future of Reputation Protection</h2>
+            </div>
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <div class="summary-icon">🎯</div>
+                    <h3>Our Mission</h3>
+                    <p>Protect individuals and organizations from AI-generated impersonation, misinformation, and reputational harm through advanced multi-modal detection technology.</p>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">🚀</div>
+                    <h3>Key Differentiator</h3>
+                    <p>Unlike general monitoring tools, we focus exclusively on AI-generated identity threats using semantic, image, voice, and video analysis.</p>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">💡</div>
+                    <h3>Value Proposition</h3>
+                    <p>AI-generated misinformation is growing exponentially. Protect yourself before legal, financial, and reputational damage occurs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Statement -->
+    <section id="problem" class="problem-section">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-tag">The Challenge</span>
+                <h2>The Growing AI Threat Landscape</h2>
+                <p class="section-subtitle">Current monitoring tools cannot detect AI misuse in real-time across multiple modalities</p>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-number">01</div>
+                    <h3>AI-Generated Deepfakes</h3>
+                    <p>Sophisticated deepfake videos and images can destroy reputations overnight, with detection happening too late.</p>
+                    <div class="problem-stat">
+                    <span class="stat-highlight">900%</span> increase in deepfakes since 2022
+                    </div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-number">02</div>
+                    <h3>Synthetic Voice Cloning</h3>
+                    <p>AI can clone voices from just a few seconds of audio, enabling fraud and misinformation campaigns.</p>
+                    <div class="problem-stat">
+                        <span class="stat-highlight">$243M</span> lost to voice fraud in 2024
+                    </div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-number">03</div>
+                    <div class="problem-number">03</div>
+                    <h3>False Attribution</h3>
+                    <p>AI-generated content falsely attributed to public figures, executives, and influencers causes irreparable harm.</p>
+                    <div class="problem-stat">
+                        <span class="stat-highlight">67%</span> of people can't identify AI content
+                    </div>
+                </div>
+            </div>
+            <div class="real-world-examples">
+                <h3>Real-World Impact</h3>
+                <div class="example-cards">
+                    <div class="example-card">
+                        <div class="example-icon">👥</div>
+                        <h4>Public Figures</h4>
+                        <p>Celebrities and politicians targeted by deepfake videos for misinformation campaigns</p>
+                    </div>
+                    <div class="example-card">
+                        <div class="example-icon">🏢</div>
+                        <h4>Corporate Fraud</h4>
+                        <p>Fraudsters using AI to mimic employee identities for financial scams</p>
+                    </div>
+                    <div class="example-card">
+                        <div class="example-icon">🎓</div>
+                        <h4>Academic Integrity</h4>
+                        <p>Misinformation campaigns targeting researchers and academic institutions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Overview -->
+    <section id="solution" class="solution-section">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-tag">Our Solution</span>
+                <h2>Comprehensive AI Threat Detection</h2>
+                <p class="section-subtitle">Multi-modal monitoring and verification across all digital channels</p>
+            </div>
+            <div class="solution-flow">
+                <div class="flow-step">
+                    <div class="flow-icon">🔍</div>
+                    <h3>Monitor</h3>
+                    <p>Continuous scanning of public web, social media, and digital platforms</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="flow-icon">🤖</div>
+                    <h3>Detect</h3>
+                    <p>AI-powered analysis of text, images, videos, and voice content</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="flow-icon">✅</div>
+                    <h3>Verify</h3>
+                    <p>Cryptographic timestamping and evidence collection</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="flow-icon">📢</div>
+                    <h3>Alert</h3>
+                    <p>Real-time notifications with actionable insights</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-tag">Features</span>
+                <h2>Powerful Protection, Simple Interface</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Public Web Crawling</h3>
+                    <p>Continuous scanning of indexed sources and social media platforms including X/Twitter, YouTube, LinkedIn, and TikTok.</p>
+                    <ul class="feature-list">
+                        <li>Real-time API integration</li>
+                        <li>Multi-platform coverage</li>
+                        <li>Customizable search parameters</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>AI Content Detection</h3>
+                    <p>Advanced multi-modal AI detection for text, images, videos, and voice synthesis.</p>
+                    <ul class="feature-list">
+                        <li>NLP semantic analysis</li>
+                        <li>Deepfake video detection</li>
+                        <li>Voice synthesis identification</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👤</div>
+                    <h3>Identity Tracking</h3>
+                    <p>Monitor your name, face, voice, and brand logos across all digital channels.</p>
+                    <ul class="feature-list">
+                        <li>Facial recognition matching</li>
+                        <li>Voice pattern analysis</li>
+                        <li>Brand logo detection</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📜</div>
+                    <h3>Evidence & Verification</h3>
+                    <p>Legal-grade evidence collection with cryptographic timestamping and metadata capture.</p>
+                    <ul class="feature-list">
+                        <li>Blockchain timestamping</li>
+                        <li>Metadata preservation</li>
+                        <li>Legal report generation</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Smart Alerts</h3>
+                    <p>Real-time notifications via email, SMS, and push with severity scoring.</p>
+                    <ul class="feature-list">
+                        <li>Customizable alert thresholds</li>
+                        <li>Multi-channel notifications</li>
+                        <li>Risk severity scoring</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Dashboard Analytics</h3>
+                    <p>Comprehensive analytics and reporting with actionable insights.</p>
+                    <ul class="feature-list">
+                        <li>Trend analysis</li>
+                        <li>Threat visualization</li>
+                        <li>Custom reports</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Architecture -->
+    <section class="architecture-section">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-tag">Technology</span>
+                <h2>Enterprise-Grade Architecture</h2>
+            </div>
+            <div class="architecture-diagram">
+                <div class="arch-layer">
+                    <h3>Input Layer</h3>
+                    <div class="arch-items">
+                        <span class="arch-item">Target Identities</span>
+                        <span class="arch-item">Brand Assets</span>
+                        <span class="arch-item">Content Signals</span>
+                    </div>
+                </div>
+                <div class="arch-layer">
+                    <h3>Monitoring Layer</h3>
+                    <div class="arch-items">
+                        <span class="arch-item">Web Crawlers</span>
+                        <span class="arch-item">API Listeners</span>
+                        <span class="arch-item">Event Triggers</span>
+                    </div>
+                </div>
+                <div class="arch-layer">
+                    <h3>AI Detection Layer</h3>
+                    <div class="arch-items">
+                        <span class="arch-item">NLP Models</span>
+                        <span class="arch-item">Image Analysis</span>
+                        <span class="arch-item">Voice Detection</span>
+                        <span class="arch-item">Video Processing</span>
+                    </div>
+                </div>
+                <div class="arch-layer">
+                    <h3>Verification Layer</h3>
+                    <div class="arch-items">
+                        <span class="arch-item">Timestamping</span>
+                        <span class="arch-item">Hashing</span>
+                        <span class="arch-item">Evidence Storage</span>
+                    </div>
+                </div>
+                <div class="arch-layer">
+                    <h3>Output Layer</h3>
+                    <div class="arch-items">
+                        <span class="arch-item">Dashboard</span>
+                        <span class="arch-item">Alerts</span>
+                        <span class="arch-item">Reports</span>
+                    </div>
+                </div>
+            </div>
+            <div class="tech-stack">
+                <h3>Technology Stack</h3>
+                <div class="stack-grid">
+                    <div class="stack-item">
+                        <h4>Backend</h4>
+                        <p>Python/Node.js on AWS/GCP</p>
+                    </div>
+                    <div class="stack-item">
+                        <h4>AI/ML</h4>
+                        <p>OpenAI, Custom NLP, Deepfake Detection</p>
+                    </div>
+                    <div class="stack-item">
+                        <h4>Database</h4>
+                        <p>PostgreSQL, MongoDB</p>
+                    </div>
+                    <div class="stack-item">
+                        <h4>Frontend</h4>
+                        <p>React/Next.js</p>
+                    </div>
+                    <div class="stack-item">
+                        <h4>Security</h4>
+                        <p>GDPR Compliant, Encrypted Storage</p>
+                    </div>
+                    <div class="stack-item">
+                        <h4>Monitoring</h4>
+                        <p>Google Search API, Social Media APIs</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Market -->
+    <section class="market-section">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-tag">Who We Serve</span>
+                <h2>Built for Those at Risk</h2>
+            </div>
+            <div class="market-grid">
+                <div class="market-card primary-market">
+                    <div class="market-badge">Primary Users</div>
+                    <div class="market-items">
+                        <div class="market-item">
+                            <span class="market-icon">⭐</span>
+                            <div>
+                                <h4>Public Figures</h4>
+                                <p>Celebrities, politicians, influencers</p>
+                            </div>
+                        </div>
+                        <div class="market-item">
+                            <span class="market-icon">🏢</span>
+                            <div>
+                                <h4>Corporate Executives</h4>
+                                <p>C-suite leaders and brand teams</p>
+                            </div>
+                        </div>
+                        <div class="market-item">
+                            <span class="market-icon">📰</span>
+                            <div>
+                                <h4>Journalists & Media</h4>
+                                <p>News outlets and reporters</p>
+                            </div>
+                        </div>
+                        <div class="market-item">
+                            <span class="market-icon">🎓</span>
+                            <div>
+                                <h4>Academic Institutions</h4>
+                                <p>Universities and researchers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="market-card secondary-market">
+                    <div class="market-badge">Secondary Users</div>
+                    <div class="market-items">
+                        <div class="market-item">
+                            <span class="market-icon">👮</span>
+                            <div>
+                                <h4>Law Enforcement</h4>
+                                <p>Investigation and prevention</p>
+                            </div>
+                        </div>
+                        <div class="market-item">
+                            <span class="market-icon">🔒</span>
+                            <div>
+                                <h4>Cybersecurity Firms</h4>
+                                <p>Enhanced threat detection</p>
+                            </div>
+                        </div>
+                        <div class="market-item">
+                            <span class="market-icon">⚖️</span>
+                            <div>
+                                <h4>AI Ethics Organizations</h4>
+                                <p>Policy and compliance</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-tag">Pricing</span>
+                <h2>Choose Your Protection Level</h2>
+                <p class="section-subtitle">Flexible plans for individuals and organizations</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Basic</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">50</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Basic monitoring (text & images)</li>
+                        <li>✓ Up to 5 alert keywords</li>
+                        <li>✓ Email notifications</li>
+                        <li>✓ Weekly reports</li>
+                        <li>✓ 30-day evidence retention</li>
+                        <li>× Voice & video detection</li>
+                        <li>× Priority support</li>
+                    </ul>
+                    <button class="btn btn-outline">Get Started</button>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="pricing-header">
+                        <h3>Pro</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">200</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Full multi-modal detection</li>
+                        <li>✓ Unlimited alert keywords</li>
+                        <li>✓ Email, SMS & push notifications</li>
+                        <li>✓ Real-time alerts</li>
+                        <li>✓ 1-year evidence retention</li>
+                        <li>✓ Voice & video detection</li>
+                        <li>✓ Priority support</li>
+                        <li>✓ Legal-grade reports</li>
+                    </ul>
+                    <button class="btn btn-primary">Get Started</button>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Enterprise</h3>
+                        <div class="price">
+                            <span class="amount">Custom</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Everything in Pro</li>
+                        <li>✓ Multi-user accounts</li>
+                        <li>✓ Custom integrations</li>
+                        <li>✓ Dedicated account manager</li>
+                        <li>✓ Unlimited evidence retention</li>
+                        <li>✓ API access</li>
+                        <li>✓ Custom reporting</li>
+                        <li>✓ On-premise deployment option</li>
+                    </ul>
+                    <button class="btn btn-outline">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section id="roadmap" class="roadmap-section">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-tag">Development Timeline</span>
+                <h2>Implementation Roadmap</h2>
+            </div>
+            <div class="roadmap-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-phase">Phase 1</div>
+                        <h3>MVP Launch</h3>
+                        <div class="timeline-duration">3-6 Months</div>
+                        <ul class="timeline-features">
+                            <li>Dashboard and crawling infrastructure</li>
+                            <li>AI detection for text and images</li>
+                            <li>Basic alert system</li>
+                            <li>Initial user onboarding</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-phase">Phase 2</div>
+                        <h3>Multi-modal Expansion</h3>
+                        <div class="timeline-duration">6-12 Months</div>
+                        <ul class="timeline-features">
+                            <li>Voice & video detection capabilities</li>
+                            <li>Multi-source monitoring expansion</li>
+                            <li>Evidence verification pipeline</li>
+                            <li>Enhanced reporting features</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-phase">Phase 3</div>
+                        <h3>Enterprise Scaling</h3>
+                        <div class="timeline-duration">12-24 Months</div>
+                        <ul class="timeline-features">
+                            <li>Advanced analytics and insights</li>
+                            <li>Custom client onboarding</li>
+                            <li>API integration for enterprises</li>
+                            <li>Global expansion and partnerships</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competitive Advantage -->
+    <section class="competitive-section">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-tag">Why Choose Us</span>
+                <h2>Our Competitive Edge</h2>
+            </div>
+            <div class="competitive-grid">
+                <div class="competitive-card">
+                    <h3>Existing Solutions</h3>
+                    <ul class="comparison-list negative">
+                        <li>Limited to single modality (text OR images)</li>
+                        <li>Generic brand monitoring without AI focus</li>
+                        <li>No verifiable evidence collection</li>
+                        <li>Slow detection and response times</li>
+                        <li>Lacks legal-grade reporting</li>
+                    </ul>
+                </div>
+                <div class="competitive-card highlight">
+                    <div class="best-badge">AI Guardian</div>
+                    <h3>Our Platform</h3>
+                    <ul class="comparison-list positive">
+                        <li>✓ Comprehensive multi-modal AI detection</li>
+                        <li>✓ AI-threat focused monitoring</li>
+                        <li>✓ Cryptographic evidence verification</li>
+                        <li>✓ Real-time alerts (&lt;30 seconds)</li>
+                        <li>✓ Legal-grade reporting & documentation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KPIs & Metrics -->
+    <section class="metrics-section">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-tag">Success Metrics</span>
+                <h2>Measuring Our Impact</h2>
+            </div>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon">🎯</div>
+                    <h3>Detection Accuracy</h3>
+                    <div class="metric-value">99.7%</div>
+                    <p>Precision & recall across all modalities</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">⚡</div>
+                    <h3>Response Time</h3>
+                    <div class="metric-value">&lt;30s</div>
+                    <p>Average alert delivery time</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">👥</div>
+                    <h3>Monitored Identities</h3>
+                    <div class="metric-value">10K+</div>
+                    <p>Protected individuals & brands</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">📉</div>
+                    <h3>Incident Reduction</h3>
+                    <div class="metric-value">85%</div>
+                    <p>Decrease in successful attacks</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">⭐</div>
+                    <h3>Client Satisfaction</h3>
+                    <div class="metric-value">4.9/5</div>
+                    <p>Average customer rating</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">🔍</div>
+                    <h3>Sources Monitored</h3>
+                    <div class="metric-value">1.2M+</div>
+                    <p>Active monitoring endpoints</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Risk & Mitigation -->
+    <section class="risk-section">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-tag">Risk Management</span>
+                <h2>Our Mitigation Strategy</h2>
+            </div>
+            <div class="risk-grid">
+                <div class="risk-card">
+                    <h3>Technical Risks</h3>
+                    <div class="risk-item">
+                        <div class="risk-challenge">⚠️ High false positives</div>
+                        <div class="risk-solution">✓ Multi-layer verification & human review</div>
+                    </div>
+                    <div class="risk-item">
+                        <div class="risk-challenge">⚠️ Scalability challenges</div>
+                        <div class="risk-solution">✓ Cloud infrastructure & serverless architecture</div>
+                    </div>
+                </div>
+                <div class="risk-card">
+                    <h3>Legal & Ethical Risks</h3>
+                    <div class="risk-item">
+                        <div class="risk-challenge">⚠️ Privacy violations</div>
+                        <div class="risk-solution">✓ Monitor only public content, GDPR compliant</div>
+                    </div>
+                    <div class="risk-item">
+                        <div class="risk-challenge">⚠️ Defamation concerns</div>
+                        <div class="risk-solution">✓ Verified evidence & clear disclaimers</div>
+                    </div>
+                </div>
+                <div class="risk-card">
+                    <h3>Market Risks</h3>
+                    <div class="risk-item">
+                        <div class="risk-challenge">⚠️ Adoption hesitation</div>
+                        <div class="risk-solution">✓ Market education & early adopter programs</div>
+                    </div>
+                    <div class="risk-item">
+                        <div class="risk-challenge">⚠️ Competition</div>
+                        <div class="risk-solution">✓ Unique multi-modal approach & partnerships</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Protect Your Digital Identity?</h2>
+                <p>Join thousands of individuals and organizations safeguarding their reputation with AI Guardian</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary btn-large">Start Free 14-Day Trial</button>
+                    <button class="btn btn-secondary btn-large">Schedule Demo</button>
+                </div>
+                <div class="cta-features">
+                    <span>✓ No credit card required</span>
+                    <span>✓ Setup in 5 minutes</span>
+                    <span>✓ Cancel anytime</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <span class="logo-icon">🛡️</span>
+                        <span class="logo-text">AI Guardian</span>
+                    </div>
+                    <p class="footer-description">
+                        Protecting your digital identity from AI-generated threats through advanced monitoring and detection.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">GitHub</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#roadmap">Roadmap</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press Kit</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">GDPR Compliance</a></li>
+                        <li><a href="#">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AI Reputation & Identity Guardian. All rights reserved.</p>
+                <p class="footer-tagline">Built with ❤️ for a safer digital future</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

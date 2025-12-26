@@ -16,7 +16,8 @@ logger = logging.getLogger(__name__)
 # PostgreSQL Database URL from environment
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql://postgres:postgres@localhost:5432/reputationai"
+    "sqlite:///./reputationai.db"  # SQLite for local development
+    # "postgresql://postgres:postgres@localhost:5432/reputationai"  # PostgreSQL for production
 )
 
 # MongoDB URL from environment

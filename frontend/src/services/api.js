@@ -1,6 +1,8 @@
 import axios from 'axios';
+import { mockAuthService } from './mockAuth';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api/v1';
+const USE_MOCK_AUTH = import.meta.env.VITE_USE_MOCK_AUTH === 'true' || !import.meta.env.VITE_API_URL;
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -77,10 +79,30 @@ export const analyticsAPI = {
 
 // Auth API
 export const authAPI = {
-  login: (email, password) => api.post('/auth/login', { email, password }),
-  register: (data) => api.post('/auth/register', data),
-  logout: () => api.post('/auth/logout'),
-  getCurrentUser: () => api.get('/auth/me'),
+  login: (email, password) => {
+    if (USE_MOCK_AUTH) {
+      return mockAuthService.login(email, password);
+    }
+    return api.post('/auth/login', { email, password });
+  },
+  register: (data) => {
+    if (USE_MOCK_AUTH) {
+      return mockAuthService.register(data);
+    }
+    return api.post('/auth/register', data);
+  },
+  logout: () => {
+    if (USE_MOCK_AUTH) {
+      return mockAuthService.logout();
+    }
+    return api.post('/auth/logout');
+  },
+  getCurrentUser: () => {
+    if (USE_MOCK_AUTH) {
+      return mockAuthService.getCurrentUser();
+    }
+    return api.get('/auth/me');
+  },
   refreshToken: () => api.post('/auth/refresh'),
 };
 

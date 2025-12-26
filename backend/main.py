@@ -13,18 +13,22 @@ from sqlalchemy.orm import Session
 import uvicorn
 import os
 
-# Import our services
-from services.ai_analytics.sentiment_analysis import SentimentAnalyzer, SentimentAggregator
-from services.ai_analytics.reputation_scoring import ReputationScorer
-from services.ai_analytics.trend_analysis import TrendAnalyzer
-from services.data_sources.aggregator import DataAggregator
-from services.notifications.notification_service import NotificationService, NotificationChannel, NotificationPriority
-from services.security.security_service import SecurityService, Permission, UserRole
+# Import our services (commented out for now - auth only)
+# from backend.services.ai_analytics.sentiment_analysis import SentimentAnalyzer, SentimentAggregator
+# from backend.services.ai_analytics.reputation_scoring import ReputationScorer
+# from backend.services.ai_analytics.trend_analysis import TrendAnalyzer
+# from backend.services.data_sources.aggregator import DataAggregator
+# from backend.services.notifications.notification_service import NotificationService, NotificationChannel, NotificationPriority
+# from backend.services.security.security_service import SecurityService, Permission, UserRole
 
 # Import database
 from backend.database.connection import get_db, init_database, check_database_health
 from backend.database import crud
 from backend.database.models import UserRole as DBUserRole, ApplicationStatus
+
+# Import API routers
+from backend.api.auth import router as auth_router
+from backend.api.quick_onboard import router as onboard_router
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -71,14 +75,18 @@ app.add_middleware(
 # Security
 security_bearer = HTTPBearer()
 
-# Initialize services
-sentiment_analyzer = SentimentAnalyzer(model_type="transformer")
-sentiment_aggregator = SentimentAggregator()
-reputation_scorer = ReputationScorer()
-trend_analyzer = TrendAnalyzer(sensitivity=2.0)
-data_aggregator = DataAggregator()
-notification_service = NotificationService(config={})
-security_service = SecurityService()
+# Include routers
+app.include_router(auth_router, prefix="/api/v1")
+app.include_router(onboard_router, prefix="/api/v1")
+
+# Initialize services (commented out for now - auth only)
+# sentiment_analyzer = SentimentAnalyzer(model_type="transformer")
+# sentiment_aggregator = SentimentAggregator()
+# reputation_scorer = ReputationScorer()
+# trend_analyzer = TrendAnalyzer(sensitivity=2.0)
+# data_aggregator = DataAggregator()
+# notification_service = NotificationService(config={})
+# security_service = SecurityService()
 
 # Pydantic models for API
 class EntityCreate(BaseModel):

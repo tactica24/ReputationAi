@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "buildCommand": "cd frontend && npm install && npm run build",
-  "outputDirectory": "frontend/dist",
-  "framework": "vite",
+  "buildCommand": "cd frontend && npm run build && cd .. && mkdir -p public/app && cp index.html public/ && cp styles.css public/ && cp script.js public/ && cp -r frontend/build/* public/app/",
+  "outputDirectory": "public",
+  "framework": null,
+  "installCommand": "cd frontend && npm install",
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "source": "/app/:path*",
+      "destination": "/app/index.html"
     }
   ],
   "headers": [
@@ -44,8 +45,5 @@
         }
       ]
     }
-  ],
-  "env": {
-    "VITE_API_URL": "@vite_api_url"
-  }
+  ]
 }

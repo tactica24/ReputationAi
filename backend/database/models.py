@@ -66,7 +66,7 @@ class User(Base):
     
     # Relationships
     entities = relationship("Entity", back_populates="owner", cascade="all, delete-orphan")
-    alerts = relationship("Alert", back_populates="user", cascade="all, delete-orphan")
+    alerts = relationship("Alert", back_populates="user", foreign_keys="Alert.user_id", cascade="all, delete-orphan")
     audit_logs = relationship("AuditLog", back_populates="user")
 
     __table_args__ = (

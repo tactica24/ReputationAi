@@ -336,3 +336,52 @@ class APIKey(Base):
     __table_args__ = (
         Index('idx_apikey_user_active', 'user_id', 'is_active'),
     )
+
+
+class ApplicationStatus(str, Enum):
+    """Application status enumeration"""
+    PENDING = "pending"
+    APPROVED = "approved"
+    REJECTED = "rejected"
+    IN_REVIEW = "in_review"
+
+
+class Application(Base):
+    """Protection application submissions"""
+    __tablename__ = "applications"
+
+    id = Column(Integer, primary_key=True, index=True)
+    application_id = Column(String(100), unique=True, nullable=False, index=True)
+    
+    # Applicant information
+    first_name = Column(String(100), nullable=False)
+    last_name = Column(String(100), nullable=False)
+    email = Column(String(255), nullable=False, index=True)
+    phone = Column(String(50))
+    company = Column(String(255))
+    title = Column(String(100))
+    
+    # Protection needs
+    plan = Column(String(50), nullable=False)
+    entities_count = Column(String(20))
+    threats = Column(Text)
+    urgency = Column(String(50), nullable=False)
+    
+    # Additional information
+    how_heard = Column(String(100))
+    message = Column(Text)
+    
+    # Status and processing
+    status = Column(SQLEnum(ApplicationStatus), default=ApplicationStatus.PENDING, nullable=False)
+    processed_by = Column(Integer, ForeignKey("users.id"))
+    processed_at = Column(DateTime(timezone=True))
+    rejection_reason = Column(Text)
+    
+    # Timestamps
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+    __table_args__ = (
+        Index('idx_application_status_created', 'status', 'created_at'),
+        Index('idx_application_email', 'email'),
+    )

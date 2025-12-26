@@ -9,7 +9,9 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 from typing import List, Optional, Dict
 from datetime import datetime, timedelta
+from sqlalchemy.orm import Session
 import uvicorn
+import os
 
 # Import our services
 from services.ai_analytics.sentiment_analysis import SentimentAnalyzer, SentimentAggregator
@@ -18,6 +20,11 @@ from services.ai_analytics.trend_analysis import TrendAnalyzer
 from services.data_sources.aggregator import DataAggregator
 from services.notifications.notification_service import NotificationService, NotificationChannel, NotificationPriority
 from services.security.security_service import SecurityService, Permission, UserRole
+
+# Import database
+from backend.database.connection import get_db, init_database, check_database_health
+from backend.database import crud
+from backend.database.models import UserRole as DBUserRole, ApplicationStatus
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -28,10 +35,32 @@ app = FastAPI(
     redoc_url="/api/redoc"
 )
 
+
+@app.on_event("startup")
+async def startup_event():
+    """Initialize database on startup"""
+    init_database()
+    health = check_database_health()
+    print(f"Database Health: {health}")
+
+
+@app.get("/api/v1/health", tags=["System"])
+async def health_check():
+    """Health check endpoint for monitoring"""
+    health = check_database_health()
+    return {
+        "status": "healthy" if any(health.values()) else "degraded",
+        "database": health,
+        "timestamp": datetime.utcnow().isoformat()
+    }
+
+
 # CORS middleware
+origins = os.getenv("CORS_ORIGINS", "*").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production: specify allowed origins
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -440,7 +469,8 @@ class ApplicationResponse(BaseModel):
 @app.post("/api/v1/applications", response_model=ApplicationResponse)
 async def submit_application(
     application: ApplicationSubmission,
-    background_tasks: BackgroundTasks
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db)
 ):
     """Submit a protection application"""
     # Validate required agreements
@@ -453,7 +483,7 @@ async def submit_application(
     # Generate application ID
     application_id = f"APP-{datetime.now().strftime('%Y%m%d')}-{int(datetime.now().timestamp())}"
     
-    # Log the application (in production: save to database)
+    # Create application data structure
     application_data = {
         "application_id": application_id,
         "timestamp": datetime.now().isoformat(),
@@ -474,6 +504,9 @@ async def submit_application(
         "additional_message": application.message,
         "status": "pending_review"
     }
+    
+    # Save to database
+    crud.create_application(db, application_data)
     
     # Determine response time based on urgency
     response_time_map = {
@@ -514,85 +547,85 @@ async def send_application_notifications(application_data: dict, applicant_email
 # =============================================
 
 @app.get("/api/v1/admin/users", tags=["Admin"])
-async def get_all_users(current_user: dict = Depends(get_admin_user)):
+async def get_all_users(
+    skip: int = 0,
+    limit: int = 100,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_admin_user)
+):
     """Get all platform users (Admin only)"""
-    # Mock data - in production, query database
-    users = [
+    users = crud.get_all_users(db, skip=skip, limit=limit)
+    
+    return [
         {
-            "id": "user1",
-            "name": "John Doe",
-            "email": "john@example.com",
-            "plan": "Pro",
-            "status": "active",
-            "joinedAt": "2024-01-15T10:00:00Z",
-            "lastActive": "2024-12-26T08:30:00Z"
-        },
-        {
-            "id": "user2",
-            "name": "Jane Smith",
-            "email": "jane@company.com",
-            "plan": "Enterprise",
-            "status": "active",
-            "joinedAt": "2024-02-20T14:00:00Z",
-            "lastActive": "2024-12-25T16:45:00Z"
-        },
-        {
-            "id": "user3",
-            "name": "Bob Wilson",
-            "email": "bob@startup.io",
-            "plan": "Basic",
-            "status": "suspended",
-            "joinedAt": "2024-03-10T09:00:00Z",
-            "lastActive": "2024-12-20T12:00:00Z"
+            "id": str(user.id),
+            "name": user.full_name or user.username,
+            "email": user.email,
+            "plan": "Pro",  # TODO: Add subscription model
+            "status": "active" if user.is_active else "suspended",
+            "joinedAt": user.created_at.isoformat() if user.created_at else None,
+            "lastActive": user.last_login.isoformat() if user.last_login else None
         }
+        for user in users
     ]
-    return users
 
 
 @app.get("/api/v1/admin/applications", tags=["Admin"])
-async def get_all_applications(current_user: dict = Depends(get_admin_user)):
+async def get_all_applications(
+    status: Optional[str] = None,
+    skip: int = 0,
+    limit: int = 100,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_admin_user)
+):
     """Get all pending and processed applications (Admin only)"""
-    # Mock data
-    applications = [
+    applications = crud.get_all_applications(db, status=status, skip=skip, limit=limit)
+    
+    return [
         {
-            "id": "app1",
-            "firstName": "Sarah",
-            "lastName": "Johnson",
-            "email": "sarah@company.com",
-            "plan": "Pro",
-            "entities": "5",
-            "urgency": "immediate",
-            "status": "pending",
-            "submittedAt": "2024-12-26T10:00:00Z"
-        },
-        {
-            "id": "app2",
-            "firstName": "Mike",
-            "lastName": "Chen",
-            "email": "mike@tech.io",
-            "plan": "Enterprise",
-            "entities": "10",
-            "urgency": "within-week",
-            "status": "pending",
-            "submittedAt": "2024-12-25T15:30:00Z"
+            "id": str(app.id),
+            "application_id": app.application_id,
+            "firstName": app.first_name,
+            "lastName": app.last_name,
+            "email": app.email,
+            "plan": app.plan,
+            "entities": app.entities_count,
+            "urgency": app.urgency,
+            "status": app.status.value if hasattr(app.status, 'value') else app.status,
+            "submittedAt": app.created_at.isoformat() if app.created_at else None
         }
+        for app in applications
     ]
-    return applications
 
 
 @app.post("/api/v1/admin/applications/{application_id}/approve", tags=["Admin"])
 async def approve_application(
     application_id: str,
+    db: Session = Depends(get_db),
     current_user: dict = Depends(get_admin_user),
     background_tasks: BackgroundTasks = None
 ):
     """Approve a pending application (Admin only)"""
-    # In production:
-    # 1. Update application status in database
-    # 2. Create user account
-    # 3. Send approval email with login credentials
-    # 4. Send welcome email with onboarding guide
-    # 5. Log admin action
+    # Update application status in database
+    app = crud.update_application_status(
+        db, 
+        application_id, 
+        ApplicationStatus.APPROVED.value,
+        processed_by=int(current_user["user_id"].replace("user_", "")) if "user_" in current_user["user_id"] else 1
+    )
+    
+    if not app:
+        raise HTTPException(status_code=404, detail="Application not found")
+    
+    # Create audit log
+    crud.create_audit_log(
+        db,
+        user_id=int(current_user["user_id"].replace("user_", "")) if "user_" in current_user["user_id"] else 1,
+        action="approve_application",
+        details={"application_id": application_id}
+    )
+    
+    # TODO: Send approval email, create user account
     
     return {
         "success": True,
@@ -649,21 +682,28 @@ async def toggle_user_status(
 
 
 @app.get("/api/v1/admin/metrics", tags=["Admin"])
-async def get_system_metrics(current_user: dict = Depends(get_admin_user)):
+async def get_system_metrics(
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_admin_user)
+):
     """Get comprehensive system metrics and analytics (Admin only)"""
-    # Mock data - in production, aggregate from database and monitoring systems
+    # Get real metrics from database
+    metrics = crud.get_system_metrics(db)
+    
+    # For now, combine with mock chart data
+    # TODO: Implement real time-series data collection
     return {
-        "totalUsers": 1247,
-        "newUsersThisMonth": 89,
-        "pendingApplications": 12,
-        "activeSubscriptions": 1180,
-        "monthlyRevenue": 23640,
+        "totalUsers": metrics["total_users"],
+        "newUsersThisMonth": 89,  # TODO: Calculate from database
+        "pendingApplications": metrics["pending_applications"],
+        "activeSubscriptions": metrics["active_users"],
+        "monthlyRevenue": 23640,  # TODO: Calculate from subscription model
         "systemHealth": "Excellent",
         "uptime": "99.98",
         
-        # Charts data
+        # Charts data - TODO: Query from time-series data
         "userGrowthLabels": ["Dec 1", "Dec 8", "Dec 15", "Dec 22", "Dec 26"],
-        "userGrowthData": [1050, 1120, 1180, 1220, 1247],
+        "userGrowthData": [1050, 1120, 1180, 1220, metrics["total_users"]],
         
         "subscriptionDistribution": [350, 720, 110],  # Basic, Pro, Enterprise
         
@@ -671,27 +711,15 @@ async def get_system_metrics(current_user: dict = Depends(get_admin_user)):
         "mentionsProcessed": [45000, 52000, 58000, 61000],
         "alertsGenerated": [1200, 1350, 1280, 1420],
         
-        # Additional metrics
         "avgReputationScore": 78.5,
-        "totalEntities": 3250,
+        "totalEntities": metrics["total_entities"],
         "avgResponseTime": 42,
         
-        # Recent activity
         "recentActivity": [
             {
-                "action": "Approved application for John Smith",
-                "admin": "admin@reputationai.com",
-                "timestamp": "2 hours ago"
-            },
-            {
-                "action": "Suspended user account (policy violation)",
-                "admin": "admin@reputationai.com",
-                "timestamp": "5 hours ago"
-            },
-            {
-                "action": "Updated system configuration",
-                "admin": "tech@reputationai.com",
-                "timestamp": "1 day ago"
+                "action": "System metrics retrieved",
+                "admin": current_user.get("email", "admin@reputationai.com"),
+                "timestamp": "just now"
             }
         ]
     }

@@ -7,11 +7,12 @@ import MentionsPage from './components/mentions/MentionsPage';
 import AlertsPage from './components/alerts/AlertsPage';
 import AnalyticsPage from './components/analytics/AnalyticsPage';
 import SettingsPage from './components/settings/SettingsPage';
+import AdminDashboard from './components/admin/AdminDashboard';
 import LoginPage from './components/auth/LoginPage';
 import { useAuthStore } from './store/authStore';
 
 function App() {
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, user } = useAuthStore();
 
   if (!isAuthenticated) {
     return <LoginPage />;
@@ -27,6 +28,12 @@ function App() {
         <Route path="/alerts" element={<AlertsPage />} />
         <Route path="/analytics" element={<AnalyticsPage />} />
         <Route path="/settings" element={<SettingsPage />} />
+        
+        {/* Admin-only route */}
+        {user?.role === 'admin' && (
+          <Route path="/admin" element={<AdminDashboard />} />
+        )}
+        
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </Layout>

@@ -10,7 +10,8 @@ import {
   Menu,
   X,
   LogOut,
-  User
+  User,
+  Shield
 } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 
@@ -21,6 +22,10 @@ const navigation = [
   { name: 'Alerts', href: '/alerts', icon: Bell },
   { name: 'Analytics', href: '/analytics', icon: TrendingUp },
   { name: 'Settings', href: '/settings', icon: Settings },
+];
+
+const adminNavigation = [
+  { name: 'Admin Panel', href: '/admin', icon: Shield, adminOnly: true },
 ];
 
 function Layout({ children }) {
@@ -89,6 +94,38 @@ function Layout({ children }) {
                 </Link>
               );
             })}
+            
+            {/* Admin navigation - only for admin users */}
+            {user?.role === 'admin' && (
+              <div className="pt-4 mt-4 border-t border-slate-800">
+                <div className="px-3 py-1 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                  Administration
+                </div>
+                {adminNavigation.map((item) => {
+                  const isActive = location.pathname === item.href;
+                  const Icon = item.icon;
+                  
+                  return (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className={`
+                        flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
+                        transition-all duration-200
+                        ${isActive 
+                          ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/50' 
+                          : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                        }
+                      `}
+                      onClick={() => setSidebarOpen(false)}
+                    >
+                      <Icon className="w-5 h-5" />
+                      {item.name}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
           </nav>
 
           {/* User section */}
@@ -104,6 +141,11 @@ function Layout({ children }) {
                 <p className="text-xs text-slate-400 truncate">
                   {user?.email}
                 </p>
+                {user?.role === 'admin' && (
+                  <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-800 mt-1">
+                    Admin
+                  </span>
+                )}
               </div>
               <button
                 onClick={logout}

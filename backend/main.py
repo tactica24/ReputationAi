@@ -96,7 +96,14 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Security(
     """Verify JWT token and return user"""
     # Placeholder for JWT verification
     # In production: Verify token, extract user_id
-    return {"user_id": "user_123", "role": UserRole.ADMIN}
+    return {"user_id": "user_123", "role": UserRole.USER}
+
+async def get_admin_user(credentials: HTTPAuthorizationCredentials = Security(security_bearer)):
+    """Verify JWT token and ensure user is admin"""
+    user = await get_current_user(credentials)
+    if user.get("role") != UserRole.ADMIN:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    return user
 
 
 # Health check
@@ -500,6 +507,194 @@ async def send_application_notifications(application_data: dict, applicant_email
     print(f"[NOTIFICATION] New application {application_data['application_id']}")
     print(f"[NOTIFICATION] Sending confirmation to {applicant_email}")
     print(f"[NOTIFICATION] Application data: {application_data}")
+
+
+# =============================================
+# ADMIN ENDPOINTS
+# =============================================
+
+@app.get("/api/v1/admin/users", tags=["Admin"])
+async def get_all_users(current_user: dict = Depends(get_admin_user)):
+    """Get all platform users (Admin only)"""
+    # Mock data - in production, query database
+    users = [
+        {
+            "id": "user1",
+            "name": "John Doe",
+            "email": "john@example.com",
+            "plan": "Pro",
+            "status": "active",
+            "joinedAt": "2024-01-15T10:00:00Z",
+            "lastActive": "2024-12-26T08:30:00Z"
+        },
+        {
+            "id": "user2",
+            "name": "Jane Smith",
+            "email": "jane@company.com",
+            "plan": "Enterprise",
+            "status": "active",
+            "joinedAt": "2024-02-20T14:00:00Z",
+            "lastActive": "2024-12-25T16:45:00Z"
+        },
+        {
+            "id": "user3",
+            "name": "Bob Wilson",
+            "email": "bob@startup.io",
+            "plan": "Basic",
+            "status": "suspended",
+            "joinedAt": "2024-03-10T09:00:00Z",
+            "lastActive": "2024-12-20T12:00:00Z"
+        }
+    ]
+    return users
+
+
+@app.get("/api/v1/admin/applications", tags=["Admin"])
+async def get_all_applications(current_user: dict = Depends(get_admin_user)):
+    """Get all pending and processed applications (Admin only)"""
+    # Mock data
+    applications = [
+        {
+            "id": "app1",
+            "firstName": "Sarah",
+            "lastName": "Johnson",
+            "email": "sarah@company.com",
+            "plan": "Pro",
+            "entities": "5",
+            "urgency": "immediate",
+            "status": "pending",
+            "submittedAt": "2024-12-26T10:00:00Z"
+        },
+        {
+            "id": "app2",
+            "firstName": "Mike",
+            "lastName": "Chen",
+            "email": "mike@tech.io",
+            "plan": "Enterprise",
+            "entities": "10",
+            "urgency": "within-week",
+            "status": "pending",
+            "submittedAt": "2024-12-25T15:30:00Z"
+        }
+    ]
+    return applications
+
+
+@app.post("/api/v1/admin/applications/{application_id}/approve", tags=["Admin"])
+async def approve_application(
+    application_id: str,
+    current_user: dict = Depends(get_admin_user),
+    background_tasks: BackgroundTasks = None
+):
+    """Approve a pending application (Admin only)"""
+    # In production:
+    # 1. Update application status in database
+    # 2. Create user account
+    # 3. Send approval email with login credentials
+    # 4. Send welcome email with onboarding guide
+    # 5. Log admin action
+    
+    return {
+        "success": True,
+        "message": f"Application {application_id} approved",
+        "application_id": application_id,
+        "action_by": current_user["user_id"],
+        "timestamp": datetime.utcnow().isoformat()
+    }
+
+
+@app.post("/api/v1/admin/applications/{application_id}/reject", tags=["Admin"])
+async def reject_application(
+    application_id: str,
+    current_user: dict = Depends(get_admin_user)
+):
+    """Reject a pending application (Admin only)"""
+    # In production:
+    # 1. Update application status
+    # 2. Send rejection email (with reason if provided)
+    # 3. Log admin action
+    
+    return {
+        "success": True,
+        "message": f"Application {application_id} rejected",
+        "application_id": application_id,
+        "action_by": current_user["user_id"],
+        "timestamp": datetime.utcnow().isoformat()
+    }
+
+
+@app.post("/api/v1/admin/users/{user_id}/toggle-status", tags=["Admin"])
+async def toggle_user_status(
+    user_id: str,
+    status_data: dict,
+    current_user: dict = Depends(get_admin_user)
+):
+    """Suspend or activate a user account (Admin only)"""
+    new_status = status_data.get("status", "active")
+    
+    # In production:
+    # 1. Update user status in database
+    # 2. If suspending, revoke active sessions
+    # 3. Send notification email to user
+    # 4. Log admin action with reason
+    
+    return {
+        "success": True,
+        "message": f"User {user_id} status changed to {new_status}",
+        "user_id": user_id,
+        "new_status": new_status,
+        "action_by": current_user["user_id"],
+        "timestamp": datetime.utcnow().isoformat()
+    }
+
+
+@app.get("/api/v1/admin/metrics", tags=["Admin"])
+async def get_system_metrics(current_user: dict = Depends(get_admin_user)):
+    """Get comprehensive system metrics and analytics (Admin only)"""
+    # Mock data - in production, aggregate from database and monitoring systems
+    return {
+        "totalUsers": 1247,
+        "newUsersThisMonth": 89,
+        "pendingApplications": 12,
+        "activeSubscriptions": 1180,
+        "monthlyRevenue": 23640,
+        "systemHealth": "Excellent",
+        "uptime": "99.98",
+        
+        # Charts data
+        "userGrowthLabels": ["Dec 1", "Dec 8", "Dec 15", "Dec 22", "Dec 26"],
+        "userGrowthData": [1050, 1120, 1180, 1220, 1247],
+        
+        "subscriptionDistribution": [350, 720, 110],  # Basic, Pro, Enterprise
+        
+        "analyticsLabels": ["Week 1", "Week 2", "Week 3", "Week 4"],
+        "mentionsProcessed": [45000, 52000, 58000, 61000],
+        "alertsGenerated": [1200, 1350, 1280, 1420],
+        
+        # Additional metrics
+        "avgReputationScore": 78.5,
+        "totalEntities": 3250,
+        "avgResponseTime": 42,
+        
+        # Recent activity
+        "recentActivity": [
+            {
+                "action": "Approved application for John Smith",
+                "admin": "admin@reputationai.com",
+                "timestamp": "2 hours ago"
+            },
+            {
+                "action": "Suspended user account (policy violation)",
+                "admin": "admin@reputationai.com",
+                "timestamp": "5 hours ago"
+            },
+            {
+                "action": "Updated system configuration",
+                "admin": "tech@reputationai.com",
+                "timestamp": "1 day ago"
+            }
+        ]
+    }
 
 
 if __name__ == "__main__":

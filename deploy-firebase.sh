@@ -31,8 +31,8 @@ cd ..
 
 # Deploy to Firebase
 echo -e "${YELLOW}🚀 Deploying to Firebase...${NC}"
-firebase deploy --only hosting --project reputationai-70092432
+firebase deploy --only hosting --project reputationai-df869
 
 echo -e "${GREEN}✅ Deployment complete!${NC}"
-echo -e "${GREEN}🌐 Your app is live at: https://reputationai-70092432.web.app${NC}"
-echo -e "${GREEN}🌐 Or custom domain: https://reputationai-70092432.firebaseapp.com${NC}"
+echo -e "${GREEN}🌐 Your app is live at: https://reputationai-df869.web.app${NC}"
+echo -e "${GREEN}🌐 Or custom domain: https://reputationai-df869.firebaseapp.com${NC}"

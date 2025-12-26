@@ -6,12 +6,12 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
-// Project: reputationai-70092432
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCSFPZBzewPT-Tmj-XocBZKAYppGbnE72A",
-  authDomain: "reputationai-70092432.firebaseapp.com",
-  projectId: "reputationai-70092432",
-  storageBucket: "reputationai-70092432.firebasestorage.app",
+  authDomain: "reputationai-df869.firebaseapp.com",
+  projectId: "reputationai-df869",
+  storageBucket: "reputationai-df869.firebasestorage.app",
   messagingSenderId: "1055922829434",
   appId: "1:1055922829434:web:0df16c120978c4b5c363c3",
   measurementId: "G-5N3W3R9NWS"

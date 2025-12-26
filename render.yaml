@@ -22,7 +22,7 @@ services:
       - key: ENVIRONMENT
         value: production
       - key: CORS_ORIGINS
-        value: https://reputation-ai-one.vercel.app,https://www.reputationai.app
+        value: "https://reputation-ai-one.vercel.app,https://www.reputationai.app"
     healthCheckPath: /health
 
 databases:

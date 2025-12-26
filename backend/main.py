@@ -43,9 +43,59 @@ app = FastAPI(
 @app.on_event("startup")
 async def startup_event():
     """Initialize database on startup"""
-    init_database()
+    print("🚀 Starting ReputationAI Backend...")
+    print(f"Environment: {os.getenv('ENVIRONMENT', 'development')}")
+    print(f"Database URL: {os.getenv('DATABASE_URL', 'not set')[:50]}...")
+    
+    # Initialize database tables
+    print("📋 Initializing database tables...")
+    init_result = init_database()
+    if init_result:
+        print("✅ Database tables initialized")
+    else:
+        print("⚠️ Database table initialization failed")
+    
+    # Check database health
     health = check_database_health()
-    print(f"Database Health: {health}")
+    print(f"🔍 Database Health: {health}")
+    
+    # Auto-create admin user if not exists (production)
+    if health.get("postgresql", False):
+        try:
+            from backend.database.models import User
+            from backend.api.auth import hash_password
+            
+            print("👤 Checking for admin user...")
+            db = next(get_db())
+            admin_exists = db.query(User).filter(User.email == "admin@reputation.ai").first()
+            
+            if not admin_exists:
+                print("🔧 Creating admin user automatically...")
+                admin_user = User(
+                    email="admin@reputation.ai",
+                    password_hash=hash_password("Admin@2024!"),
+                    full_name="System Administrator",
+                    role="super_admin",
+                    is_active=True
+                )
+                db.add(admin_user)
+                db.commit()
+                db.refresh(admin_user)
+                print(f"✅ Admin user created successfully! ID: {admin_user.id}")
+                print("   Email: admin@reputation.ai")
+                print("   Password: Admin@2024!")
+            else:
+                print(f"✅ Admin user already exists (ID: {admin_exists.id})")
+            
+            db.close()
+        except Exception as e:
+            print(f"❌ Admin user creation failed: {e}")
+            import traceback
+            traceback.print_exc()
+    else:
+        print("⚠️ Database not connected - skipping admin user creation")
+    
+    print("✅ Startup complete!")
 
 
 @app.get("/api/v1/health", tags=["System"])
@@ -67,6 +117,84 @@ async def root_health_check():
         "service": "reputationai-backend",
         "timestamp": datetime.utcnow().isoformat()
     }
+
+
+@app.post("/api/v1/system/initialize", tags=["System"])
+async def initialize_system():
+    """
+    One-time database initialization endpoint
+    Creates tables and admin user if they don't exist
+    Safe to call multiple times - won't recreate existing data
+    """
+    results = {
+        "tables_created": False,
+        "admin_created": False,
+        "errors": [],
+        "messages": []
+    }
+    
+    try:
+        # Initialize tables
+        results["messages"].append("Initializing database tables...")
+        init_result = init_database()
+        results["tables_created"] = init_result
+        
+        if init_result:
+            results["messages"].append("✅ Database tables initialized")
+        else:
+            results["messages"].append("⚠️ Database tables may already exist")
+        
+        # Check database health
+        health = check_database_health()
+        results["database_health"] = health
+        
+        if not health.get("postgresql", False):
+            results["errors"].append("PostgreSQL connection failed")
+            results["messages"].append("❌ Database not connected")
+            return results
+        
+        # Create admin user
+        from backend.database.models import User
+        from backend.api.auth import hash_password
+        
+        results["messages"].append("Checking for admin user...")
+        db = next(get_db())
+        
+        try:
+            admin_exists = db.query(User).filter(User.email == "admin@reputation.ai").first()
+            
+            if not admin_exists:
+                results["messages"].append("Creating admin user...")
+                admin_user = User(
+                    email="admin@reputation.ai",
+                    password_hash=hash_password("Admin@2024!"),
+                    full_name="System Administrator",
+                    role="super_admin",
+                    is_active=True
+                )
+                db.add(admin_user)
+                db.commit()
+                db.refresh(admin_user)
+                
+                results["admin_created"] = True
+                results["messages"].append("✅ Admin user created successfully!")
+                results["admin_email"] = "admin@reputation.ai"
+                results["admin_password"] = "Admin@2024!"
+            else:
+                results["messages"].append("✅ Admin user already exists")
+                results["admin_email"] = "admin@reputation.ai"
+                results["admin_created"] = False
+            
+        finally:
+            db.close()
+        
+    except Exception as e:
+        results["errors"].append(str(e))
+        results["messages"].append(f"❌ Error: {str(e)}")
+        import traceback
+        results["traceback"] = traceback.format_exc()
+    
+    return results
 
 
 # CORS middleware - PRIVATE APP: Only allow specific origins

@@ -26,21 +26,32 @@ DATABASE_URL = os.getenv(
     "sqlite:///./reputationai.db"  # SQLite for local development
 )
 
+print(f"🔍 Database URL (first 60 chars): {DATABASE_URL[:60] if DATABASE_URL else 'None'}...")
+
 # Fix Render PostgreSQL URL (postgres:// -> postgresql://)
 if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+    print("✅ Fixed postgres:// to postgresql://")
 
 # SQLAlchemy engine for PostgreSQL
 try:
+    print(f"🔧 Creating database engine...")
     engine = create_engine(
         DATABASE_URL,
         poolclass=NullPool,  # For serverless/free tier compatibility
         echo=False,
-        future=True
+        future=True,
+        connect_args={"connect_timeout": 10} if "postgresql" in DATABASE_URL else {}
     )
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    
+    # Test connection
+    with engine.connect() as conn:
+        conn.execute("SELECT 1")
+    print("✅ PostgreSQL/SQLite connection initialized successfully")
     logger.info("PostgreSQL/SQLite connection initialized successfully")
 except Exception as e:
+    print(f"❌ Failed to initialize database: {e}")
     logger.error(f"Failed to initialize database: {e}")
     engine = None
     SessionLocal = None
@@ -115,9 +126,11 @@ def check_database_health() -> dict:
     # Check PostgreSQL
     if engine:
         try:
+            from sqlalchemy import text
             with engine.connect() as conn:
-                conn.execute("SELECT 1")
+                conn.execute(text("SELECT 1"))
             health["postgresql"] = True
+            logger.info("PostgreSQL health check passed")
         except Exception as e:
             logger.error(f"PostgreSQL health check failed: {e}")
     
@@ -126,6 +139,7 @@ def check_database_health() -> dict:
         try:
             mongo_client.admin.command('ping')
             health["mongodb"] = True
+            logger.info("MongoDB health check passed")
         except Exception as e:
             logger.error(f"MongoDB health check failed: {e}")
     

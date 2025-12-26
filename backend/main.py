@@ -59,6 +59,16 @@ async def health_check():
     }
 
 
+@app.get("/health", tags=["System"])
+async def root_health_check():
+    """Root health check endpoint for Render"""
+    return {
+        "status": "healthy",
+        "service": "reputationai-backend",
+        "timestamp": datetime.utcnow().isoformat()
+    }
+
+
 # CORS middleware - PRIVATE APP: Only allow specific origins
 # Set CORS_ORIGINS environment variable to your frontend domain(s)
 # Example: "https://yourdomain.com,https://www.yourdomain.com"

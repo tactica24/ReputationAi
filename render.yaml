@@ -1,22 +1,34 @@
 services:
+  # Backend API Service
   - type: web
     name: reputationai-backend
     env: python
     region: oregon
     plan: free
+    branch: main
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.0
       - key: DATABASE_URL
-        sync: false
-      - key: MONGODB_URI
-        sync: false
+        fromDatabase:
+          name: reputationai-db
+          property: connectionString
       - key: SECRET_KEY
         generateValue: true
-      - key: CORS_ORIGINS
-        value: "*"
+      - key: JWT_SECRET_KEY
+        generateValue: true
       - key: ENVIRONMENT
         value: production
-    healthCheckPath: /api/v1/health
+      - key: CORS_ORIGINS
+        value: https://reputation-ai-one.vercel.app,https://www.reputationai.app
+    healthCheckPath: /health
+
+databases:
+  # PostgreSQL Database
+  - name: reputationai-db
+    databaseName: reputationai
+    user: reputationai_user
+    plan: free
+    region: oregon

@@ -17,8 +17,11 @@ logger = logging.getLogger(__name__)
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
     "sqlite:///./reputationai.db"  # SQLite for local development
-    # "postgresql://postgres:postgres@localhost:5432/reputationai"  # PostgreSQL for production
 )
+
+# Fix Render PostgreSQL URL (postgres:// -> postgresql://)
+if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
 # MongoDB URL from environment
 MONGODB_URI = os.getenv(

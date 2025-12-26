@@ -7,11 +7,18 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.pool import NullPool
-from pymongo import MongoClient
 from typing import Generator
 import logging
 
 logger = logging.getLogger(__name__)
+
+# Try to import MongoDB, but don't fail if not available
+try:
+    from pymongo import MongoClient
+    MONGODB_AVAILABLE = True
+except ImportError:
+    MONGODB_AVAILABLE = False
+    logger.warning("pymongo not available - MongoDB features disabled")
 
 # PostgreSQL Database URL from environment
 DATABASE_URL = os.getenv(
@@ -23,12 +30,6 @@ DATABASE_URL = os.getenv(
 if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
-# MongoDB URL from environment
-MONGODB_URI = os.getenv(
-    "MONGODB_URI",
-    "mongodb://localhost:27017/reputationai"
-)
-
 # SQLAlchemy engine for PostgreSQL
 try:
     engine = create_engine(
@@ -38,21 +39,28 @@ try:
         future=True
     )
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-    logger.info("PostgreSQL connection initialized successfully")
+    logger.info("PostgreSQL/SQLite connection initialized successfully")
 except Exception as e:
-    logger.error(f"Failed to initialize PostgreSQL: {e}")
+    logger.error(f"Failed to initialize database: {e}")
     engine = None
     SessionLocal = None
 
 # MongoDB client
-try:
-    mongo_client = MongoClient(MONGODB_URI, serverSelectionTimeoutMS=5000)
-    mongo_db = mongo_client.get_database()
-    logger.info("MongoDB connection initialized successfully")
-except Exception as e:
-    logger.error(f"Failed to initialize MongoDB: {e}")
-    mongo_client = None
-    mongo_db = None
+mongo_client = None
+mongo_db = None
+
+if MONGODB_AVAILABLE:
+    try:
+        MONGODB_URI = os.getenv("MONGODB_URI", "mongodb://localhost:27017/reputationai")
+        mongo_client = MongoClient(MONGODB_URI, serverSelectionTimeoutMS=5000)
+        mongo_db = mongo_client.get_database()
+        logger.info("MongoDB connection initialized successfully")
+    except Exception as e:
+        logger.error(f"Failed to initialize MongoDB: {e}")
+        mongo_client = None
+        mongo_db = None
+else:
+    logger.info("MongoDB not available - skipping MongoDB initialization")
 
 
 def get_db() -> Generator[Session, None, None]:

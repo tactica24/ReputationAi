@@ -79,7 +79,7 @@ app.add_middleware(
     allow_origins=origins,  # Restricted to specific origins only
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "PATCH"],  # Specific methods only
-    allow_headers=["Content-Type", "Authorization"],  # Specific headers onlyent-Type", "Authorization"],
+    allow_headers=["Content-Type", "Authorization"],  # Specific headers only
 )
 
 # Security

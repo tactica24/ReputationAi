@@ -31,7 +31,7 @@ cd ..
 
 # Deploy to Firebase
 echo -e "${YELLOW}🚀 Deploying to Firebase...${NC}"
-firebase deploy --only hosting
+firebase deploy --only hosting --project reputationai-70092432
 
 echo -e "${GREEN}✅ Deployment complete!${NC}"
 echo -e "${GREEN}🌐 Your app is live at: https://reputationai-70092432.web.app${NC}"

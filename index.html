@@ -3,401 +3,501 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reputation Guardian - AI-Powered Reputation Protection</title>
+    <meta name="description" content="ReputationGuard - Professional AI-powered reputation monitoring and protection for executives and enterprises.">
+    <meta name="theme-color" content="#6366f1">
+    <title>ReputationGuard - AI-Powered Reputation Protection</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ReputationGuard">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Top Navigation Bar -->
-    <nav class="top-nav">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <svg class="logo-svg" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Premium Navigation -->
+    <nav class="nav-premium">
+        <div class="nav-wrapper">
+            <a href="/" class="brand">
+                <svg class="brand-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="6" fill="url(#brandGradient)"/>
+                    <path d="M16 8L22 11V16C22 20 19 23 16 26C13 23 10 20 10 16V11L16 8Z" 
+                          fill="white" fill-opacity="0.15"/>
+                    <path d="M16 10L20 12V16C20 18.5 18.5 21 16 23.5C13.5 21 12 18.5 12 16V12L16 10Z" 
+                          stroke="white" stroke-width="1.5" fill="none"/>
+                    <circle cx="16" cy="16" r="2.5" fill="white"/>
                     <defs>
-                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ec4899;stop-opacity:0.2" />
-                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.2" />
+                        <linearGradient id="brandGradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop offset="0%" stop-color="#6366f1"/>
+                            <stop offset="100%" stop-color="#8b5cf6"/>
                         </linearGradient>
                     </defs>
-                    <!-- Outer shield -->
-                    <path d="M20 2L34 8V16C34 25.5 28.5 33.5 20 38C11.5 33.5 6 25.5 6 16V8L20 2Z" 
-                          fill="url(#shieldGradient)" stroke="url(#logoGradient)" stroke-width="1.5"/>
-                    <!-- Inner shield with AI symbol -->
-                    <path d="M20 6L30 10V16C30 23.5 26 30 20 34C14 30 10 23.5 10 16V10L20 6Z" 
-                          fill="none" stroke="url(#logoGradient)" stroke-width="2"/>
-                    <!-- AI Eye/Scan lines -->
-                    <circle cx="20" cy="18" r="4" fill="url(#logoGradient)"/>
-                    <path d="M16 18 L12 18 M24 18 L28 18 M20 14 L20 10 M20 22 L20 26" 
-                          stroke="url(#logoGradient)" stroke-width="1.5" stroke-linecap="round"/>
                 </svg>
-                <span class="logo-text">Reputation Guardian</span>
+                <span class="brand-name">ReputationGuard</span>
             </a>
-            <div class="nav-menu">
-                <a href="protection.html" class="nav-link">How We Protect</a>
-                <a href="cost-of-nothing.html" class="nav-link">Cost of Nothing</a>
-                <a href="/app" class="nav-link">Dashboard</a>
-                <button class="btn-nav-primary" onclick="scrollToApply()">Get Protected</button>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#protection">Protection</a>
+                <a href="#enterprise">Enterprise</a>
+                <a href="/app" class="nav-link-dash">Dashboard</a>
+                <button class="btn-primary-nav" onclick="scrollToSection('apply')">Get Started</button>
             </div>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
+            <button class="mobile-nav-toggle" onclick="toggleMobileNav()" aria-label="Menu">
+                <span></span><span></span><span></span>
             </button>
         </div>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu" id="mobileMenu">
-        <button class="mobile-menu-close" onclick="toggleMobileMenu()">&times;</button>
-        <div class="mobile-menu-content">
-            <a href="protection.html" class="mobile-link">How We Protect</a>
-            <a href="cost-of-nothing.html" class="mobile-link">Cost of Nothing</a>
-            <a href="/app" class="mobile-link">Dashboard</a>
-            <button class="btn-mobile-primary" onclick="scrollToApply(); toggleMobileMenu();">Get Protected</button>
-            <div class="mobile-crisis">
-                <div class="crisis-label">Crisis Hotline</div>
-                <a href="tel:+18005551234">1-800-555-1234</a>
-            </div>
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav-close" onclick="toggleMobileNav()">&times;</button>
+        <div class="mobile-nav-content">
+            <a href="#features" onclick="toggleMobileNav()">Features</a>
+            <a href="#protection" onclick="toggleMobileNav()">Protection</a>
+            <a href="#enterprise" onclick="toggleMobileNav()">Enterprise</a>
+            <a href="/app" onclick="toggleMobileNav()">Dashboard</a>
+            <button class="btn-mobile-cta" onclick="scrollToSection('apply'); toggleMobileNav();">Get Started</button>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="main-content-full">
-        <!-- Hero Section -->
-        <section class="hero-modern">
-            <div class="hero-container">
-                <div class="hero-badge">🚨 Your Reputation is Under Attack</div>
-                <h1 class="hero-title">
-                    It Takes Years to Build Trust.
-                    <span class="gradient-text">Minutes to Destroy It.</span>
-                </h1>
-                <p class="hero-description">
-                    False accusations. Fake reviews. Identity theft. Deepfakes. 
-                    One viral lie can erase decades of hard work overnight. 
-                    <strong>Don't wait until it's too late.</strong>
-                </p>
-                <div class="hero-cta">
-                    <button class="btn-primary-large" onclick="scrollToApply()">
-                        Apply for Protection Now
-                    </button>
+    <!-- Hero Section -->
+    <section class="hero-premium">
+        <div class="hero-content-wrapper">
+            <div class="hero-badge">Trusted by Fortune 500 Executives</div>
+            <h1 class="hero-heading">
+                Protect Your Reputation<br/>
+                <span class="gradient-text">Before It's Too Late</span>
+            </h1>
+            <p class="hero-description">
+                Enterprise-grade AI monitoring across every platform. Detect threats in real-time, 
+                respond instantly, and safeguard what took decades to build.
+            </p>
+            <div class="hero-cta-group">
+                <button class="btn-hero-primary" onclick="scrollToSection('apply')">
+                    Start Protection Now
+                </button>
+                <a href="#features" class="btn-hero-secondary">See How It Works</a>
+            </div>
+            <div class="hero-trust-bar">
+                <div class="trust-stat">
+                    <span class="trust-number">500+</span>
+                    <span class="trust-label">Protected Clients</span>
                 </div>
-                
-                <div class="stats-row">
-                    <div class="stat-item">
-                        <div class="stat-number">73%</div>
-                        <div class="stat-text">Trust Lost from One Incident</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">22%</div>
-                        <div class="stat-text">Revenue Drop from Bad Press</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">3 min</div>
-                        <div class="stat-text">Average Time to Go Viral</div>
-                    </div>
+                <div class="trust-divider"></div>
+                <div class="trust-stat">
+                    <span class="trust-number">24/7</span>
+                    <span class="trust-label">AI Monitoring</span>
+                </div>
+                <div class="trust-divider"></div>
+                <div class="trust-stat">
+                    <span class="trust-number">100M+</span>
+                    <span class="trust-label">Sources Scanned</span>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Floating Alert Cards -->
-            <div class="alert-animations">
-                <div class="alert-card alert-1">
-                    <span class="alert-icon">⚠️</span>
-                    <span class="alert-text">Breaking: False claim spreading...</span>
-                </div>
-                <div class="alert-card alert-2">
-                    <span class="alert-icon">📉</span>
-                    <span class="alert-text">Reputation score dropping</span>
-                </div>
-                <div class="alert-card alert-3">
-                    <span class="alert-icon">🔥</span>
-                    <span class="alert-text">Viral in 127 countries</span>
-                </div>
+    <!-- Features Section -->
+    <section id="features" class="section-premium">
+        <div class="section-container">
+            <div class="section-header-center">
+                <span class="section-label">Comprehensive Protection</span>
+                <h2 class="section-title">Enterprise-Grade Monitoring</h2>
+                <p class="section-subtitle">AI-powered surveillance across every platform where your reputation matters</p>
             </div>
-        </section>
-
-        <!-- Why Choose Us Section -->
-        <section class="why-choose">
-            <div class="container-modern">
-                <h2 class="section-title-center">Why Choose Reputation Guardian</h2>
-                <p class="section-subtitle">Professional protection trusted by executives, entrepreneurs, and public figures</p>
-                
-                <div class="benefits-grid">
-                    <div class="benefit-item">
-                        <div class="benefit-icon">👁️</div>
-                        <h3>24/7 AI Monitoring</h3>
-                        <p>Our AI scans millions of sources every minute - news, social media, reviews, forums, and the dark web.</p>
-                        <a href="protection.html" class="benefit-link">Learn More →</a>
-                    </div>
-                    
-                    <div class="benefit-item">
-                        <div class="benefit-icon">🚨</div>
-                        <h3>Instant Threat Alerts</h3>
-                        <p>Get notified the moment a threat emerges. No delays, no surprises - you're always in control.</p>
-                        <a href="protection.html" class="benefit-link">Learn More →</a>
-                    </div>
-                    
-                    <div class="benefit-item">
-                        <div class="benefit-icon">⚡</div>
-                        <h3>Prevent Costly Damage</h3>
-                        <p>One viral lie can cost millions in lost opportunities and revenue. Don't wait until it's too late.</p>
-                        <a href="cost-of-nothing.html" class="benefit-link">See The Risk →</a>
-                    </div>
-                    
-                    <div class="benefit-item">
-                        <div class="benefit-icon">🌍</div>
-                        <h3>Global Coverage</h3>
-                        <p>Monitor 100+ languages across every major platform worldwide. Threats don't respect borders.</p>
-                        <a href="protection.html" class="benefit-link">Learn More →</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Application Section -->
-        <section id="apply" class="apply-section">
-            <div class="container-modern">
-                <div class="apply-header-modern">
-                    <h2>Apply for Protection</h2>
-                    <p>We carefully vet each client to ensure we can deliver the protection you deserve.</p>
-                    <div class="trust-badges-modern">
-                        <span class="badge-modern">🔒 Confidential Review</span>
-                        <span class="badge-modern">⚡ 24-Hour Response</span>
-                        <span class="badge-modern">✅ No Obligation</span>
-                    </div>
-                </div>
-
-                <!-- Show Application Button -->
-                <div id="showFormButton" class="show-form-container">
-                    <button class="btn-show-form" onclick="revealApplicationForm()">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V7C19 5.89543 18.1046 5 17 5H15M9 5C9 6.10457 9.89543 7 11 7H13C14.1046 7 15 6.10457 15 5M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5M12 12H15M12 16H15M9 12H9.01M9 16H9.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg class="feature-icon" width="32" height="32" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 2v4M12 18v4M22 12h-4M6 12H2M19.07 4.93l-2.83 2.83M7.76 16.24l-2.83 2.83M19.07 19.07l-2.83-2.83M7.76 7.76L4.93 4.93" 
+                                  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        <span>Start Your Application</span>
-                    </button>
-                    <p class="form-hint">Click to begin your confidential application process</p>
+                    </div>
+                    <h3 class="feature-title">Real-Time Scanning</h3>
+                    <p class="feature-desc">Monitor millions of sources every minute. News, social media, reviews, forums, and the dark web.</p>
                 </div>
 
-                <!-- Application Form (Hidden Initially) -->
-                <div id="applicationFormContainer" class="form-container-hidden">
-                <form id="applicationForm" class="form-modern">
-                    <div class="form-section-modern">
-                        <h3>Your Information</h3>
-                        <div class="form-grid">
-                            <div class="form-field">
-                                <label for="firstName">First Name *</label>
-                                <input type="text" id="firstName" name="firstName" required>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg class="feature-icon" width="32" height="32" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" 
+                                  stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Instant Alerts</h3>
+                    <p class="feature-desc">Get notified the moment a threat emerges. No delays, no surprises—complete control.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg class="feature-icon" width="32" height="32" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Smart Detection</h3>
+                    <p class="feature-desc">AI filters noise and identifies real threats: coordinated attacks, deepfakes, and manipulation.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg class="feature-icon" width="32" height="32" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Global Coverage</h3>
+                    <p class="feature-desc">100+ languages across every major platform worldwide. Threats don't respect borders.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Protection Details Section -->
+    <section id="protection" class="section-dark">
+        <div class="section-container">
+            <div class="section-header-center">
+                <span class="section-label">How It Works</span>
+                <h2 class="section-title">Comprehensive Protection Suite</h2>
+            </div>
+
+            <div class="protection-stack">
+                <div class="protection-item">
+                    <div class="protection-number">01</div>
+                    <div class="protection-content">
+                        <h3>AI Surveillance Engine</h3>
+                        <p>Our proprietary AI scans millions of data points across news, social media, review platforms, forums, blogs, and even the dark web. Every mention is tracked, analyzed, and categorized.</p>
+                        <ul class="protection-list">
+                            <li>Real-time content monitoring</li>
+                            <li>Sentiment analysis</li>
+                            <li>Brand impersonation detection</li>
+                            <li>Deepfake identification</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="protection-item">
+                    <div class="protection-number">02</div>
+                    <div class="protection-content">
+                        <h3>Threat Intelligence</h3>
+                        <p>Not all mentions require action. Our system uses machine learning to separate signal from noise, prioritizing genuine threats that could damage your reputation.</p>
+                        <ul class="protection-list">
+                            <li>Coordinated attack detection</li>
+                            <li>Bot network identification</li>
+                            <li>Viral trend prediction</li>
+                            <li>Risk severity scoring</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="protection-item">
+                    <div class="protection-number">03</div>
+                    <div class="protection-content">
+                        <h3>Rapid Response</h3>
+                        <p>When threats emerge, time is everything. Get detailed reports, evidence packages, and actionable recommendations to respond before damage becomes permanent.</p>
+                        <ul class="protection-list">
+                            <li>Instant push notifications</li>
+                            <li>Legal documentation packages</li>
+                            <li>Platform takedown templates</li>
+                            <li>Crisis response playbooks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enterprise Section -->
+    <section id="enterprise" class="section-premium">
+        <div class="section-container">
+            <div class="enterprise-layout">
+                <div class="enterprise-content">
+                    <span class="section-label">Enterprise Solution</span>
+                    <h2 class="section-title-left">Built for Organizations That Can't Afford Risk</h2>
+                    <p class="enterprise-text">
+                        From Fortune 500 executives to public figures, our platform protects those who've spent decades building their reputation. One viral lie can erase years of work overnight—we make sure you're never caught off guard.
+                    </p>
+                    <div class="enterprise-stats">
+                        <div class="enterprise-stat">
+                            <div class="stat-value">73%</div>
+                            <div class="stat-label">Trust Lost from One Incident</div>
+                        </div>
+                        <div class="enterprise-stat">
+                            <div class="stat-value">22%</div>
+                            <div class="stat-label">Revenue Drop from Bad Press</div>
+                        </div>
+                        <div class="enterprise-stat">
+                            <div class="stat-value">3 min</div>
+                            <div class="stat-label">Average Time to Go Viral</div>
+                        </div>
+                    </div>
+                    <div class="enterprise-cta">
+                        <button class="btn-enterprise" onclick="scrollToSection('apply')">Start Protection</button>
+                        <a href="protection.html" class="link-enterprise">View All Features →</a>
+                    </div>
+                </div>
+                <div class="enterprise-visual">
+                    <div class="dashboard-preview">
+                        <div class="dashboard-header">
+                            <div class="dashboard-dot"></div>
+                            <div class="dashboard-dot"></div>
+                            <div class="dashboard-dot"></div>
+                        </div>
+                        <div class="dashboard-content">
+                            <div class="dashboard-card">
+                                <div class="card-label">Reputation Score</div>
+                                <div class="card-value">98/100</div>
+                                <div class="card-trend positive">↑ 2.5%</div>
                             </div>
-                            <div class="form-field">
-                                <label for="lastName">Last Name *</label>
-                                <input type="text" id="lastName" name="lastName" required>
+                            <div class="dashboard-card">
+                                <div class="card-label">Threats Detected</div>
+                                <div class="card-value">0</div>
+                                <div class="card-trend neutral">All Clear</div>
                             </div>
-                            <div class="form-field">
-                                <label for="email">Email Address *</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            <div class="form-field">
-                                <label for="phone">Phone Number *</label>
-                                <input type="tel" id="phone" name="phone" required>
+                            <div class="dashboard-card">
+                                <div class="card-label">Mentions (24h)</div>
+                                <div class="card-value">247</div>
+                                <div class="card-trend positive">↑ 12%</div>
                             </div>
                         </div>
-                        
-                        <div class="form-field">
-                            <label for="company">Company/Organization</label>
-                            <input type="text" id="company" name="company">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Section -->
+    <section id="apply" class="section-apply">
+        <div class="section-container-narrow">
+            <div class="apply-header">
+                <span class="section-label">Get Protected</span>
+                <h2 class="section-title">Apply for Protection</h2>
+                <p class="apply-subtitle">We carefully vet each client to ensure we can deliver the protection you deserve. Our team will review your application within 24 hours.</p>
+                <div class="apply-badges">
+                    <span class="apply-badge">🔒 Confidential</span>
+                    <span class="apply-badge">⚡ 24hr Response</span>
+                    <span class="apply-badge">✅ No Obligation</span>
+                </div>
+            </div>
+
+            <div id="showFormBtn" class="show-form-wrapper">
+                <button class="btn-reveal-form" onclick="revealForm()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V7C19 5.89543 18.1046 5 17 5H15" 
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5M9 5C9 6.10457 9.89543 7 11 7H13C14.1046 7 15 6.10457 15 5" 
+                              stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    Begin Application
+                </button>
+                <p class="form-hint">Completely confidential and secure</p>
+            </div>
+
+            <div id="formContainer" class="form-wrapper" style="display: none;">
+                <form id="applicationForm" class="premium-form">
+                    <div class="form-section">
+                        <h3 class="form-section-title">Your Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name *</label>
+                                <input type="text" name="firstName" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name *</label>
+                                <input type="text" name="lastName" required />
+                            </div>
                         </div>
-                        
-                        <div class="form-field">
-                            <label for="title">Your Title/Role *</label>
-                            <input type="text" id="title" name="title" placeholder="e.g., CEO, Executive, Public Figure" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Email Address *</label>
+                                <input type="email" name="email" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number *</label>
+                                <input type="tel" name="phone" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Company/Organization</label>
+                            <input type="text" name="company" />
+                        </div>
+                        <div class="form-group">
+                            <label>Your Title/Role *</label>
+                            <input type="text" name="title" placeholder="e.g., CEO, Executive, Public Figure" required />
                         </div>
                     </div>
 
-                    <div class="form-section-modern">
-                        <h3>Protection Needs</h3>
-                        
-                        <div class="form-field">
-                            <label for="entities">Who/What Needs Protection? *</label>
-                            <textarea id="entities" name="entities" rows="3" placeholder="List individuals, brands, or organizations you want to monitor" required></textarea>
+                    <div class="form-section">
+                        <h3 class="form-section-title">Protection Needs</h3>
+                        <div class="form-group">
+                            <label>Who/What Needs Protection? *</label>
+                            <textarea name="entities" rows="3" placeholder="List individuals, brands, or organizations" required></textarea>
                         </div>
-
-                        <div class="form-field">
-                            <label for="threats">Current Concerns (Optional)</label>
-                            <textarea id="threats" name="threats" rows="4" placeholder="Describe any existing reputation threats, incidents, or areas of concern"></textarea>
+                        <div class="form-group">
+                            <label>Current Concerns (Optional)</label>
+                            <textarea name="threats" rows="4" placeholder="Describe any existing threats or concerns"></textarea>
                         </div>
-
-                        <div class="form-field">
-                            <label for="urgency">How Urgent Is This? *</label>
-                            <select id="urgency" name="urgency" required>
-                                <option value="">Select urgency level</option>
+                        <div class="form-group">
+                            <label>Urgency Level *</label>
+                            <select name="urgency" required>
+                                <option value="">Select urgency</option>
                                 <option value="active-crisis">Active Crisis - Need Help Now</option>
-                                <option value="emerging-threat">Emerging Threat - Need Protection Soon</option>
-                                <option value="proactive">Proactive Protection - Planning Ahead</option>
+                                <option value="emerging-threat">Emerging Threat - Soon</option>
+                                <option value="proactive">Proactive Protection</option>
                             </select>
                         </div>
-
-                        <div class="form-field">
-                            <label for="howHeard">How Did You Hear About Us?</label>
-                            <select id="howHeard" name="howHeard">
-                                <option value="">Select one</option>
-                                <option value="search">Google/Search Engine</option>
-                                <option value="referral">Referral</option>
-                                <option value="social">Social Media</option>
-                                <option value="news">News/Article</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-field">
-                            <label for="message">Anything Else We Should Know?</label>
-                            <textarea id="message" name="message" rows="4" placeholder="Any additional context, questions, or special requirements"></textarea>
+                        <div class="form-group">
+                            <label>Additional Information</label>
+                            <textarea name="message" rows="3" placeholder="Any other details we should know"></textarea>
                         </div>
                     </div>
 
-                    <div class="form-section-modern">
-                        <div class="checkbox-field">
-                            <label>
-                                <input type="checkbox" id="agreement" name="agreement" required>
-                                <span>I understand that this is an application and not an automatic enrollment. *</span>
-                            </label>
+                    <div class="form-section">
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="agreement" name="agreement" required />
+                            <label for="agreement">I understand this is an application, not automatic enrollment *</label>
                         </div>
-
-                        <div class="checkbox-field">
-                            <label>
-                                <input type="checkbox" id="privacy" name="privacy" required>
-                                <span>I agree to the Privacy Policy and confidentiality terms. *</span>
-                            </label>
-                </div>
-
-                <!-- Success Message -->                        </div>
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="privacy" name="privacy" required />
+                            <label for="privacy">I agree to the Privacy Policy and confidentiality terms *</label>
+                        </div>
                     </div>
 
-                    <button type="submit" class="btn-submit">
-                        Submit Application
-                    </button>
-                    
-                    <div class="form-footer-note">
-                        🔒 Your information is encrypted and confidential<br>
-                        ⏱️ We'll review within 24 hours<br>
-                        📞 A specialist will contact you
-                    </div>
+                    <button type="submit" class="btn-submit-form">Submit Application</button>
                 </form>
+            </div>
 
-                <div id="successMessage" class="success-message-modern" style="display: none;">
-                    <div class="success-icon-modern">✅</div>
-                    <h3>Application Received!</h3>
-                    <p>Our team is reviewing your submission and will contact you within 24 hours.</p>
-                    <p class="success-note">Check your email for confirmation.</p>
+            <div id="successMessage" class="success-wrapper" style="display: none;">
+                <div class="success-icon">✓</div>
+                <h3>Application Received</h3>
+                <p>Our team will review your submission and contact you within 24 hours.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-premium">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="brand">
+                        <svg class="brand-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+                            <rect width="32" height="32" rx="6" fill="url(#brandGradientFooter)"/>
+                            <path d="M16 8L22 11V16C22 20 19 23 16 26C13 23 10 20 10 16V11L16 8Z" fill="white" fill-opacity="0.15"/>
+                            <path d="M16 10L20 12V16C20 18.5 18.5 21 16 23.5C13.5 21 12 18.5 12 16V12L16 10Z" stroke="white" stroke-width="1.5" fill="none"/>
+                            <circle cx="16" cy="16" r="2.5" fill="white"/>
+                            <defs>
+                                <linearGradient id="brandGradientFooter" x1="0" y1="0" x2="32" y2="32">
+                                    <stop offset="0%" stop-color="#6366f1"/>
+                                    <stop offset="100%" stop-color="#8b5cf6"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span class="brand-name">ReputationGuard</span>
+                    </div>
+                    <p class="footer-tagline">Enterprise-grade reputation protection for those who can't afford risk.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <a href="#features">Features</a>
+                    <a href="protection.html">How It Works</a>
+                    <a href="cost-of-nothing.html">Why Protection Matters</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <a href="/app">Dashboard</a>
+                    <a href="#apply">Get Started</a>
+                    <a href="tel:+18005551234">Contact</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Security</a>
                 </div>
             </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="footer-modern">
-            <div class="container-modern">
-                <div class="footer-grid">
-                    <div class="footer-brand">
-                        <div class="logo">
-                            <svg class="logo-svg" width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <defs>
-                                    <linearGradient id="logoGradientFooter" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
-                                        <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
-                                    </linearGradient>
-                                    <linearGradient id="shieldGradientFooter" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" style="stop-color:#ec4899;stop-opacity:0.2" />
-                                        <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.2" />
-                                    </linearGradient>
-                                </defs>
-                                <path d="M20 2L34 8V16C34 25.5 28.5 33.5 20 38C11.5 33.5 6 25.5 6 16V8L20 2Z" 
-                                      fill="url(#shieldGradientFooter)" stroke="url(#logoGradientFooter)" stroke-width="1.5"/>
-                                <path d="M20 6L30 10V16C30 23.5 26 30 20 34C14 30 10 23.5 10 16V10L20 6Z" 
-                                      fill="none" stroke="url(#logoGradientFooter)" stroke-width="2"/>
-                                <circle cx="20" cy="18" r="4" fill="url(#logoGradientFooter)"/>
-                                <path d="M16 18 L12 18 M24 18 L28 18 M20 14 L20 10 M20 22 L20 26" 
-                                      stroke="url(#logoGradientFooter)" stroke-width="1.5" stroke-linecap="round"/>
-                            </svg>
-                            <span class="logo-text">Reputation Guardian</span>
-                        </div>
-                        <p>Protecting what matters most: Your reputation, your legacy, your future.</p>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Navigate</h4>
-                        <a href="index.html">Home</a>
-                        <a href="protection.html">How We Protect</a>
-                        <a href="cost-of-nothing.html">Cost of Nothing</a>
-                        <a href="/app">Dashboard</a>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Support</h4>
-                        <a href="mailto:support@reputationguardian.com">Contact Us</a>
-                        <a href="tel:+18005551234">Crisis Hotline</a>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Legal</h4>
-                        <a href="#" onclick="alert('Privacy Policy: Your data is encrypted and confidential.'); return false;">Privacy</a>
-                        <a href="#" onclick="alert('Terms of Service: By using our service, you agree to our protection terms.'); return false;">Terms</a>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-         
-
-        function revealApplicationForm() {
-            const button = document.getElementById('showFormButton');
-            const formContainer = document.getElementById('applicationFormContainer');
-            
-            // Hide button with fade out
-            button.style.opacity = '0';
-            button.style.transform = 'scale(0.95)';
-            
-            setTimeout(() => {
-                button.style.display = 'none';
-                formContainer.classList.remove('form-container-hidden');
-                formContainer.classList.add('form-container-visible');
-                
-                // Scroll to form smoothly
-                setTimeout(() => {
-                    formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 100);
-            }, 300);
-        }           <p>&copy; 2025 Reputation Guardian. All rights reserved.</p>
-                </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ReputationGuard. All rights reserved.</p>
+                <p class="footer-emergency">🚨 Crisis Hotline: <a href="tel:+18005551234">1-800-555-1234</a></p>
             </div>
-        </footer>
-    </div>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
     <script>
-        function toggleMobileMenu() {
-            document.getElementById('mobileMenu').classList.toggle('active');
-            document.body.classList.toggle('menu-open');
+        // PWA Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed'));
+            });
         }
 
-        function scrollToApply() {
-            document.getElementById('apply').scrollIntoView({ behavior: 'smooth' });
+        // Navigation
+        function toggleMobileNav() {
+            document.getElementById('mobileNav').classList.toggle('active');
+            document.body.classList.toggle('nav-open');
         }
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const mobileMenu = document.getElementById('mobileMenu');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function revealForm() {
+            document.getElementById('showFormBtn').style.display = 'none';
+            const container = document.getElementById('formContainer');
+            container.style.display = 'block';
+            setTimeout(() => container.classList.add('visible'), 10);
+            setTimeout(() => container.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
+        }
+
+        // Form submission
+        document.getElementById('applicationForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
             
-            if (mobileMenu && menuBtn && 
-                mobileMenu.classList.contains('active') && 
-                !mobileMenu.contains(event.target) && 
-                !menuBtn.contains(event.target)) {
-                toggleMobileMenu();
+            try {
+                const response = await fetch('https://reputationai-backend.onrender.com/api/onboarding/apply', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        first_name: data.firstName,
+                        last_name: data.lastName,
+                        email: data.email,
+                        phone: data.phone,
+                        company: data.company,
+                        title: data.title,
+                        entities_to_monitor: data.entities,
+                        current_threats: data.threats,
+                        urgency_level: data.urgency,
+                        additional_info: data.message
+                    })
+                });
+                
+                if (response.ok) {
+                    document.getElementById('formContainer').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                }
+            } catch (error) {
+                alert('Error submitting application. Please try again or contact support.');
             }
         });
 
-        // Add scroll effect to top nav
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('.top-nav');
+        // Scroll effects
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav-premium');
             if (window.scrollY > 50) {
                 nav.classList.add('scrolled');
             } else {

@@ -10,57 +10,44 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Sidebar Navigation -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-container">
             <div class="logo">
                 <div class="logo-icon">🛡️</div>
                 <span class="logo-text">Reputation Guardian</span>
             </div>
-            <button class="sidebar-close" onclick="toggleSidebar()">&times;</button>
+            <div class="nav-menu">
+                <a href="protection.html" class="nav-link">How We Protect</a>
+                <a href="cost-of-nothing.html" class="nav-link">Cost of Nothing</a>
+                <a href="/app" class="nav-link">Dashboard</a>
+                <button class="btn-nav-primary" onclick="scrollToApply()">Get Protected</button>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <nav class="sidebar-nav">
-            <a href="index.html" class="nav-item active">
-                <span class="nav-icon">🏠</span>
-                <span class="nav-label">Home</span>
-            </a>
-            <a href="protection.html" class="nav-item">
-                <span class="nav-icon">🛡️</span>
-                <span class="nav-label">How We Protect You</span>
-            </a>
-            <a href="cost-of-nothing.html" class="nav-item">
-                <span class="nav-icon">⚠️</span>
-                <span class="nav-label">The Cost of Doing Nothing</span>
-            </a>
-            <a href="#apply" class="nav-item" onclick="scrollToApply()">
-                <span class="nav-icon">📝</span>
-                <span class="nav-label">Apply for Protection</span>
-            </a>
-            <a href="/app" class="nav-item">
-                <span class="nav-icon">📊</span>
-                <span class="nav-label">Dashboard</span>
-            </a>
-        </nav>
-        <div class="sidebar-footer">
-            <div class="crisis-contact">
-                <div class="crisis-icon">🚨</div>
-                <div class="crisis-text">
-                    <div class="crisis-title">Crisis Hotline</div>
-                    <a href="tel:+18005551234">1-800-555-1234</a>
-                </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="toggleMobileMenu()">&times;</button>
+        <div class="mobile-menu-content">
+            <a href="protection.html" class="mobile-link">How We Protect</a>
+            <a href="cost-of-nothing.html" class="mobile-link">Cost of Nothing</a>
+            <a href="/app" class="mobile-link">Dashboard</a>
+            <button class="btn-mobile-primary" onclick="scrollToApply(); toggleMobileMenu();">Get Protected</button>
+            <div class="mobile-crisis">
+                <div class="crisis-label">Crisis Hotline</div>
+                <a href="tel:+18005551234">1-800-555-1234</a>
             </div>
         </div>
     </div>
 
-    <!-- Menu Toggle Button -->
-    <button class="menu-toggle" onclick="toggleSidebar()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-
     <!-- Main Content -->
-    <div class="main-content">
+    <div class="main-content-full">
         <!-- Hero Section -->
         <section class="hero-modern">
             <div class="hero-container">
@@ -113,49 +100,39 @@
             </div>
         </section>
 
-        <!-- Quick Links Section -->
-        <section class="quick-links">
+        <!-- Why Choose Us Section -->
+        <section class="why-choose">
             <div class="container-modern">
-                <h2 class="section-title-center">Protect What You've Built</h2>
-                <p class="section-subtitle">Explore how we defend your reputation 24/7</p>
+                <h2 class="section-title-center">Why Choose Reputation Guardian</h2>
+                <p class="section-subtitle">Professional protection trusted by executives, entrepreneurs, and public figures</p>
                 
-                <div class="link-cards">
-                    <a href="protection.html" class="link-card">
-                        <div class="link-card-icon">🛡️</div>
-                        <h3>How We Protect You</h3>
-                        <p>24/7 automated surveillance across every platform where your reputation lives</p>
-                        <div class="link-arrow">→</div>
-                    </a>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">👁️</div>
+                        <h3>24/7 AI Monitoring</h3>
+                        <p>Our AI scans millions of sources every minute - news, social media, reviews, forums, and the dark web.</p>
+                        <a href="protection.html" class="benefit-link">Learn More →</a>
+                    </div>
                     
-                    <a href="cost-of-nothing.html" class="link-card">
-                        <div class="link-card-icon">⚡</div>
-                        <h3>The Cost of Doing Nothing</h3>
-                        <p>Every minute without protection is a minute your enemies control your story</p>
-                        <div class="link-arrow">→</div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Trust Indicators -->
-        <section class="trust-section">
-            <div class="container-modern">
-                <div class="trust-grid">
-                    <div class="trust-item">
-                        <div class="trust-icon">👁️</div>
-                        <div class="trust-label">Always Monitoring</div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🚨</div>
+                        <h3>Instant Threat Alerts</h3>
+                        <p>Get notified the moment a threat emerges. No delays, no surprises - you're always in control.</p>
+                        <a href="protection.html" class="benefit-link">Learn More →</a>
                     </div>
-                    <div class="trust-item">
-                        <div class="trust-icon">🚨</div>
-                        <div class="trust-label">Instant Alerts</div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">⚡</div>
+                        <h3>Prevent Costly Damage</h3>
+                        <p>One viral lie can cost millions in lost opportunities and revenue. Don't wait until it's too late.</p>
+                        <a href="cost-of-nothing.html" class="benefit-link">See The Risk →</a>
                     </div>
-                    <div class="trust-item">
-                        <div class="trust-icon">🌍</div>
-                        <div class="trust-label">Global Coverage</div>
-                    </div>
-                    <div class="trust-item">
-                        <div class="trust-icon">🔒</div>
-                        <div class="trust-label">100% Confidential</div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🌍</div>
+                        <h3>Global Coverage</h3>
+                        <p>Monitor 100+ languages across every major platform worldwide. Threats don't respect borders.</p>
+                        <a href="protection.html" class="benefit-link">Learn More →</a>
                     </div>
                 </div>
             </div>
@@ -322,28 +299,35 @@
 
     <script src="script.js"></script>
     <script>
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
-            document.body.classList.toggle('sidebar-open');
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+            document.body.classList.toggle('menu-open');
         }
 
         function scrollToApply() {
             document.getElementById('apply').scrollIntoView({ behavior: 'smooth' });
-            if (window.innerWidth <= 768) {
-                toggleSidebar();
-            }
         }
 
-        // Close sidebar when clicking outside on mobile
+        // Close mobile menu when clicking outside
         document.addEventListener('click', function(event) {
-            const sidebar = document.getElementById('sidebar');
-            const menuToggle = document.querySelector('.menu-toggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
             
-            if (window.innerWidth <= 768 && 
-                sidebar.classList.contains('active') && 
-                !sidebar.contains(event.target) && 
-                !menuToggle.contains(event.target)) {
-                toggleSidebar();
+            if (mobileMenu && menuBtn && 
+                mobileMenu.classList.contains('active') && 
+                !mobileMenu.contains(event.target) && 
+                !menuBtn.contains(event.target)) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Add scroll effect to top nav
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.top-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
             }
         });
     </script>

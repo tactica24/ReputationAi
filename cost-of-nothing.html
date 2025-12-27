@@ -10,57 +10,46 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Sidebar Navigation -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
                 <div class="logo-icon">🛡️</div>
                 <span class="logo-text">Reputation Guardian</span>
+            </a>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="protection.html" class="nav-link">How We Protect</a>
+                <a href="cost-of-nothing.html" class="nav-link" style="color: var(--primary);">Cost of Nothing</a>
+                <a href="/app" class="nav-link">Dashboard</a>
+                <a href="index.html#apply" class="btn-nav-primary">Get Protected</a>
             </div>
-            <button class="sidebar-close" onclick="toggleSidebar()">&times;</button>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <nav class="sidebar-nav">
-            <a href="index.html" class="nav-item">
-                <span class="nav-icon">🏠</span>
-                <span class="nav-label">Home</span>
-            </a>
-            <a href="protection.html" class="nav-item">
-                <span class="nav-icon">🛡️</span>
-                <span class="nav-label">How We Protect You</span>
-            </a>
-            <a href="cost-of-nothing.html" class="nav-item active">
-                <span class="nav-icon">⚠️</span>
-                <span class="nav-label">The Cost of Doing Nothing</span>
-            </a>
-            <a href="index.html#apply" class="nav-item">
-                <span class="nav-icon">📝</span>
-                <span class="nav-label">Apply for Protection</span>
-            </a>
-            <a href="/app" class="nav-item">
-                <span class="nav-icon">📊</span>
-                <span class="nav-label">Dashboard</span>
-            </a>
-        </nav>
-        <div class="sidebar-footer">
-            <div class="crisis-contact">
-                <div class="crisis-icon">🚨</div>
-                <div class="crisis-text">
-                    <div class="crisis-title">Crisis Hotline</div>
-                    <a href="tel:+18005551234">1-800-555-1234</a>
-                </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="toggleMobileMenu()">&times;</button>
+        <div class="mobile-menu-content">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="protection.html" class="mobile-link">How We Protect</a>
+            <a href="cost-of-nothing.html" class="mobile-link">Cost of Nothing</a>
+            <a href="/app" class="mobile-link">Dashboard</a>
+            <a href="index.html#apply" class="btn-mobile-primary">Get Protected</a>
+            <div class="mobile-crisis">
+                <div class="crisis-label">Crisis Hotline</div>
+                <a href="tel:+18005551234">1-800-555-1234</a>
             </div>
         </div>
     </div>
 
-    <!-- Menu Toggle Button -->
-    <button class="menu-toggle" onclick="toggleSidebar()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-
     <!-- Main Content -->
-    <div class="main-content">
+    <div class="main-content-full">
         <!-- Page Header -->
         <section class="page-header danger">
             <div class="container-modern">
@@ -312,21 +301,31 @@
     </div>
 
     <script>
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
-            document.body.classList.toggle('sidebar-open');
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+            document.body.classList.toggle('menu-open');
         }
 
-        // Close sidebar when clicking outside on mobile
+        // Close mobile menu when clicking outside
         document.addEventListener('click', function(event) {
-            const sidebar = document.getElementById('sidebar');
-            const menuToggle = document.querySelector('.menu-toggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
             
-            if (window.innerWidth <= 768 && 
-                sidebar.classList.contains('active') && 
-                !sidebar.contains(event.target) && 
-                !menuToggle.contains(event.target)) {
-                toggleSidebar();
+            if (mobileMenu && menuBtn && 
+                mobileMenu.classList.contains('active') && 
+                !mobileMenu.contains(event.target) && 
+                !menuBtn.contains(event.target)) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Add scroll effect to top nav
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.top-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
             }
         });
     </script>

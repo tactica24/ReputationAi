@@ -3,267 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Reputation Guardian - Protect What You've Built</title>
+    <title>Reputation Guardian - AI-Powered Reputation Protection</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="container nav-content">
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
             <div class="logo">
                 <div class="logo-icon">🛡️</div>
                 <span class="logo-text">Reputation Guardian</span>
             </div>
-            <div class="nav-links">
-                <a href="#why">Why Guardian</a>
-                <a href="#protection">Protection</a>
-                <a href="/app" class="btn-nav">Dashboard</a>
-                <a href="#apply" class="btn-nav">Apply Now</a>
-            </div>
-            <button class="mobile-toggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <button class="sidebar-close" onclick="toggleSidebar()">&times;</button>
         </div>
-    </nav>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item active">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">Home</span>
+            </a>
+            <a href="protection.html" class="nav-item">
+                <span class="nav-icon">🛡️</span>
+                <span class="nav-label">How We Protect You</span>
+            </a>
+            <a href="cost-of-nothing.html" class="nav-item">
+                <span class="nav-icon">⚠️</span>
+                <span class="nav-label">The Cost of Doing Nothing</span>
+            </a>
+            <a href="#apply" class="nav-item" onclick="scrollToApply()">
+                <span class="nav-icon">📝</span>
+                <span class="nav-label">Apply for Protection</span>
+            </a>
+            <a href="/app" class="nav-item">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">Dashboard</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="crisis-contact">
+                <div class="crisis-icon">🚨</div>
+                <div class="crisis-text">
+                    <div class="crisis-title">Crisis Hotline</div>
+                    <a href="tel:+18005551234">1-800-555-1234</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
+    <!-- Menu Toggle Button -->
+    <button class="menu-toggle" onclick="toggleSidebar()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-modern">
+            <div class="hero-container">
                 <div class="hero-badge">🚨 Your Reputation is Under Attack</div>
                 <h1 class="hero-title">
                     It Takes Years to Build Trust.
                     <span class="gradient-text">Minutes to Destroy It.</span>
                 </h1>
-                <p class="hero-subtitle">
+                <p class="hero-description">
                     False accusations. Fake reviews. Identity theft. Deepfakes. 
-                    One viral lie can erase decades of hard work overnight.
-                    Are you watching while others control your narrative?
+                    One viral lie can erase decades of hard work overnight. 
+                    <strong>Don't wait until it's too late.</strong>
                 </p>
-                <div class="hero-actions">
-                    <button class="btn-primary" onclick="document.getElementById('apply').scrollIntoView({behavior: 'smooth'})">
-                        Apply for Protection
+                <div class="hero-cta">
+                    <button class="btn-primary-large" onclick="scrollToApply()">
+                        Apply for Protection Now
                     </button>
                 </div>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <div class="stat-value">73%</div>
-                        <div class="stat-label">Trust Lost from One Incident</div>
+                
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-number">73%</div>
+                        <div class="stat-text">Trust Lost from One Incident</div>
                     </div>
-                    <div class="stat">
-                        <div class="stat-value">22%</div>
-                        <div class="stat-label">Revenue Drop from Bad Press</div>
+                    <div class="stat-item">
+                        <div class="stat-number">22%</div>
+                        <div class="stat-text">Revenue Drop from Bad Press</div>
                     </div>
-                    <div class="stat">
-                        <div class="stat-value">3 min</div>
-                        <div class="stat-label">Average Time to Go Viral</div>
+                    <div class="stat-item">
+                        <div class="stat-number">3 min</div>
+                        <div class="stat-text">Average Time to Go Viral</div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="hero-visual">
-            <div class="floating-card card-1">
-                <div class="card-icon">⚠️</div>
-                <div class="card-text">Breaking: False claim spreading...</div>
-            </div>
-            <div class="floating-card card-2">
-                <div class="card-icon">📉</div>
-                <div class="card-text">Reputation score dropping fast</div>
-            </div>
-            <div class="floating-card card-3">
-                <div class="card-icon">🔥</div>
-                <div class="card-text">Viral in 127 countries</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Section - Emotional Impact -->
-    <section id="why" class="why-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>The Cost of Doing Nothing</h2>
-                <p>Every minute without protection is a minute your enemies control your story</p>
-            </div>
-            
-            <div class="threat-grid">
-                <div class="threat-card">
-                    <div class="threat-icon">💔</div>
-                    <h3>Lost Opportunities</h3>
-                    <p>That investor who googled your name and found fake reviews. The partnership that fell through because of a coordinated smear campaign. The promotion you didn't get because someone questioned your character online.</p>
-                    <div class="impact">Real cost: $500K - $5M in lost revenue</div>
-                </div>
-                
-                <div class="threat-card">
-                    <div class="threat-icon">⚡</div>
-                    <h3>Viral Destruction</h3>
-                    <p>A single deepfake video. One photoshopped screenshot. A fake Twitter thread. Within hours, your reputation is trending for all the wrong reasons. By the time you respond, it's too late—the damage is done.</p>
-                    <div class="impact">Recovery time: 12-24 months (if possible)</div>
-                </div>
-                
-                <div class="threat-card">
-                    <div class="threat-icon">🎭</div>
-                    <h3>Identity Theft</h3>
-                    <p>Someone is impersonating you right now. Fake LinkedIn profiles stealing your credentials. Twitter accounts spreading lies in your name. Instagram scams using your face. And you won't know until it's a crisis.</p>
-                    <div class="impact">Average victims: Lose 73% credibility permanently</div>
-                </div>
-                
-                <div class="threat-card">
-                    <div class="threat-icon">🔥</div>
-                    <h3>Cancel Culture</h3>
-                    <p>One misinterpreted quote. One out-of-context video from 10 years ago. One coordinated attack by competitors or activists. Your entire career can evaporate in 48 hours while you scramble to understand what happened.</p>
-                    <div class="impact">82% of professionals fear public cancellation</div>
-                </div>
-                
-                <div class="threat-card">
-                    <div class="threat-icon">💸</div>
-                    <h3>Revenue Collapse</h3>
-                    <p>Customers trust online reviews more than personal recommendations. One wave of fake negative reviews and your sales plummet. Your competitors celebrate while you watch your business die.</p>
-                    <div class="impact">Average drop: 22% revenue in first week</div>
-                </div>
-                
-                <div class="threat-card">
-                    <div class="threat-icon">🛡️</div>
-                    <h3>No Second Chances</h3>
-                    <p>You can't un-ring a bell. Once misinformation spreads, it becomes "fact" in Google's eyes. Your Wikipedia page. Your Knowledge Graph. Your legacy. All poisoned forever by lies you never saw coming.</p>
-                    <div class="impact">First page of Google = Your reality</div>
                 </div>
             </div>
 
-            <div class="urgency-banner">
-                <h3>⏰ Right Now, While You're Reading This:</h3>
-                <div class="urgency-stats">
-                    <div class="urgency-stat">
-                        <span class="big">147</span>
-                        <span class="label">Mentions of brands like yours being attacked</span>
-                    </div>
-                    <div class="urgency-stat">
-                        <span class="big">23</span>
-                        <span class="label">Deepfake videos being created</span>
-                    </div>
-                    <div class="urgency-stat">
-                        <span class="big">891</span>
-                        <span class="label">Fake reviews posted in the last hour</span>
-                    </div>
+            <!-- Floating Alert Cards -->
+            <div class="alert-animations">
+                <div class="alert-card alert-1">
+                    <span class="alert-icon">⚠️</span>
+                    <span class="alert-text">Breaking: False claim spreading...</span>
+                </div>
+                <div class="alert-card alert-2">
+                    <span class="alert-icon">📉</span>
+                    <span class="alert-text">Reputation score dropping</span>
+                </div>
+                <div class="alert-card alert-3">
+                    <span class="alert-icon">🔥</span>
+                    <span class="alert-text">Viral in 127 countries</span>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Protection Section -->
-    <section id="protection" class="protection">
-        <div class="container">
-            <div class="section-header">
-                <h2>How We Protect You</h2>
-                <p>24/7 automated surveillance across every platform where your reputation lives</p>
-            </div>
-            
-            <div class="protection-grid">
-                <div class="protection-card">
-                    <div class="protection-icon">👁️</div>
-                    <h3>Always Watching</h3>
-                    <p>We scan millions of sources every minute. News sites. Social media. Review platforms. Forums. Blogs. The dark web. If someone mentions you, we know instantly.</p>
-                </div>
+        <!-- Quick Links Section -->
+        <section class="quick-links">
+            <div class="container-modern">
+                <h2 class="section-title-center">Protect What You've Built</h2>
+                <p class="section-subtitle">Explore how we defend your reputation 24/7</p>
                 
-                <div class="protection-card">
-                    <div class="protection-icon">🚨</div>
-                    <h3>Instant Alerts</h3>
-                    <p>The moment a threat emerges, you're notified. No waiting. No surprises. You're in control of your narrative from second one.</p>
-                </div>
-                
-                <div class="protection-card">
-                    <div class="protection-icon">🎯</div>
-                    <h3>Smart Detection</h3>
-                    <p>Not all mentions matter. Our system filters noise and identifies real threats: coordinated attacks, fake accounts, deepfakes, review manipulation, trending negativity.</p>
-                </div>
-                
-                <div class="protection-card">
-                    <div class="protection-icon">📊</div>
-                    <h3>Track Your Score</h3>
-                    <p>See your reputation health at a glance. Watch trends over time. Know exactly where you stand before opportunities slip away.</p>
-                </div>
-                
-                <div class="protection-card">
-                    <div class="protection-icon">⚔️</div>
-                    <h3>Fight Back Fast</h3>
-                    <p>Time is everything. Get detailed reports to take to lawyers, PR teams, or platforms. Remove fake content. Counter false narratives while they're still containable.</p>
-                </div>
-                
-                <div class="protection-card">
-                    <div class="protection-icon">🌍</div>
-                    <h3>Global Coverage</h3>
-                    <p>Threats don't speak one language or stay in one country. We monitor 100+ languages across every major platform worldwide.</p>
+                <div class="link-cards">
+                    <a href="protection.html" class="link-card">
+                        <div class="link-card-icon">🛡️</div>
+                        <h3>How We Protect You</h3>
+                        <p>24/7 automated surveillance across every platform where your reputation lives</p>
+                        <div class="link-arrow">→</div>
+                    </a>
+                    
+                    <a href="cost-of-nothing.html" class="link-card">
+                        <div class="link-card-icon">⚡</div>
+                        <h3>The Cost of Doing Nothing</h3>
+                        <p>Every minute without protection is a minute your enemies control your story</p>
+                        <div class="link-arrow">→</div>
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-        <div class="container">
-            <div class="apply-content">
-                <div class="apply-header">
+        <!-- Trust Indicators -->
+        <section class="trust-section">
+            <div class="container-modern">
+                <div class="trust-grid">
+                    <div class="trust-item">
+                        <div class="trust-icon">👁️</div>
+                        <div class="trust-label">Always Monitoring</div>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon">🚨</div>
+                        <div class="trust-label">Instant Alerts</div>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon">🌍</div>
+                        <div class="trust-label">Global Coverage</div>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon">🔒</div>
+                        <div class="trust-label">100% Confidential</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Application Section -->
+        <section id="apply" class="apply-section">
+            <div class="container-modern">
+                <div class="apply-header-modern">
                     <h2>Apply for Protection</h2>
-                    <p>We carefully vet each client to ensure we can deliver the protection you deserve. Submit your application and our team will review it within 24 hours.</p>
-                    <div class="trust-badges">
-                        <div class="badge">🔒 Confidential Review</div>
-                        <div class="badge">⚡ 24-Hour Response</div>
-                        <div class="badge">✅ No Obligation</div>
+                    <p>We carefully vet each client to ensure we can deliver the protection you deserve.</p>
+                    <div class="trust-badges-modern">
+                        <span class="badge-modern">🔒 Confidential Review</span>
+                        <span class="badge-modern">⚡ 24-Hour Response</span>
+                        <span class="badge-modern">✅ No Obligation</span>
                     </div>
                 </div>
 
-                <form id="applicationForm" class="application-form">
-                    <div class="form-section">
+                <form id="applicationForm" class="form-modern">
+                    <div class="form-section-modern">
                         <h3>Your Information</h3>
-                        <div class="form-row">
-                            <div class="form-group">
+                        <div class="form-grid">
+                            <div class="form-field">
                                 <label for="firstName">First Name *</label>
                                 <input type="text" id="firstName" name="firstName" required>
                             </div>
-                            <div class="form-group">
+                            <div class="form-field">
                                 <label for="lastName">Last Name *</label>
                                 <input type="text" id="lastName" name="lastName" required>
                             </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
+                            <div class="form-field">
                                 <label for="email">Email Address *</label>
                                 <input type="email" id="email" name="email" required>
                             </div>
-                            <div class="form-group">
+                            <div class="form-field">
                                 <label for="phone">Phone Number *</label>
                                 <input type="tel" id="phone" name="phone" required>
                             </div>
                         </div>
-
-                        <div class="form-group">
+                        
+                        <div class="form-field">
                             <label for="company">Company/Organization</label>
                             <input type="text" id="company" name="company">
                         </div>
-
-                        <div class="form-group">
+                        
+                        <div class="form-field">
                             <label for="title">Your Title/Role *</label>
                             <input type="text" id="title" name="title" placeholder="e.g., CEO, Executive, Public Figure" required>
                         </div>
                     </div>
 
-                    <div class="form-section">
+                    <div class="form-section-modern">
                         <h3>Protection Needs</h3>
-
-                        <div class="form-group">
+                        
+                        <div class="form-field">
                             <label for="entities">Who/What Needs Protection? *</label>
                             <textarea id="entities" name="entities" rows="3" placeholder="List individuals, brands, or organizations you want to monitor" required></textarea>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-field">
                             <label for="threats">Current Concerns (Optional)</label>
                             <textarea id="threats" name="threats" rows="4" placeholder="Describe any existing reputation threats, incidents, or areas of concern"></textarea>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-field">
                             <label for="urgency">How Urgent Is This? *</label>
                             <select id="urgency" name="urgency" required>
                                 <option value="">Select urgency level</option>
@@ -273,7 +230,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-field">
                             <label for="howHeard">How Did You Hear About Us?</label>
                             <select id="howHeard" name="howHeard">
                                 <option value="">Select one</option>
@@ -284,175 +241,111 @@
                                 <option value="other">Other</option>
                             </select>
                         </div>
-                    </div>
-
-                    <div class="form-section">
-                        <h3>Additional Information</h3>
                         
-                        <div class="form-group">
+                        <div class="form-field">
                             <label for="message">Anything Else We Should Know?</label>
                             <textarea id="message" name="message" rows="4" placeholder="Any additional context, questions, or special requirements"></textarea>
                         </div>
+                    </div>
 
-                        <div class="form-group checkbox-group">
+                    <div class="form-section-modern">
+                        <div class="checkbox-field">
                             <label>
                                 <input type="checkbox" id="agreement" name="agreement" required>
-                                <span>I understand that this is an application and not an automatic enrollment. The Reputation Guardian team will review my submission and contact me within 24 hours. *</span>
+                                <span>I understand that this is an application and not an automatic enrollment. *</span>
                             </label>
                         </div>
 
-                        <div class="form-group checkbox-group">
+                        <div class="checkbox-field">
                             <label>
                                 <input type="checkbox" id="privacy" name="privacy" required>
-                                <span>I agree to the Privacy Policy and understand my information will be kept strictly confidential. *</span>
+                                <span>I agree to the Privacy Policy and confidentiality terms. *</span>
                             </label>
                         </div>
                     </div>
 
-                    <div class="form-actions">
-                        <button type="submit" class="btn-primary large">
-                            Submit Application
-                        </button>
-                        <p class="form-note">
-                            🔒 Your information is encrypted and confidential.<br>
-                            ⏱️ We'll review your application within 24 hours.<br>
-                            📞 A specialist will contact you to discuss next steps.
-                        </p>
+                    <button type="submit" class="btn-submit">
+                        Submit Application
+                    </button>
+                    
+                    <div class="form-footer-note">
+                        🔒 Your information is encrypted and confidential<br>
+                        ⏱️ We'll review within 24 hours<br>
+                        📞 A specialist will contact you
                     </div>
                 </form>
 
-                <div id="successMessage" class="success-message" style="display: none;">
-                    <div class="success-icon">✅</div>
+                <div id="successMessage" class="success-message-modern" style="display: none;">
+                    <div class="success-icon-modern">✅</div>
                     <h3>Application Received!</h3>
-                    <p>Thank you for applying. Our team is reviewing your submission and will contact you within 24 hours.</p>
-                    <p class="success-note">Check your email (including spam folder) for a confirmation message.</p>
+                    <p>Our team is reviewing your submission and will contact you within 24 hours.</p>
+                    <p class="success-note">Check your email for confirmation.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- FAQ Section - Removed technical questions -->
-    <section id="faq" class="faq">
-        <div class="container">
-            <div class="section-header">
-                <h2>Common Questions</h2>
-            </div>
-            
-            <div class="faq-list">
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Why can't I just sign up and start immediately?</span>
-                        <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Reputation protection is not a commodity—it's a partnership. We review each application to ensure we understand your specific situation and can deliver the level of protection you need. This vetting process protects both you and us, ensuring we're the right fit.</p>
+        <!-- Footer -->
+        <footer class="footer-modern">
+            <div class="container-modern">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="logo">
+                            <div class="logo-icon">🛡️</div>
+                            <span class="logo-text">Reputation Guardian</span>
+                        </div>
+                        <p>Protecting what matters most: Your reputation, your legacy, your future.</p>
                     </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>What happens after I apply?</span>
-                        <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Within 24 hours, a specialist from our team will contact you to discuss your situation, answer questions, and determine the best protection plan for your needs. If approved, we can begin monitoring immediately.</p>
+                    <div class="footer-col">
+                        <h4>Navigate</h4>
+                        <a href="index.html">Home</a>
+                        <a href="protection.html">How We Protect</a>
+                        <a href="cost-of-nothing.html">Cost of Nothing</a>
+                        <a href="/app">Dashboard</a>
                     </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Is my information kept confidential?</span>
-                        <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Absolutely. Everything you share in your application is encrypted and confidential. We never share client information with anyone. Discretion is fundamental to what we do.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>What if I'm facing an active crisis right now?</span>
-                        <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Mark "Active Crisis" in the urgency field and provide details in your application. Our crisis response team will prioritize your review and contact you within hours, not 24 hours. We can begin emergency monitoring immediately upon approval.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Can you guarantee results?</span>
-                        <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>We can't control what others say online, but we can guarantee you'll never be caught off guard again. Every client gets instant alerts, detailed threat analysis, and actionable intelligence to respond before damage becomes permanent. Early warning is everything.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>How long does protection take to activate?</span>
-                        <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Once approved and onboarded, monitoring begins within hours. We configure your custom surveillance parameters, set up alert protocols, and establish your baseline reputation metrics. Full protection is active within 24-48 hours of approval.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="logo">
-                        <div class="logo-icon">🛡️</div>
-                        <span class="logo-text">Reputation Guardian</span>
-                    </div>
-                    <p>Protecting what matters most: Your reputation, your legacy, your future.</p>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <a href="#why">Why Guardian</a>
-                        <a href="#protection">How It Works</a>
-                        <a href="#apply">Apply Now</a>
-                    </div>
-                    <div class="footer-column">
+                    <div class="footer-col">
                         <h4>Support</h4>
-                        <a href="#faq">FAQ</a>
-                        <a href="mailto:support@reputationguardian.com">Contact</a>
-                        <a href="tel:+18005551234">Crisis Hotline: 1-800-555-1234</a>
+                        <a href="mailto:support@reputationguardian.com">Contact Us</a>
+                        <a href="tel:+18005551234">Crisis Hotline</a>
                     </div>
-                    <div class="footer-column">
+                    <div class="footer-col">
                         <h4>Legal</h4>
-                        <a href="#" onclick="alert('Privacy Policy: Your data is encrypted and confidential. We never share client information.'); return false;">Privacy Policy</a>
-                        <a href="#" onclick="alert('Terms of Service: By using our service, you agree to our protection terms and confidentiality agreement.'); return false;">Terms of Service</a>
-                        <a href="#" onclick="alert('Security: We use enterprise-grade encryption (AES-256) and comply with SOC2 standards.'); return false;">Security</a>
+                        <a href="#" onclick="alert('Privacy Policy: Your data is encrypted and confidential.'); return false;">Privacy</a>
+                        <a href="#" onclick="alert('Terms of Service: By using our service, you agree to our protection terms.'); return false;">Terms</a>
                     </div>
                 </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Reputation Guardian. All rights reserved.</p>
+                </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Reputation Guardian. All rights reserved.</p>
-                <p class="footer-disclaimer">Your reputation is everything. Don't leave it to chance.</p>
-            </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <script src="script.js"></script>
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.body.classList.toggle('sidebar-open');
+        }
+
+        function scrollToApply() {
+            document.getElementById('apply').scrollIntoView({ behavior: 'smooth' });
+            if (window.innerWidth <= 768) {
+                toggleSidebar();
+            }
+        }
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (window.innerWidth <= 768 && 
+                sidebar.classList.contains('active') && 
+                !sidebar.contains(event.target) && 
+                !menuToggle.contains(event.target)) {
+                toggleSidebar();
+            }
+        });
+    </script>
 </body>
 </html>

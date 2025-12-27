@@ -1,6 +1,7 @@
 """
 Onboarding API Endpoint
 Handles client application submissions for vetting and approval
+Admin assigns pricing during onboarding process
 """
 
 from fastapi import APIRouter, HTTPException, BackgroundTasks
@@ -14,6 +15,7 @@ router = APIRouter(prefix="/api/onboarding", tags=["onboarding"])
 
 
 class PlanType(str, Enum):
+    """User interest - actual pricing set by admin"""
     PROFESSIONAL = "professional"
     ENTERPRISE = "enterprise"
     CUSTOM = "custom"
@@ -42,8 +44,8 @@ class ApplicationRequest(BaseModel):
     company: Optional[str] = None
     title: str
     
-    # Protection Needs
-    plan: PlanType
+    # Protection Needs (pricing NOT included - set by admin)
+    plan: Optional[PlanType] = PlanType.CUSTOM  # Interest only, not binding
     entities: str
     threats: Optional[str] = None
     urgency: UrgencyLevel

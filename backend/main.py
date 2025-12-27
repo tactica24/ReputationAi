@@ -29,6 +29,8 @@ from backend.database.models import UserRole as DBUserRole, ApplicationStatus
 # Import API routers
 from backend.api.auth import router as auth_router
 from backend.api.quick_onboard import router as onboard_router
+from backend.api.onboarding import router as application_router
+from backend.api.admin_onboarding import router as admin_onboarding_router
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -105,6 +107,24 @@ async def health_check():
     return {
         "status": "healthy" if any(health.values()) else "degraded",
         "database": health,
+        "timestamp": datetime.utcnow().isoformat()
+    }
+
+
+@app.get("/", tags=["System"])
+async def root():
+    """Root endpoint - API information"""
+    return {
+        "service": "Reputation Guardian API",
+        "version": "2.0.0",
+        "status": "running",
+        "docs": "/api/docs",
+        "endpoints": {
+            "health": "/health",
+            "api_docs": "/api/docs",
+            "application_submit": "/api/onboarding/apply",
+            "admin_create_offer": "/api/admin/onboarding/create-offer"
+        },
         "timestamp": datetime.utcnow().isoformat()
     }
 
@@ -216,6 +236,8 @@ security_bearer = HTTPBearer()
 # Include routers
 app.include_router(auth_router, prefix="/api/v1")
 app.include_router(onboard_router, prefix="/api/v1")
+app.include_router(application_router)  # Has its own prefix
+app.include_router(admin_onboarding_router)  # Admin onboarding with pricing
 
 # Initialize services (commented out for now - auth only)
 # sentiment_analyzer = SentimentAnalyzer(model_type="transformer")

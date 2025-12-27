@@ -57,7 +57,7 @@ if (applicationForm) {
         const data = Object.fromEntries(formData.entries());
         
         // Validate required fields
-        const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'title', 'plan', 'entities', 'urgency'];
+        const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'title', 'entities', 'urgency'];
         let isValid = true;
         
         requiredFields.forEach(field => {

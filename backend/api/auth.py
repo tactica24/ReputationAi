@@ -235,3 +235,94 @@ async def get_current_user_info(current_user: User = Depends(get_current_user)):
 async def logout():
     """Logout (client should remove token)"""
     return {"message": "Logged out successfully"}
+
+
+class CreateAdminRequest(BaseModel):
+    email: EmailStr
+    password: str
+    full_name: str
+    username: str
+    role: str = "admin"  # admin, super_admin, manager
+
+
+@router.post("/admin/create-user", response_model=UserResponse, tags=["Admin"])
+async def create_admin_user(
+    request: CreateAdminRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Create new admin/staff user (Admin only)
+    
+    Requires super_admin or admin role
+    Available roles: viewer, manager, admin, super_admin
+    """
+    # Check if current user is admin
+    if current_user.role not in [UserRole.SUPER_ADMIN, UserRole.ADMIN]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only admins can create admin users"
+        )
+    
+    # Check if email exists
+    if db.query(User).filter(User.email == request.email).first():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Email already registered"
+        )
+    
+    # Check if username exists
+    if db.query(User).filter(User.username == request.username).first():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Username already taken"
+        )
+    
+    # Validate role
+    valid_roles = {
+        "viewer": UserRole.VIEWER,
+        "manager": UserRole.MANAGER,
+        "admin": UserRole.ADMIN,
+        "super_admin": UserRole.SUPER_ADMIN
+    }
+    
+    if request.role.lower() not in valid_roles:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Invalid role. Must be one of: {', '.join(valid_roles.keys())}"
+        )
+    
+    # Super admin can create any role, regular admin can only create up to admin
+    user_role = valid_roles[request.role.lower()]
+    if current_user.role == UserRole.ADMIN and user_role == UserRole.SUPER_ADMIN:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only super_admin can create other super_admins"
+        )
+    
+    # Create new user
+    hashed_password = hash_password(request.password)
+    new_user = User(
+        email=request.email,
+        username=request.username,
+        full_name=request.full_name,
+        hashed_password=hashed_password,
+        role=user_role,
+        is_active=True,
+        is_verified=True,  # Admin users are pre-verified
+        gdpr_consent=True,
+        created_at=datetime.utcnow()
+    )
+    
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    
+    return UserResponse(
+        id=new_user.id,
+        email=new_user.email,
+        username=new_user.username,
+        full_name=new_user.full_name,
+        role=new_user.role.value,
+        is_active=new_user.is_active
+    )

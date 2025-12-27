@@ -84,6 +84,18 @@ body.menu-open {
     text-decoration: none;
 }
 
+.logo-svg {
+    width: 40px;
+    height: 40px;
+    filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.3));
+    transition: all 0.3s ease;
+}
+
+.logo:hover .logo-svg {
+    filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.5));
+    transform: scale(1.05);
+}
+
 .logo-icon {
     font-size: 1.75rem;
 }
@@ -540,6 +552,70 @@ body.menu-open {
     font-size: 0.875rem;
     color: var(--primary);
     font-weight: 600;
+}
+
+/* Show Form Button */
+.show-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 3rem 2rem;
+    transition: all 0.3s ease;
+}
+
+.btn-show-form {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 3rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+}
+
+.btn-show-form:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
+}
+
+.btn-show-form svg {
+    width: 24px;
+    height: 24px;
+}
+
+.form-hint {
+    margin-top: 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+}
+
+/* Form Container States */
+.form-container-hidden {
+    display: none;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.form-container-visible {
+    display: block;
+    animation: revealForm 0.6s ease forwards;
+}
+
+@keyframes revealForm {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Form */

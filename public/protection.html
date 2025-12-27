@@ -14,7 +14,25 @@
     <nav class="top-nav">
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <div class="logo-icon">🛡️</div>
+                <svg class="logo-svg" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ec4899;stop-opacity:0.2" />
+                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.2" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M20 2L34 8V16C34 25.5 28.5 33.5 20 38C11.5 33.5 6 25.5 6 16V8L20 2Z" 
+                          fill="url(#shieldGradient)" stroke="url(#logoGradient)" stroke-width="1.5"/>
+                    <path d="M20 6L30 10V16C30 23.5 26 30 20 34C14 30 10 23.5 10 16V10L20 6Z" 
+                          fill="none" stroke="url(#logoGradient)" stroke-width="2"/>
+                    <circle cx="20" cy="18" r="4" fill="url(#logoGradient)"/>
+                    <path d="M16 18 L12 18 M24 18 L28 18 M20 14 L20 10 M20 22 L20 26" 
+                          stroke="url(#logoGradient)" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
                 <span class="logo-text">Reputation Guardian</span>
             </a>
             <div class="nav-menu">

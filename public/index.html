@@ -13,10 +13,31 @@
     <!-- Top Navigation Bar -->
     <nav class="top-nav">
         <div class="nav-container">
-            <div class="logo">
-                <div class="logo-icon">🛡️</div>
+            <a href="index.html" class="logo">
+                <svg class="logo-svg" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ec4899;stop-opacity:0.2" />
+                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.2" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Outer shield -->
+                    <path d="M20 2L34 8V16C34 25.5 28.5 33.5 20 38C11.5 33.5 6 25.5 6 16V8L20 2Z" 
+                          fill="url(#shieldGradient)" stroke="url(#logoGradient)" stroke-width="1.5"/>
+                    <!-- Inner shield with AI symbol -->
+                    <path d="M20 6L30 10V16C30 23.5 26 30 20 34C14 30 10 23.5 10 16V10L20 6Z" 
+                          fill="none" stroke="url(#logoGradient)" stroke-width="2"/>
+                    <!-- AI Eye/Scan lines -->
+                    <circle cx="20" cy="18" r="4" fill="url(#logoGradient)"/>
+                    <path d="M16 18 L12 18 M24 18 L28 18 M20 14 L20 10 M20 22 L20 26" 
+                          stroke="url(#logoGradient)" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
                 <span class="logo-text">Reputation Guardian</span>
-            </div>
+            </a>
             <div class="nav-menu">
                 <a href="protection.html" class="nav-link">How We Protect</a>
                 <a href="cost-of-nothing.html" class="nav-link">Cost of Nothing</a>
@@ -151,6 +172,19 @@
                     </div>
                 </div>
 
+                <!-- Show Application Button -->
+                <div id="showFormButton" class="show-form-container">
+                    <button class="btn-show-form" onclick="revealApplicationForm()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V7C19 5.89543 18.1046 5 17 5H15M9 5C9 6.10457 9.89543 7 11 7H13C14.1046 7 15 6.10457 15 5M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5M12 12H15M12 16H15M9 12H9.01M9 16H9.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span>Start Your Application</span>
+                    </button>
+                    <p class="form-hint">Click to begin your confidential application process</p>
+                </div>
+
+                <!-- Application Form (Hidden Initially) -->
+                <div id="applicationFormContainer" class="form-container-hidden">
                 <form id="applicationForm" class="form-modern">
                     <div class="form-section-modern">
                         <h3>Your Information</h3>
@@ -238,7 +272,9 @@
                                 <input type="checkbox" id="privacy" name="privacy" required>
                                 <span>I agree to the Privacy Policy and confidentiality terms. *</span>
                             </label>
-                        </div>
+                </div>
+
+                <!-- Success Message -->                        </div>
                     </div>
 
                     <button type="submit" class="btn-submit">
@@ -267,7 +303,25 @@
                 <div class="footer-grid">
                     <div class="footer-brand">
                         <div class="logo">
-                            <div class="logo-icon">🛡️</div>
+                            <svg class="logo-svg" width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="logoGradientFooter" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                                    </linearGradient>
+                                    <linearGradient id="shieldGradientFooter" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#ec4899;stop-opacity:0.2" />
+                                        <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.2" />
+                                    </linearGradient>
+                                </defs>
+                                <path d="M20 2L34 8V16C34 25.5 28.5 33.5 20 38C11.5 33.5 6 25.5 6 16V8L20 2Z" 
+                                      fill="url(#shieldGradientFooter)" stroke="url(#logoGradientFooter)" stroke-width="1.5"/>
+                                <path d="M20 6L30 10V16C30 23.5 26 30 20 34C14 30 10 23.5 10 16V10L20 6Z" 
+                                      fill="none" stroke="url(#logoGradientFooter)" stroke-width="2"/>
+                                <circle cx="20" cy="18" r="4" fill="url(#logoGradientFooter)"/>
+                                <path d="M16 18 L12 18 M24 18 L28 18 M20 14 L20 10 M20 22 L20 26" 
+                                      stroke="url(#logoGradientFooter)" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
                             <span class="logo-text">Reputation Guardian</span>
                         </div>
                         <p>Protecting what matters most: Your reputation, your legacy, your future.</p>
@@ -291,7 +345,27 @@
                     </div>
                 </div>
                 <div class="footer-bottom">
-                    <p>&copy; 2025 Reputation Guardian. All rights reserved.</p>
+         
+
+        function revealApplicationForm() {
+            const button = document.getElementById('showFormButton');
+            const formContainer = document.getElementById('applicationFormContainer');
+            
+            // Hide button with fade out
+            button.style.opacity = '0';
+            button.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                button.style.display = 'none';
+                formContainer.classList.remove('form-container-hidden');
+                formContainer.classList.add('form-container-visible');
+                
+                // Scroll to form smoothly
+                setTimeout(() => {
+                    formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }, 300);
+        }           <p>&copy; 2025 Reputation Guardian. All rights reserved.</p>
                 </div>
             </div>
         </footer>

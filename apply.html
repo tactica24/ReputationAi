@@ -3,17 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ReputationGuard - Professional AI-powered reputation monitoring and protection for executives and enterprises.">
+    <meta name="description" content="Apply for ReputationGuard protection - Enterprise reputation monitoring for executives.">
     <meta name="theme-color" content="#6366f1">
-    <title>ReputationGuard - AI-Powered Reputation Protection</title>
+    <title>Apply - ReputationGuard</title>
     
-    <!-- PWA -->
     <link rel="manifest" href="/manifest.json">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="ReputationGuard">
-    
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -26,7 +20,6 @@
         <div class="nav-wrapper">
             <a href="/" class="brand">
                 <svg class="brand-icon" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                    <!-- Professional RG monogram logo -->
                     <rect width="36" height="36" rx="8" fill="#0a0a0f" stroke="url(#logoStroke)" stroke-width="1.5"/>
                     <text x="18" y="25" font-family="Inter, sans-serif" font-size="18" font-weight="700" 
                           fill="url(#logoText)" text-anchor="middle">RG</text>
@@ -68,39 +61,98 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero-premium">
-        <div class="hero-content-wrapper">
-            <div class="hero-badge">Trusted by Fortune 500 Executives</div>
-            <h1 class="hero-heading">
-                Protect Your Reputation<br/>
-                <span class="gradient-text">Before It's Too Late</span>
-            </h1>
-            <p class="hero-description">
-                Enterprise-grade AI monitoring across every platform. Detect threats in real-time, 
-                respond instantly, and safeguard what took decades to build.
-            </p>
-            <div class="hero-cta-group">
-                <a href="apply.html" class="btn-hero-primary">
-                    Start Protection Now
-                </a>
-                <a href="protection.html" class="btn-hero-secondary">See How It Works</a>
+    <!-- Application Section -->
+    <section class="section-apply" style="padding-top: 8rem;">
+        <div class="section-container-narrow">
+            <div class="apply-header">
+                <span class="section-label">Get Protected</span>
+                <h2 class="section-title">Apply for Protection</h2>
+                <p class="apply-subtitle">We carefully vet each client to ensure we can deliver the protection you deserve. Our team will review your application within 24 hours.</p>
+                <div class="apply-badges">
+                    <span class="apply-badge">🔒 Confidential</span>
+                    <span class="apply-badge">⚡ 24hr Response</span>
+                    <span class="apply-badge">✅ No Obligation</span>
+                </div>
             </div>
-            <div class="hero-trust-bar">
-                <div class="trust-stat">
-                    <span class="trust-number">500+</span>
-                    <span class="trust-label">Protected Clients</span>
-                </div>
-                <div class="trust-divider"></div>
-                <div class="trust-stat">
-                    <span class="trust-number">24/7</span>
-                    <span class="trust-label">AI Monitoring</span>
-                </div>
-                <div class="trust-divider"></div>
-                <div class="trust-stat">
-                    <span class="trust-number">100M+</span>
-                    <span class="trust-label">Sources Scanned</span>
-                </div>
+
+            <div id="formContainer" class="form-wrapper visible">
+                <form id="applicationForm" class="premium-form">
+                    <div class="form-section">
+                        <h3 class="form-section-title">Your Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name *</label>
+                                <input type="text" name="firstName" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name *</label>
+                                <input type="text" name="lastName" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Email Address *</label>
+                                <input type="email" name="email" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number *</label>
+                                <input type="tel" name="phone" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Company/Organization</label>
+                            <input type="text" name="company" />
+                        </div>
+                        <div class="form-group">
+                            <label>Your Title/Role *</label>
+                            <input type="text" name="title" placeholder="e.g., CEO, Executive, Public Figure" required />
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="form-section-title">Protection Needs</h3>
+                        <div class="form-group">
+                            <label>Who/What Needs Protection? *</label>
+                            <textarea name="entities" rows="3" placeholder="List individuals, brands, or organizations" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Current Concerns (Optional)</label>
+                            <textarea name="threats" rows="4" placeholder="Describe any existing threats or concerns"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Urgency Level *</label>
+                            <select name="urgency" required>
+                                <option value="">Select urgency</option>
+                                <option value="active-crisis">Active Crisis - Need Help Now</option>
+                                <option value="emerging-threat">Emerging Threat - Soon</option>
+                                <option value="proactive">Proactive Protection</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Additional Information</label>
+                            <textarea name="message" rows="3" placeholder="Any other details we should know"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="agreement" name="agreement" required />
+                            <label for="agreement">I understand this is an application, not automatic enrollment *</label>
+                        </div>
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="privacy" name="privacy" required />
+                            <label for="privacy">I agree to the Privacy Policy and confidentiality terms *</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit-form">Submit Application</button>
+                </form>
+            </div>
+
+            <div id="successMessage" class="success-wrapper" style="display: none;">
+                <div class="success-icon">✓</div>
+                <h3>Application Received</h3>
+                <p>Our team will review your submission and contact you within 24 hours.</p>
             </div>
         </div>
     </section>
@@ -111,13 +163,16 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <div class="brand">
-                        <svg class="brand-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
-                            <rect width="32" height="32" rx="6" fill="url(#brandGradientFooter)"/>
-                            <path d="M16 8L22 11V16C22 20 19 23 16 26C13 23 10 20 10 16V11L16 8Z" fill="white" fill-opacity="0.15"/>
-                            <path d="M16 10L20 12V16C20 18.5 18.5 21 16 23.5C13.5 21 12 18.5 12 16V12L16 10Z" stroke="white" stroke-width="1.5" fill="none"/>
-                            <circle cx="16" cy="16" r="2.5" fill="white"/>
+                        <svg class="brand-icon" width="32" height="32" viewBox="0 0 36 36" fill="none">
+                            <rect width="36" height="36" rx="8" fill="#0a0a0f" stroke="url(#logoStrokeFooter)" stroke-width="1.5"/>
+                            <text x="18" y="25" font-family="Inter, sans-serif" font-size="18" font-weight="700" 
+                                  fill="url(#logoTextFooter)" text-anchor="middle">RG</text>
                             <defs>
-                                <linearGradient id="brandGradientFooter" x1="0" y1="0" x2="32" y2="32">
+                                <linearGradient id="logoStrokeFooter" x1="0" y1="0" x2="36" y2="36">
+                                    <stop offset="0%" stop-color="#6366f1"/>
+                                    <stop offset="100%" stop-color="#8b5cf6"/>
+                                </linearGradient>
+                                <linearGradient id="logoTextFooter" x1="0" y1="0" x2="36" y2="36">
                                     <stop offset="0%" stop-color="#6366f1"/>
                                     <stop offset="100%" stop-color="#8b5cf6"/>
                                 </linearGradient>
@@ -129,14 +184,14 @@
                 </div>
                 <div class="footer-links">
                     <h4>Product</h4>
-                    <a href="#features">Features</a>
-                    <a href="protection.html">How It Works</a>
-                    <a href="cost-of-nothing.html">Why Protection Matters</a>
+                    <a href="protection.html">Features</a>
+                    <a href="protection.html#how-it-works">How It Works</a>
+                    <a href="cost-of-nothing.html">Enterprise</a>
                 </div>
                 <div class="footer-links">
                     <h4>Company</h4>
                     <a href="/app">Dashboard</a>
-                    <a href="#apply">Get Started</a>
+                    <a href="apply.html">Get Started</a>
                     <a href="tel:+18005551234">Contact</a>
                 </div>
                 <div class="footer-links">
@@ -153,7 +208,6 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
     <script>
         // PWA Registration
         if ('serviceWorker' in navigator) {
@@ -170,20 +224,8 @@
             document.body.classList.toggle('nav-open');
         }
 
-        function scrollToSection(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function revealForm() {
-            document.getElementById('showFormBtn').style.display = 'none';
-            const container = document.getElementById('formContainer');
-            container.style.display = 'block';
-            setTimeout(() => container.classList.add('visible'), 10);
-            setTimeout(() => container.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
-        }
-
         // Form submission
-        document.getElementById('applicationForm')?.addEventListener('submit', async (e) => {
+        document.getElementById('applicationForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData);
@@ -227,20 +269,3 @@
     </script>
 </body>
 </html>
-32" height="32" viewBox="0 0 36 36" fill="none">
-                            <rect width="36" height="36" rx="8" fill="#0a0a0f" stroke="url(#logoStrokeFooter)" stroke-width="1.5"/>
-                            <text x="18" y="25" font-family="Inter, sans-serif" font-size="18" font-weight="700" 
-                                  fill="url(#logoTextFooter)" text-anchor="middle">RG</text>
-                            <defs>
-                                <linearGradient id="logoStrokeFooter" x1="0" y1="0" x2="36" y2="36">
-                                    <stop offset="0%" stop-color="#6366f1"/>
-                                    <stop offset="100%" stop-color="#8b5cf6"/>
-                                </linearGradient>
-                                <linearGradient id="logoTextFooter" x1="0" y1="0" x2="36" y2="36protection.html">Features</a>
-                    <a href="protection.html#how-it-works">How It Works</a>
-                    <a href="cost-of-nothing.html">Enterprise</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Company</h4>
-                    <a href="/app">Dashboard</a>
-                    <a href="apply.html

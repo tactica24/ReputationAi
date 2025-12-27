@@ -64,10 +64,6 @@ def hash_password(password: str) -> str:
     """Hash password using bcrypt"""
     salt = bcrypt.gensalt()
     return bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
-def hash_password(password: str) -> str:
-    """Hash password using bcrypt"""
-    salt = bcrypt.gensalt()
-    return bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
@@ -110,6 +106,67 @@ def get_current_user(
     if not user.is_active:
         raise HTTPException(status_code=400, detail="Inactive user")
     return user
+
+
+@router.post("/setup/first-admin", response_model=UserResponse)
+async def create_first_admin(
+    request: RegisterRequest,
+    db: Session = Depends(get_db)
+):
+    """
+    Create the first super admin user (only works if no users exist)
+    
+    This is a public endpoint that can only be used once - when the database is empty.
+    After the first admin is created, use the authenticated /admin/create-user endpoint.
+    """
+    # Check if any users exist
+    user_count = db.query(User).count()
+    if user_count > 0:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Cannot create first admin - users already exist. Please login with existing admin account."
+        )
+    
+    # Check if email exists (shouldn't happen but safety check)
+    if db.query(User).filter(User.email == request.email).first():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Email already registered"
+        )
+    
+    # Check if username exists
+    if db.query(User).filter(User.username == request.username).first():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Username already taken"
+        )
+    
+    # Create first super admin user
+    hashed_password = hash_password(request.password)
+    new_user = User(
+        email=request.email,
+        username=request.username,
+        full_name=request.full_name,
+        hashed_password=hashed_password,
+        role=UserRole.SUPER_ADMIN,  # Always super admin for first user
+        is_active=True,
+        is_verified=True,
+        gdpr_consent=True,
+        created_at=datetime.utcnow()
+    )
+    
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    
+    return UserResponse(
+        id=new_user.id,
+        email=new_user.email,
+        username=new_user.username,
+        full_name=new_user.full_name,
+        role=new_user.role.value,
+        is_active=new_user.is_active
+    )
 
 
 @router.post("/login", response_model=TokenResponse)

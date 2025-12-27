@@ -75,16 +75,20 @@ async def startup_event():
                 print("🔧 Creating admin user automatically...")
                 admin_user = User(
                     email="admin@reputation.ai",
-                    password_hash=hash_password("Admin@2024!"),
+                    username="superadmin",
+                    hashed_password=hash_password("Admin@2024!"),
                     full_name="System Administrator",
-                    role="super_admin",
-                    is_active=True
+                    role=DBUserRole.SUPER_ADMIN,
+                    is_active=True,
+                    is_verified=True,
+                    gdpr_consent=True
                 )
                 db.add(admin_user)
                 db.commit()
                 db.refresh(admin_user)
                 print(f"✅ Admin user created successfully! ID: {admin_user.id}")
                 print("   Email: admin@reputation.ai")
+                print("   Username: superadmin")
                 print("   Password: Admin@2024!")
             else:
                 print(f"✅ Admin user already exists (ID: {admin_exists.id})")

@@ -1,5 +1,64 @@
 # ReputationAI - Version History
 
+## Version 0.2 - Navigation Fixes & Improvements
+**Date**: December 28, 2025  
+**Status**: ✅ Live in Production  
+**Git Tag**: v0.2
+
+### 🚀 Deployment Information
+
+**Firebase Project**: reputationai-df869  
+**Hosting URL**: https://reputationai-df869.web.app  
+**Deploy Time**: 2025-12-28
+
+### 🔧 What's New
+
+#### Navigation System Overhaul
+- ✅ Fixed all header navigation links to use React Router
+- ✅ Fixed all footer navigation links to use React Router
+- ✅ Fixed mobile navigation menu routing
+- ✅ Implemented smart Dashboard routing based on auth state
+- ✅ Removed static .html file references
+- ✅ Enabled smooth SPA navigation (no page reloads)
+
+#### Fixed Links
+**Header Navigation:**
+- Features → `/protection` (React route)
+- Protection → `/protection` (React route)
+- Enterprise → `/enterprise` (React route)
+- Subscribe → `/subscribe` (React route)
+- Dashboard → Smart routing (login/dashboard/admin based on auth)
+
+**Hero CTAs:**
+- "Start Protection Now" → `/subscribe`
+- "See How It Works" → `/protection`
+
+**Footer Links:**
+- All Product, Company, and Legal links now functional
+- Privacy, Terms, Security pages accessible
+
+### 📦 Build Stats
+- **Main Bundle**: index-DMaUI1F6.js (843 KB)
+- **Charts Bundle**: charts-CNNRQlr8.js (411 KB)
+- **Vendor Bundle**: vendor-B1MhHAhZ.js (162 KB)
+- **Styles**: index-g_sVT4qX.css (9.51 KB)
+
+### 🔄 Upgrade from v0.1
+**Key Improvements:**
+- All navigation now uses client-side routing
+- Better user experience with no page reloads
+- Proper state management during navigation
+- Smart authentication-based routing
+
+### 📝 Rollback to v0.2
+```bash
+git checkout v0.2
+cd frontend && npm run build && cd ..
+firebase deploy --only hosting
+```
+
+---
+
 ## Version 0.1 - Initial Production Deployment
 **Date**: December 28, 2025  
 **Status**: ✅ Live in Production  

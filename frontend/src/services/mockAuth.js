@@ -4,40 +4,36 @@
  */
 
 const MOCK_USERS = {
-  'admin@reputation.ai': {
+  'admin@reputationai.com': {
     id: 1,
+    email: 'admin@reputationai.com',
+    username: 'admin',
+    name: 'Admin User',
+    full_name: 'Admin User',
+    company: 'ReputationAI',
+    role: 'admin',
+    password: 'admin123',
+    is_active: true
+  },
+  'admin@reputation.ai': {
+    id: 2,
     email: 'admin@reputation.ai',
     username: 'admin',
+    name: 'System Administrator',
     full_name: 'System Administrator',
-    role: 'super_admin',
+    role: 'admin',
     password: 'Admin@2024!',
     is_active: true
   },
-  'manager@reputation.ai': {
-    id: 2,
-    email: 'manager@reputation.ai',
-    username: 'manager',
-    full_name: 'Demo Manager',
-    role: 'manager',
-    password: 'Manager@2024!',
-    is_active: true
-  },
-  'analyst@reputation.ai': {
+  'user@reputationai.com': {
     id: 3,
-    email: 'analyst@reputation.ai',
-    username: 'analyst',
-    full_name: 'Demo Analyst',
-    role: 'analyst',
-    password: 'Analyst@2024!',
-    is_active: true
-  },
-  'user@reputation.ai': {
-    id: 4,
-    email: 'user@reputation.ai',
-    username: 'viewer',
-    full_name: 'Demo Viewer',
-    role: 'viewer',
-    password: 'User@2024!',
+    email: 'user@reputationai.com',
+    username: 'user',
+    name: 'Demo User',
+    full_name: 'Demo User',
+    company: 'Demo Corp',
+    role: 'user',
+    password: 'user123',
     is_active: true
   }
 };

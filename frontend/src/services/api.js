@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { mockAuthService } from './mockAuth';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api/v1';
-const USE_MOCK_AUTH = import.meta.env.VITE_USE_MOCK_AUTH === 'true' || !import.meta.env.VITE_API_URL;
+// Use Firebase Functions URL or fall back to localhost for development
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://us-central1-reputationai-df869.cloudfunctions.net/api';
+const USE_MOCK_AUTH = import.meta.env.VITE_USE_MOCK_AUTH === 'true';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -80,30 +81,19 @@ export const analyticsAPI = {
 // Auth API
 export const authAPI = {
   login: (email, password) => {
-    if (USE_MOCK_AUTH) {
-      return mockAuthService.login(email, password);
-    }
-    return api.post('/auth/login', { email, password });
+    // Always use mock auth for now until Firebase Auth is configured
+    return mockAuthService.login(email, password);
   },
   register: (data) => {
-    if (USE_MOCK_AUTH) {
-      return mockAuthService.register(data);
-    }
-    return api.post('/auth/register', data);
+    return mockAuthService.register(data);
   },
   logout: () => {
-    if (USE_MOCK_AUTH) {
-      return mockAuthService.logout();
-    }
-    return api.post('/auth/logout');
+    return mockAuthService.logout();
   },
   getCurrentUser: () => {
-    if (USE_MOCK_AUTH) {
-      return mockAuthService.getCurrentUser();
-    }
-    return api.get('/auth/me');
+    return mockAuthService.getCurrentUser();
   },
-  refreshToken: () => api.post('/auth/refresh'),
+  refreshToken: () => Promise.resolve({ data: { token: localStorage.getItem('auth_token') } }),
 };
 
 // User API

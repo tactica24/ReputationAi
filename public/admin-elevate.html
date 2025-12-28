@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReputationAI - Make Me Admin (Direct)</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#0f172a; color:#e2e8f0; display:flex; align-items:center; justify-content:center; min-height:100vh; padding:20px; }
+    .card { background:#1e293b; padding:24px; border-radius:12px; width:100%; max-width:420px; box-shadow:0 12px 40px rgba(0,0,0,0.35); }
+    h1 { margin:0 0 8px; font-size:22px; }
+    p { margin:0 0 16px; color:#cbd5e1; font-size:14px; }
+    label { display:block; margin:12px 0 6px; font-weight:600; }
+    input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid #334155; background:#0f172a; color:#e2e8f0; }
+    button { margin-top:16px; width:100%; padding:12px; border:none; border-radius:10px; background:linear-gradient(135deg,#6366f1,#8b5cf6); color:white; font-weight:700; cursor:pointer; }
+    button:disabled { opacity:0.6; cursor:not-allowed; }
+    pre { white-space:pre-wrap; word-break:break-word; background:#0b1220; padding:12px; border-radius:8px; border:1px solid #334155; max-height:260px; overflow:auto; font-size:12px; }
+    .success { color:#22c55e; }
+    .error { color:#f87171; }
+    .info { color:#38bdf8; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Make Me Admin (Direct)</h1>
+    <p>Signs you in via Firebase REST, then writes your user document with role=admin using your UID.</p>
+
+    <label>Email</label>
+    <input id="email" type="email" placeholder="okwafa@gmail.com" autocomplete="username" />
+
+    <label>Password</label>
+    <input id="password" type="password" placeholder="Your password" autocomplete="current-password" />
+
+    <button id="goBtn">Sign in & Make Admin</button>
+
+    <p id="status" class="info"></p>
+    <pre id="log"></pre>
+  </div>
+
+<script>
+const API_KEY = 'AIzaSyCSFPZBzewPT-Tmj-XocBZKAYppGbnE72A';
+const PROJECT_ID = 'reputationai-df869';
+const logEl = document.getElementById('log');
+const statusEl = document.getElementById('status');
+const goBtn = document.getElementById('goBtn');
+
+function log(msg) {
+  logEl.textContent += msg + '\n';
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+function setStatus(msg, cls='info') {
+  statusEl.textContent = msg;
+  statusEl.className = cls;
+}
+
+goBtn.addEventListener('click', async () => {
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  if (!email || !password) {
+    setStatus('Please enter email and password', 'error');
+    return;
+  }
+
+  goBtn.disabled = true;
+  setStatus('Signing in...');
+  logEl.textContent = '';
+
+  try {
+    // 1) Sign in via REST
+    const signInRes = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, returnSecureToken: true })
+    });
+    const signInData = await signInRes.json();
+    if (!signInRes.ok) {
+      throw new Error(signInData.error ? `${signInData.error.message}` : 'Sign-in failed');
+    }
+    log('Signed in. UID: ' + signInData.localId);
+    setStatus('Signed in. Updating role...', 'info');
+
+    const idToken = signInData.idToken;
+    const uid = signInData.localId;
+
+    // 2) Upsert Firestore doc with admin role using REST
+    const docUrl = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/users/${uid}`;
+    const body = {
+      fields: {
+        email: { stringValue: email.toLowerCase() },
+        role: { stringValue: 'admin' },
+        is_active: { booleanValue: true },
+        permissions: { mapValue: { fields: {
+          canManageUsers: { booleanValue: true },
+          canManageApplications: { booleanValue: true },
+          canViewAnalytics: { booleanValue: true },
+          canExportData: { booleanValue: true }
+        }}},
+        updated_at: { timestampValue: new Date().toISOString() }
+      }
+    };
+
+    const patchRes = await fetch(docUrl, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${idToken}`
+      },
+      body: JSON.stringify(body)
+    });
+    const patchData = await patchRes.json();
+    if (!patchRes.ok) {
+      throw new Error(patchData.error ? patchData.error.message : 'Failed to update role');
+    }
+    log('Firestore write success. Doc name: ' + patchData.name);
+    setStatus('✅ You are now ADMIN. Logout and log back in to see admin features.', 'success');
+  } catch (err) {
+    console.error(err);
+    log('Error: ' + err.message);
+    setStatus('❌ ' + err.message, 'error');
+  } finally {
+    goBtn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>

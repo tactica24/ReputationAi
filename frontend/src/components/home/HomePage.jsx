@@ -31,13 +31,13 @@ const HomePage = () => {
     setMobileNavOpen(false);
     document.body.classList.remove('nav-open');
     const urlMap = {
-      features: '/protection.html',
-      protection: '/protection.html#how-it-works',
-      enterprise: '/cost-of-nothing.html',
-      subscribe: '/subscribe.html',
-      privacy: '/privacy.html',
-      terms: '/terms.html',
-      security: '/security.html'
+      features: '/protection',
+      protection: '/protection',
+      enterprise: '/enterprise',
+      subscribe: '/subscribe',
+      privacy: '/privacy',
+      terms: '/terms',
+      security: '/security'
     };
 
     const target = urlMap[path] || path;
@@ -48,7 +48,7 @@ const HomePage = () => {
     } else if (target.startsWith('http')) {
       window.location.href = target;
     } else {
-      window.location.href = target;
+      navigate(target);
     }
   };
 

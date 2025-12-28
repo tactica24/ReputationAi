@@ -146,6 +146,8 @@ frontend/build/
 ---
 
 **Version ID**: v0.1  
-**Commit Hash**: [To be added after git commit]  
+**Commit Hash**: c1e37f5d2bfaa92e53415bfcdb9495fe3158c4f6  
+**Git Tag**: v0.1  
 **Deployed By**: Automated deployment  
-**Environment**: Production
+**Environment**: Production  
+**Deployment Date**: December 28, 2025

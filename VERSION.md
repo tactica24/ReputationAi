@@ -57,6 +57,13 @@ cd frontend && npm run build && cd ..
 firebase deploy --only hosting
 ```
 
+**Version ID**: v0.2  
+**Commit Hash**: 9c5d1df52a971282b71c14bf4c4f9a6f6487a1ad  
+**Git Tag**: v0.2  
+**Deployed By**: Automated deployment  
+**Environment**: Production  
+**Deployment Date**: December 28, 2025
+
 ---
 
 ## Version 0.1 - Initial Production Deployment

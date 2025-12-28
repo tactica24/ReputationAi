@@ -3,15 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ReputationGuard - Professional AI-powered reputation monitoring and protection for executives and enterprises.">
+    
+    <!-- SEO Meta Tags -->
+    <title>ReputationAI - AI-Powered Reputation Monitoring & Identity Protection</title>
+    <meta name="description" content="Enterprise-grade AI reputation monitoring for executives and businesses. 24/7 real-time threat detection, sentiment analysis, and comprehensive online identity protection.">
+    <meta name="keywords" content="reputation monitoring, AI protection, brand monitoring, executive protection, identity protection, sentiment analysis, threat detection">
+    <meta name="author" content="ReputationAI">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ReputationAI - AI-Powered Reputation Monitoring">
+    <meta property="og:description" content="Enterprise-grade AI monitoring across every platform. Detect threats in real-time and safeguard your reputation.">
+    <meta property="og:url" content="https://reputationai-df869.web.app">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ReputationAI - AI-Powered Reputation Monitoring">
+    <meta name="twitter:description" content="24/7 AI-powered reputation monitoring and identity protection for executives and enterprises.">
+    
+    <!-- Theme & Security -->
     <meta name="theme-color" content="#6366f1">
-    <title>ReputationGuard - AI-Powered Reputation Protection</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="ReputationGuard">
+    <meta name="apple-mobile-web-app-title" content="ReputationAI">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,14 +41,14 @@
 </head>
 <body>
     <!-- Premium Navigation -->
-    <nav class="nav-premium">
+    <nav class="nav-premium" role="navigation" aria-label="Main navigation">
         <div class="nav-wrapper">
-            <a href="/" class="brand">
-                <svg class="brand-icon" width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <a href="/" class="brand" aria-label="ReputationAI Home">
+                <svg class="brand-icon" width="36" height="36" viewBox="0 0 36 36" fill="none" role="img" aria-label="ReputationAI Logo">
                     <!-- Professional RG monogram logo -->
                     <rect width="36" height="36" rx="8" fill="#0a0a0f" stroke="url(#logoStroke)" stroke-width="1.5"/>
                     <text x="18" y="25" font-family="Inter, sans-serif" font-size="18" font-weight="700" 
-                          fill="url(#logoText)" text-anchor="middle">RG</text>
+                          fill="url(#logoText)" text-anchor="middle">RA</text>
                     <defs>
                         <linearGradient id="logoStroke" x1="0" y1="0" x2="36" y2="36">
                             <stop offset="0%" stop-color="#6366f1"/>
@@ -41,7 +60,7 @@
                         </linearGradient>
                     </defs>
                 </svg>
-                <span class="brand-name">ReputationGuard</span>
+                <span class="brand-name">ReputationAI</span>
             </a>
             <div class="nav-links">
                 <a href="protection.html">Features</a>
@@ -50,15 +69,15 @@
                 <a href="subscribe.html">Subscribe</a>
                 <a href="app/index.html" class="nav-link-dash">Dashboard</a>
             </div>
-            <button class="mobile-nav-toggle" onclick="toggleMobileNav()" aria-label="Menu">
+            <button class="mobile-nav-toggle" onclick="toggleMobileNav()" aria-label="Toggle navigation menu" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
         </div>
     </nav>
 
     <!-- Mobile Navigation -->
-    <div class="mobile-nav" id="mobileNav">
-        <button class="mobile-nav-close" onclick="toggleMobileNav()">&times;</button>
+    <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+        <button class="mobile-nav-close" onclick="toggleMobileNav()" aria-label="Close menu">&times;</button>
         <div class="mobile-nav-content">
             <a href="protection.html" onclick="toggleMobileNav()">Features</a>
             <a href="protection.html#how-it-works" onclick="toggleMobileNav()">Protection</a>
@@ -69,10 +88,10 @@
     </div>
 
     <!-- Hero Section -->
-    <section class="hero-premium">
+    <section class="hero-premium" role="region" aria-labelledby="hero-heading">
         <div class="hero-content-wrapper">
-            <div class="hero-badge">Trusted by Fortune 500 Executives</div>
-            <h1 class="hero-heading">
+            <div class="hero-badge" role="status">Trusted by Fortune 500 Executives</div>
+            <h1 id="hero-heading" class="hero-heading">
                 Protect Your Reputation<br/>
                 <span class="gradient-text">Before It's Too Late</span>
             </h1>
@@ -86,17 +105,17 @@
                 </a>
                 <a href="protection.html" class="btn-hero-secondary">See How It Works</a>
             </div>
-            <div class="hero-trust-bar">
+            <div class="hero-trust-bar" role="group" aria-label="Trust indicators">
                 <div class="trust-stat">
-                    <span class="trust-number">500+</span>
+                    <span class="trust-number" aria-label="500 plus">500+</span>
                     <span class="trust-label">Protected Clients</span>
                 </div>
-                <div class="trust-divider"></div>
+                <div class="trust-divider" aria-hidden="true"></div>
                 <div class="trust-stat">
                     <span class="trust-number">24/7</span>
                     <span class="trust-label">AI Monitoring</span>
                 </div>
-                <div class="trust-divider"></div>
+                <div class="trust-divider" aria-hidden="true"></div>
                 <div class="trust-stat">
                     <span class="trust-number">100M+</span>
                     <span class="trust-label">Sources Scanned</span>

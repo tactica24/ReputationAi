@@ -29,8 +29,6 @@ from backend.database.models import UserRole as DBUserRole, ApplicationStatus
 # Import API routers
 from backend.api.auth import router as auth_router
 from backend.api.quick_onboard import router as onboard_router
-from backend.api.onboarding import router as application_router
-from backend.api.admin_onboarding import router as admin_onboarding_router
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -75,20 +73,16 @@ async def startup_event():
                 print("🔧 Creating admin user automatically...")
                 admin_user = User(
                     email="admin@reputation.ai",
-                    username="superadmin",
-                    hashed_password=hash_password("Admin@2024!"),
+                    password_hash=hash_password("Admin@2024!"),
                     full_name="System Administrator",
-                    role=DBUserRole.SUPER_ADMIN,
-                    is_active=True,
-                    is_verified=True,
-                    gdpr_consent=True
+                    role="super_admin",
+                    is_active=True
                 )
                 db.add(admin_user)
                 db.commit()
                 db.refresh(admin_user)
                 print(f"✅ Admin user created successfully! ID: {admin_user.id}")
                 print("   Email: admin@reputation.ai")
-                print("   Username: superadmin")
                 print("   Password: Admin@2024!")
             else:
                 print(f"✅ Admin user already exists (ID: {admin_exists.id})")
@@ -111,24 +105,6 @@ async def health_check():
     return {
         "status": "healthy" if any(health.values()) else "degraded",
         "database": health,
-        "timestamp": datetime.utcnow().isoformat()
-    }
-
-
-@app.get("/", tags=["System"])
-async def root():
-    """Root endpoint - API information"""
-    return {
-        "service": "Reputation Guardian API",
-        "version": "2.0.0",
-        "status": "running",
-        "docs": "/api/docs",
-        "endpoints": {
-            "health": "/health",
-            "api_docs": "/api/docs",
-            "application_submit": "/api/onboarding/apply",
-            "admin_create_offer": "/api/admin/onboarding/create-offer"
-        },
         "timestamp": datetime.utcnow().isoformat()
     }
 
@@ -240,8 +216,6 @@ security_bearer = HTTPBearer()
 # Include routers
 app.include_router(auth_router, prefix="/api/v1")
 app.include_router(onboard_router, prefix="/api/v1")
-app.include_router(application_router)  # Has its own prefix
-app.include_router(admin_onboarding_router)  # Admin onboarding with pricing
 
 # Initialize services (commented out for now - auth only)
 # sentiment_analyzer = SentimentAnalyzer(model_type="transformer")

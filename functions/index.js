@@ -2,13 +2,66 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const express = require('express');
 const cors = require('cors');
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 
 admin.initializeApp();
 const db = admin.firestore();
 const app = express();
 
-app.use(cors({ origin: true }));
-app.use(express.json());
+// SECURITY: HTTP security headers
+app.use(helmet());
+
+// SECURITY: CORS configuration - restrict to your domain
+const allowedOrigins = [
+  'https://reputationai-df869.web.app',
+  'https://reputationai-df869.firebaseapp.com',
+  'http://localhost:3000', // Development only - REMOVE IN PRODUCTION
+  'http://localhost:5173'  // Development only - REMOVE IN PRODUCTION
+];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      return callback(new Error('CORS policy violation'), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true
+}));
+
+app.use(express.json({ limit: '10mb' })); // Limit payload size
+
+// SECURITY: Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: { error: 'Too many requests from this IP, please try again later.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+app.use('/api/', limiter);
+
+// SECURITY: Input validation middleware
+const validateEmail = (email) => {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+};
+
+const sanitizeString = (str) => {
+  if (typeof str !== 'string') return '';
+  return str.trim().replace(/[<>]/g, '');
+};
+
+const validateRequired = (fields, data) => {
+  const missing = fields.filter(field => !data[field]);
+  if (missing.length > 0) {
+    throw new Error(`Missing required fields: ${missing.join(', ')}`);
+  }
+};
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -20,12 +73,19 @@ app.post('/api/v1/applications', async (req, res) => {
   try {
     const { company_name, email, industry, company_size, use_case } = req.body;
     
+    // SECURITY: Input validation
+    validateRequired(['company_name', 'email', 'industry', 'company_size', 'use_case'], req.body);
+    
+    if (!validateEmail(email)) {
+      return res.status(400).json({ error: 'Invalid email address' });
+    }
+    
     const applicationData = {
-      company_name,
-      email,
-      industry,
-      company_size,
-      use_case,
+      company_name: sanitizeString(company_name),
+      email: email.toLowerCase().trim(),
+      industry: sanitizeString(industry),
+      company_size: sanitizeString(company_size),
+      use_case: sanitizeString(use_case),
       status: 'pending',
       created_at: admin.firestore.FieldValue.serverTimestamp(),
       updated_at: admin.firestore.FieldValue.serverTimestamp()
@@ -41,7 +101,7 @@ app.post('/api/v1/applications', async (req, res) => {
     });
   } catch (error) {
     console.error('Error creating application:', error);
-    res.status(500).json({ error: 'Failed to submit application' });
+    res.status(500).json({ error: error.message || 'Failed to submit application' });
   }
 });
 
@@ -76,7 +136,13 @@ app.get('/api/v1/applications/:id', async (req, res) => {
   } catch (error) {
     console.error('Error fetching application:', error);
     res.status(500).json({ error: 'Failed to fetch application' });
-  }
+  }// SECURITY: Validate status value
+    const validStatuses = ['pending', 'approved', 'rejected'];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ error: 'Invalid status value' });
+    }
+    
+    
 });
 
 app.patch('/api/v1/applications/:id', async (req, res) => {
@@ -116,17 +182,22 @@ app.get('/api/v1/users', async (req, res) => {
     console.error('Error fetching users:', error);
     res.status(500).json({ error: 'Failed to fetch users' });
   }
-});
-
-app.post('/api/v1/users', async (req, res) => {
-  try {
-    const { email, name, company, role } = req.body;
+});// SECURITY: Input validation
+    validateRequired(['email', 'name'], req.body);
+    
+    if (!validateEmail(email)) {
+      return res.status(400).json({ error: 'Invalid email address' });
+    }
+    
+    // Validate role
+    const validRoles = ['user', 'admin'];
+    const userRole = role && validRoles.includes(role) ? role : 'user';
     
     const userData = {
-      email,
-      name,
-      company,
-      role: role || 'user',
+      email: email.toLowerCase().trim(),
+      name: sanitizeString(name),
+      company: sanitizeString(company || ''),
+      role: userRole,
       is_active: true,
       created_at: admin.firestore.FieldValue.serverTimestamp(),
       updated_at: admin.firestore.FieldValue.serverTimestamp()
@@ -142,6 +213,12 @@ app.post('/api/v1/users', async (req, res) => {
     });
   } catch (error) {
     console.error('Error creating user:', error);
+    res.status(500).json({ error: error.message ||
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error creating user:', error);
     res.status(500).json({ error: 'Failed to create user' });
   }
 });
@@ -151,11 +228,19 @@ app.post('/api/v1/entities', async (req, res) => {
   try {
     const { user_id, name, entity_type, description } = req.body;
     
+    // SECURITY: Input validation
+    validateRequired(['user_id', 'name', 'entity_type'], req.body);
+    
+    const validEntityTypes = ['person', 'company', 'brand', 'product'];
+    if (!validEntityTypes.includes(entity_type)) {
+      return res.status(400).json({ error: 'Invalid entity type' });
+    }
+    
     const entityData = {
-      user_id,
-      name,
-      entity_type,
-      description,
+      user_id: sanitizeString(user_id),
+      name: sanitizeString(name),
+      entity_type: entity_type,
+      description: sanitizeString(description || ''),
       is_active: true,
       created_at: admin.firestore.FieldValue.serverTimestamp(),
       updated_at: admin.firestore.FieldValue.serverTimestamp()
@@ -171,7 +256,7 @@ app.post('/api/v1/entities', async (req, res) => {
     });
   } catch (error) {
     console.error('Error creating entity:', error);
-    res.status(500).json({ error: 'Failed to create entity' });
+    res.status(500).json({ error: error.message || 'Failed to create entity' });
   }
 });
 
@@ -226,12 +311,18 @@ app.post('/api/v1/mentions', async (req, res) => {
   try {
     const { entity_id, source, content, sentiment, url } = req.body;
     
+    // SECURITY: Input validation
+    validateRequired(['entity_id', 'source', 'content'], req.body);
+    
+    const validSentiments = ['positive', 'neutral', 'negative'];
+    const validatedSentiment = sentiment && validSentiments.includes(sentiment) ? sentiment : 'neutral';
+    
     const mentionData = {
-      entity_id,
-      source,
-      content,
-      sentiment: sentiment || 'neutral',
-      url,
+      entity_id: sanitizeString(entity_id),
+      source: sanitizeString(source),
+      content: sanitizeString(content),
+      sentiment: validatedSentiment,
+      url: url ? sanitizeString(url) : null,
       created_at: admin.firestore.FieldValue.serverTimestamp()
     };
     
@@ -244,7 +335,7 @@ app.post('/api/v1/mentions', async (req, res) => {
     });
   } catch (error) {
     console.error('Error creating mention:', error);
-    res.status(500).json({ error: 'Failed to create mention' });
+    res.status(500).json({ error: error.message || 'Failed to create mention' });
   }
 });
 
@@ -279,12 +370,18 @@ app.post('/api/v1/alerts', async (req, res) => {
   try {
     const { entity_id, alert_type, severity, message, mention_id } = req.body;
     
+    // SECURITY: Input validation
+    validateRequired(['entity_id', 'alert_type', 'message'], req.body);
+    
+    const validSeverities = ['low', 'medium', 'high', 'critical'];
+    const validatedSeverity = severity && validSeverities.includes(severity) ? severity : 'medium';
+    
     const alertData = {
-      entity_id,
-      alert_type,
-      severity: severity || 'medium',
-      message,
-      mention_id,
+      entity_id: sanitizeString(entity_id),
+      alert_type: sanitizeString(alert_type),
+      severity: validatedSeverity,
+      message: sanitizeString(message),
+      mention_id: mention_id ? sanitizeString(mention_id) : null,
       is_read: false,
       created_at: admin.firestore.FieldValue.serverTimestamp()
     };
@@ -298,7 +395,7 @@ app.post('/api/v1/alerts', async (req, res) => {
     });
   } catch (error) {
     console.error('Error creating alert:', error);
-    res.status(500).json({ error: 'Failed to create alert' });
+    res.status(500).json({ error: error.message || 'Failed to create alert' });
   }
 });
 

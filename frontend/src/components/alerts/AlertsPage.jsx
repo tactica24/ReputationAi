@@ -26,64 +26,7 @@ function AlertsPage() {
           sources: 15,
           reach: 45000
         },
-        {
-          function AlertsPage() {
-            const [alerts, setAlerts] = useState([]);
-            const [loading, setLoading] = useState(true);
-
-            useEffect(() => {
-              fetchAlerts();
-            }, []);
-
-            const fetchAlerts = async () => {
-              try {
-                setLoading(true);
-                // Simulate API call - replace with actual endpoint
-                const mockAlerts = [
-                  {
-                    id: 1,
-                    title: 'Negative campaign detected',
-                    severity: 'critical',
-                    timestamp: new Date(Date.now() - 1800000).toISOString(),
-                    url: 'https://twitter.com/example/123',
-                  },
-                  {
-                    id: 2,
-                    title: 'Unusual spike in mentions',
-                    severity: 'high',
-                    timestamp: new Date(Date.now() - 3600000).toISOString(),
-                    url: 'https://reddit.com/r/example',
-                  },
-                  {
-                    id: 3,
-                    title: 'Potential deepfake video detected',
-                    severity: 'critical',
-                    timestamp: new Date(Date.now() - 5400000).toISOString(),
-                    url: 'https://youtube.com/watch?v=example',
-                  },
-                  {
-                    id: 4,
-                    title: 'Negative review surge',
-                    severity: 'high',
-                    timestamp: new Date(Date.now() - 7200000).toISOString(),
-                    url: 'https://google.com/reviews/example',
-                  },
-                  {
-                    id: 5,
-                    title: 'Positive trending topic',
-                    severity: 'low',
-                    timestamp: new Date(Date.now() - 10800000).toISOString(),
-                    url: 'https://twitter.com/example/456',
-                  }
-                ];
-                setTimeout(() => {
-                  setAlerts(mockAlerts);
-                  setLoading(false);
-                }, 600);
-              } catch (error) {
-                setLoading(false);
-              }
-            };
+        // ...existing mockAlerts...
 
             const getSeverityColor = (severity) => {
               switch (severity) {

@@ -85,11 +85,10 @@ function MentionsPage() {
           </div>
         ))}
       </div>
-    </div>
-  );
-}
 
-export default MentionsPage;
+      <div className="mt-6">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+          <div className="flex space-x-2">
             <button
               onClick={() => setFilter('neutral')}
               className={`px-4 py-2 rounded-lg transition ${

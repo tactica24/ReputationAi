@@ -49,13 +49,11 @@ function App() {
           <Route path="/alerts" element={<Layout><AlertsPage /></Layout>} />
           <Route path="/analytics" element={<Layout><AnalyticsPage /></Layout>} />
           <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
-          
-          {/* Admin-only route */}
-          {user?.role === 'admin' && (
-            <Route path="/admin" element={<AdminDashboard />} />
-          )}
         </>
       ) : null}
+
+      {/* Admin-only route */}
+      <Route path="/admin" element={<AdminDashboard />} />
       
       {/* Catch-all */}
       <Route path="*" element={<Navigate to="/" replace />} />

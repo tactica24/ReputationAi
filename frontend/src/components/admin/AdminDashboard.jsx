@@ -277,29 +277,21 @@ export default function AdminDashboard() {
         <div className="bg-white p-6 rounded-lg shadow">
           <div className="text-sm font-medium text-gray-600">Total Users</div>
           <div className="mt-2 text-3xl font-bold text-gray-900">{systemMetrics?.totalUsers || 0}</div>
-          <div className="mt-2 text-sm text-green-600">+{systemMetrics?.newUsersThisMonth || 0} this month</div>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow">
           <div className="text-sm font-medium text-gray-600">Pending Applications</div>
           <div className="mt-2 text-3xl font-bold text-orange-600">{systemMetrics?.pendingApplications || 0}</div>
-          <div className="mt-2 text-sm text-gray-600">Requires review</div>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow">
           <div className="text-sm font-medium text-gray-600">Active Subscriptions</div>
           <div className="mt-2 text-3xl font-bold text-green-600">{systemMetrics?.activeSubscriptions || 0}</div>
-          <div className="mt-2 text-sm text-gray-600">
-            ${systemMetrics?.monthlyRevenue || 0}/mo revenue
-          </div>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow">
           <div className="text-sm font-medium text-gray-600">System Health</div>
           <div className="mt-2 text-3xl font-bold text-green-600">{systemMetrics?.systemHealth || 'Good'}</div>
-          <div className="mt-2 text-sm text-gray-600">
-            {systemMetrics?.uptime || '99.9'}% uptime
-          </div>
         </div>
       </div>
 

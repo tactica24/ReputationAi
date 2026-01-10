@@ -34,7 +34,6 @@ const HomePage = () => {
       features: '/protection',
       protection: '/protection',
       enterprise: '/enterprise',
-      subscribe: '/subscribe',
       privacy: '/privacy',
       terms: '/terms',
       security: '/security'
@@ -99,7 +98,6 @@ const HomePage = () => {
             <button onClick={() => handleNavClick('features')} className="nav-link">Features</button>
             <button onClick={() => handleNavClick('protection')} className="nav-link">Protection</button>
             <button onClick={() => handleNavClick('enterprise')} className="nav-link">Enterprise</button>
-            <button onClick={() => handleNavClick('subscribe')} className="nav-link">Subscribe</button>
             <button onClick={handleDashboard} className="nav-link-dash">Dashboard</button>
           </div>
 
@@ -122,7 +120,6 @@ const HomePage = () => {
           <button onClick={() => handleNavClick('features')} className="mobile-nav-link">Features</button>
           <button onClick={() => handleNavClick('protection')} className="mobile-nav-link">Protection</button>
           <button onClick={() => handleNavClick('enterprise')} className="mobile-nav-link">Enterprise</button>
-          <button onClick={() => handleNavClick('subscribe')} className="mobile-nav-link">Subscribe</button>
           <button onClick={handleDashboard} className="mobile-nav-link">Dashboard</button>
         </div>
       </div>
@@ -218,7 +215,6 @@ const HomePage = () => {
             <div className="footer-links">
               <h4>Company</h4>
               <button onClick={handleDashboard} className="footer-link">Dashboard</button>
-              <button onClick={() => handleNavClick('subscribe')} className="footer-link">Subscribe Now</button>
               <a href="tel:+18005551234" className="footer-link">Contact</a>
             </div>
 

@@ -53,7 +53,7 @@ const SubscribePage = () => {
         <div style={{ marginTop: '4rem', padding: '2rem', background: '#12121a', borderRadius: '12px', border: '1px solid rgba(99, 102, 241, 0.1)' }}>
           <h3 style={{ marginBottom: '1rem' }}>All Plans Include:</h3>
           <ul style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem', listStyle: 'none', color: '#a1a1aa' }}>
-            {['24/7 AI Monitoring', '100M+ Sources', 'Instant Alerts', 'Sentiment Analysis', 'Threat Detection', 'Monthly Reports'].map((feature, i) => (
+            {['24/7 Advanced Monitoring', '100M+ Sources', 'Instant Alerts', 'Sentiment Analysis', 'Threat Detection', 'Monthly Reports'].map((feature, i) => (
               <li key={i} style={{ marginBottom: '0.5rem' }}>✓ {feature}</li>
             ))}
           </ul>

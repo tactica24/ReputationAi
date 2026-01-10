@@ -79,45 +79,7 @@ function AlertsPage() {
             );
           }
 
-          export default AlertsPage;
-            className={`px-4 py-2 rounded-lg transition ${
-              filter === 'critical' 
-                ? 'bg-red-600 text-white' 
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            Critical
-          </button>
-          <button
-            onClick={() => setFilter('high')}
-            className={`px-4 py-2 rounded-lg transition ${
-              filter === 'high' 
-                ? 'bg-orange-600 text-white' 
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            High
-          </button>
-          <button
-            onClick={() => setFilter('medium')}
-            className={`px-4 py-2 rounded-lg transition ${
-              filter === 'medium' 
-                ? 'bg-yellow-600 text-white' 
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            Medium
-          </button>
-          <button
-            onClick={() => setFilter('low')}
-            className={`px-4 py-2 rounded-lg transition ${
-              filter === 'low' 
-                ? 'bg-green-600 text-white' 
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            Low
-          </button>
+// ...existing code...
         </div>
       </div>
 

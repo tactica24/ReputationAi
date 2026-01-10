@@ -31,6 +31,153 @@ ChartJS.register(
   Legend
 );
 
+function ScrapingTab() {
+  const [keys, setKeys] = useState({});
+  const [form, setForm] = useState({});
+  const [status, setStatus] = useState(null);
+  const [logs, setLogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [triggering, setTriggering] = useState(false);
+  const [entity, setEntity] = useState("");
+  const [source, setSource] = useState("twitter");
+
+  useEffect(() => {
+    adminScrapingAPI.getApiKeys().then(setKeys);
+    adminScrapingAPI.getScrapingStatus().then((s) => {
+      setStatus(s);
+      setLogs(s.logs || []);
+      setLoading(false);
+    });
+  }, []);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+  const handleSave = async () => {
+    setSaving(true);
+    await adminScrapingAPI.updateApiKeys(form);
+    const updated = await adminScrapingAPI.getApiKeys();
+    setKeys(updated);
+    setSaving(false);
+    setForm({});
+    alert("API keys updated.");
+  };
+  const handleTrigger = async () => {
+    setTriggering(true);
+    await adminScrapingAPI.triggerScraping(source, entity);
+    setTriggering(false);
+    alert("Scraping triggered.");
+  };
+  return (
+    <div className="bg-white rounded-lg shadow p-6">
+      <h2 className="text-2xl font-bold mb-2">Scraping & API Keys</h2>
+      <p className="text-gray-600 mb-4">Configure API keys for social/news sources and control scraping jobs.</p>
+      <div className="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block font-medium mb-1">Twitter API Key</label>
+          <input name="twitter" value={form.twitter ?? ""} onChange={handleChange} className="w-full border rounded px-3 py-2" placeholder={keys.twitter || "Enter Twitter API Key"} />
+        </div>
+        <div>
+          <label className="block font-medium mb-1">NewsAPI Key</label>
+          <input name="newsapi" value={form.newsapi ?? ""} onChange={handleChange} className="w-full border rounded px-3 py-2" placeholder={keys.newsapi || "Enter NewsAPI Key"} />
+        </div>
+        <div>
+          <label className="block font-medium mb-1">Reddit Client ID</label>
+          <input name="reddit_client_id" value={form.reddit_client_id ?? ""} onChange={handleChange} className="w-full border rounded px-3 py-2" placeholder={keys.reddit_client_id || "Enter Reddit Client ID"} />
+        </div>
+        <div>
+          <label className="block font-medium mb-1">Reddit Client Secret</label>
+          <input name="reddit_client_secret" value={form.reddit_client_secret ?? ""} onChange={handleChange} className="w-full border rounded px-3 py-2" placeholder={keys.reddit_client_secret || "Enter Reddit Client Secret"} />
+        </div>
+        <div>
+          <label className="block font-medium mb-1">Reddit User Agent</label>
+          <input name="reddit_user_agent" value={form.reddit_user_agent ?? ""} onChange={handleChange} className="w-full border rounded px-3 py-2" placeholder={keys.reddit_user_agent || "Enter Reddit User Agent"} />
+        </div>
+      </div>
+      <button className="px-4 py-2 bg-indigo-600 text-white rounded" onClick={handleSave} disabled={saving}>{saving ? "Saving..." : "Save API Keys"}</button>
+      <hr className="my-6" />
+      <h3 className="text-lg font-semibold mb-2">Scraping Controls</h3>
+      <div className="flex flex-col md:flex-row md:items-end gap-4 mb-4">
+        <div>
+          <label className="block font-medium mb-1">Source</label>
+          <select value={source} onChange={e => setSource(e.target.value)} className="border rounded px-3 py-2">
+            <option value="twitter">Twitter</option>
+            <option value="reddit">Reddit</option>
+            <option value="newsapi">NewsAPI</option>
+          </select>
+        </div>
+        <div>
+          <label className="block font-medium mb-1">Entity</label>
+          <input value={entity} onChange={e => setEntity(e.target.value)} className="border rounded px-3 py-2" placeholder="Enter entity name or handle" />
+        </div>
+        <button className="px-4 py-2 bg-green-600 text-white rounded" onClick={handleTrigger} disabled={triggering}>{triggering ? "Triggering..." : "Run Scraper"}</button>
+      </div>
+      <h4 className="font-semibold mb-2">Scraping Status</h4>
+      {loading ? <div>Loading status...</div> : (
+        <div>
+          <div className="mb-2">Last Run: {status?.last_run}</div>
+          <div className="mb-2">Status: {status?.status}</div>
+          <div className="mb-2">Logs:</div>
+          <ul className="text-sm bg-gray-100 rounded p-2">
+            {logs.map((log, i) => <li key={i}>{log}</li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function NotificationsTab() {
+  const [prefs, setPrefs] = useState({ email: true, sms: false, push: true });
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [testing, setTesting] = useState(false);
+
+  useEffect(() => {
+    notificationAPI.getPreferences().then((data) => {
+      setPrefs(data);
+      setLoading(false);
+    });
+  }, []);
+
+  const handleChange = (e) => {
+    setPrefs({ ...prefs, [e.target.name]: e.target.checked });
+  };
+  const handleSave = async () => {
+    setSaving(true);
+    await notificationAPI.updatePreferences(prefs);
+    setSaving(false);
+    alert("Preferences saved.");
+  };
+  const handleTest = async () => {
+    setTesting(true);
+    await notificationAPI.testNotification();
+    setTesting(false);
+    alert("Test notification sent.");
+  };
+  return (
+    <div className="bg-white rounded-lg shadow p-6">
+      <h2 className="text-2xl font-bold mb-2">Notifications</h2>
+      <p className="text-gray-600 mb-4">Manage notification preferences and test notification delivery.</p>
+      {loading ? <div>Loading preferences...</div> : (
+        <div className="mb-4">
+          <label className="block font-medium mb-1">Default Notification Channels</label>
+          <div className="flex space-x-4">
+            <label><input type="checkbox" name="email" checked={!!prefs.email} onChange={handleChange} /> Email</label>
+            <label><input type="checkbox" name="sms" checked={!!prefs.sms} onChange={handleChange} /> SMS</label>
+            <label><input type="checkbox" name="push" checked={!!prefs.push} onChange={handleChange} /> Push</label>
+          </div>
+        </div>
+      )}
+      <button className="px-4 py-2 bg-indigo-600 text-white rounded" onClick={handleSave} disabled={saving}>{saving ? "Saving..." : "Save Preferences"}</button>
+      <hr className="my-6" />
+      <h3 className="text-lg font-semibold mb-2">Test Notification</h3>
+      <button className="px-4 py-2 bg-green-600 text-white rounded" onClick={handleTest} disabled={testing}>{testing ? "Sending..." : "Send Test Notification"}</button>
+    </div>
+  );
+}
+
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
   const [users, setUsers] = useState([]);
@@ -441,154 +588,6 @@ export default function AdminDashboard() {
         {activeTab === 'analytics' && renderAnalytics()}
         {activeTab === 'scraping' && <ScrapingTab />}
         {activeTab === 'notifications' && <NotificationsTab />}
-      // Scraping/API Keys Tab Component
-      function ScrapingTab() {
-        const [keys, setKeys] = useState({});
-        const [form, setForm] = useState({});
-        const [status, setStatus] = useState(null);
-        const [logs, setLogs] = useState([]);
-        const [loading, setLoading] = useState(true);
-        const [saving, setSaving] = useState(false);
-        const [triggering, setTriggering] = useState(false);
-        const [entity, setEntity] = useState("");
-        const [source, setSource] = useState("twitter");
-
-        useEffect(() => {
-          adminScrapingAPI.getApiKeys().then(setKeys);
-          adminScrapingAPI.getScrapingStatus().then((s) => {
-            setStatus(s);
-            setLogs(s.logs || []);
-            setLoading(false);
-          });
-        }, []);
-
-        const handleChange = (e) => {
-          setForm({ ...form, [e.target.name]: e.target.value });
-        };
-        const handleSave = async () => {
-          setSaving(true);
-          await adminScrapingAPI.updateApiKeys(form);
-          const updated = await adminScrapingAPI.getApiKeys();
-          setKeys(updated);
-          setSaving(false);
-          setForm({});
-          alert("API keys updated.");
-        };
-        const handleTrigger = async () => {
-          setTriggering(true);
-          await adminScrapingAPI.triggerScraping(source, entity);
-          setTriggering(false);
-          alert("Scraping triggered.");
-        };
-        return (
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-2xl font-bold mb-2">Scraping & API Keys</h2>
-            <p className="text-gray-600 mb-4">Configure API keys for social/news sources and control scraping jobs.</p>
-            <div className="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block font-medium mb-1">Twitter API Key</label>
-                <input name="twitter" value={form.twitter ?? ""} onChange={handleChange} className="w-full border rounded px-3 py-2" placeholder={keys.twitter || "Enter Twitter API Key"} />
-              </div>
-              <div>
-                <label className="block font-medium mb-1">NewsAPI Key</label>
-                <input name="newsapi" value={form.newsapi ?? ""} onChange={handleChange} className="w-full border rounded px-3 py-2" placeholder={keys.newsapi || "Enter NewsAPI Key"} />
-              </div>
-              <div>
-                <label className="block font-medium mb-1">Reddit Client ID</label>
-                <input name="reddit_client_id" value={form.reddit_client_id ?? ""} onChange={handleChange} className="w-full border rounded px-3 py-2" placeholder={keys.reddit_client_id || "Enter Reddit Client ID"} />
-              </div>
-              <div>
-                <label className="block font-medium mb-1">Reddit Client Secret</label>
-                <input name="reddit_client_secret" value={form.reddit_client_secret ?? ""} onChange={handleChange} className="w-full border rounded px-3 py-2" placeholder={keys.reddit_client_secret || "Enter Reddit Client Secret"} />
-              </div>
-              <div>
-                <label className="block font-medium mb-1">Reddit User Agent</label>
-                <input name="reddit_user_agent" value={form.reddit_user_agent ?? ""} onChange={handleChange} className="w-full border rounded px-3 py-2" placeholder={keys.reddit_user_agent || "Enter Reddit User Agent"} />
-              </div>
-            </div>
-            <button className="px-4 py-2 bg-indigo-600 text-white rounded" onClick={handleSave} disabled={saving}>{saving ? "Saving..." : "Save API Keys"}</button>
-            <hr className="my-6" />
-            <h3 className="text-lg font-semibold mb-2">Scraping Controls</h3>
-            <div className="flex flex-col md:flex-row md:items-end gap-4 mb-4">
-              <div>
-                <label className="block font-medium mb-1">Source</label>
-                <select value={source} onChange={e => setSource(e.target.value)} className="border rounded px-3 py-2">
-                  <option value="twitter">Twitter</option>
-                  <option value="reddit">Reddit</option>
-                  <option value="newsapi">NewsAPI</option>
-                </select>
-              </div>
-              <div>
-                <label className="block font-medium mb-1">Entity</label>
-                <input value={entity} onChange={e => setEntity(e.target.value)} className="border rounded px-3 py-2" placeholder="Enter entity name or handle" />
-              </div>
-              <button className="px-4 py-2 bg-green-600 text-white rounded" onClick={handleTrigger} disabled={triggering}>{triggering ? "Triggering..." : "Run Scraper"}</button>
-            </div>
-            <h4 className="font-semibold mb-2">Scraping Status</h4>
-            {loading ? <div>Loading status...</div> : (
-              <div>
-                <div className="mb-2">Last Run: {status?.last_run}</div>
-                <div className="mb-2">Status: {status?.status}</div>
-                <div className="mb-2">Logs:</div>
-                <ul className="text-sm bg-gray-100 rounded p-2">
-                  {logs.map((log, i) => <li key={i}>{log}</li>)}
-                </ul>
-              </div>
-            )}
-          </div>
-        );
-      }
-
-      // Notifications Tab Component
-      function NotificationsTab() {
-        const [prefs, setPrefs] = useState({ email: true, sms: false, push: true });
-        const [loading, setLoading] = useState(true);
-        const [saving, setSaving] = useState(false);
-        const [testing, setTesting] = useState(false);
-
-        useEffect(() => {
-          notificationAPI.getPreferences().then((data) => {
-            setPrefs(data);
-            setLoading(false);
-          });
-        }, []);
-
-        const handleChange = (e) => {
-          setPrefs({ ...prefs, [e.target.name]: e.target.checked });
-        };
-        const handleSave = async () => {
-          setSaving(true);
-          await notificationAPI.updatePreferences(prefs);
-          setSaving(false);
-          alert("Preferences saved.");
-        };
-        const handleTest = async () => {
-          setTesting(true);
-          await notificationAPI.testNotification();
-          setTesting(false);
-          alert("Test notification sent.");
-        };
-        return (
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-2xl font-bold mb-2">Notifications</h2>
-            <p className="text-gray-600 mb-4">Manage notification preferences and test notification delivery.</p>
-            {loading ? <div>Loading preferences...</div> : (
-              <div className="mb-4">
-                <label className="block font-medium mb-1">Default Notification Channels</label>
-                <div className="flex space-x-4">
-                  <label><input type="checkbox" name="email" checked={!!prefs.email} onChange={handleChange} /> Email</label>
-                  <label><input type="checkbox" name="sms" checked={!!prefs.sms} onChange={handleChange} /> SMS</label>
-                  <label><input type="checkbox" name="push" checked={!!prefs.push} onChange={handleChange} /> Push</label>
-                </div>
-              </div>
-            )}
-            <button className="px-4 py-2 bg-indigo-600 text-white rounded" onClick={handleSave} disabled={saving}>{saving ? "Saving..." : "Save Preferences"}</button>
-            <hr className="my-6" />
-            <h3 className="text-lg font-semibold mb-2">Test Notification</h3>
-            <button className="px-4 py-2 bg-green-600 text-white rounded" onClick={handleTest} disabled={testing}>{testing ? "Sending..." : "Send Test Notification"}</button>
-          </div>
-        );
-      }
       </div>
     </div>
   );

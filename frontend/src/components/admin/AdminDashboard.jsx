@@ -178,6 +178,70 @@ function NotificationsTab() {
   );
 }
 
+function ChangePasswordTab() {
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleChangePassword = async () => {
+    if (newPassword !== confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await adminScrapingAPI.changePassword(currentPassword, newPassword);
+      alert('Password changed successfully!');
+    } catch (error) {
+      alert('Failed to change password. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="bg-white rounded-lg shadow p-6">
+      <h2 className="text-2xl font-bold mb-2">Change Password</h2>
+      <div className="mb-4">
+        <label className="block font-medium mb-1">Current Password</label>
+        <input
+          type="password"
+          value={currentPassword}
+          onChange={(e) => setCurrentPassword(e.target.value)}
+          className="w-full border rounded px-3 py-2"
+        />
+      </div>
+      <div className="mb-4">
+        <label className="block font-medium mb-1">New Password</label>
+        <input
+          type="password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          className="w-full border rounded px-3 py-2"
+        />
+      </div>
+      <div className="mb-4">
+        <label className="block font-medium mb-1">Confirm New Password</label>
+        <input
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          className="w-full border rounded px-3 py-2"
+        />
+      </div>
+      <button
+        onClick={handleChangePassword}
+        className="px-4 py-2 bg-indigo-600 text-white rounded"
+        disabled={loading}
+      >
+        {loading ? 'Changing...' : 'Change Password'}
+      </button>
+    </div>
+  );
+}
+
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
   const [users, setUsers] = useState([]);
@@ -555,7 +619,7 @@ export default function AdminDashboard() {
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex space-x-8" aria-label="Tabs">
-            {['overview', 'applications', 'users', 'analytics', 'scraping', 'notifications'].map((tab) => (
+            {['overview', 'applications', 'users', 'analytics', 'scraping', 'notifications', 'change-password'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -580,6 +644,7 @@ export default function AdminDashboard() {
         {activeTab === 'analytics' && renderAnalytics()}
         {activeTab === 'scraping' && <ScrapingTab />}
         {activeTab === 'notifications' && <NotificationsTab />}
+        {activeTab === 'change-password' && <ChangePasswordTab />}
       </div>
     </div>
   );

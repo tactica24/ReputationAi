@@ -8,6 +8,7 @@ const HomePage = () => {
   const { user, isAuthenticated } = useAuthStore();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -127,15 +128,15 @@ const HomePage = () => {
       {/* Hero Section */}
       <section className="hero-premium">
         <div className="hero-content-wrapper">
-          <div className="hero-badge">Trusted by Fortune 500 Executives</div>
+          <div className="hero-badge">Trusted by Industry Leaders</div>
           <h1 className="hero-heading">
             Protect Your Reputation
             <br/>
-            <span className="gradient-text">With the Latest Technology</span>
+            <span className="gradient-text">With Cutting-Edge Solutions</span>
           </h1>
           <p className="hero-description">
-            Enterprise-grade monitoring across every platform. Detect threats in real-time, 
-            respond instantly, and safeguard what took decades to build.
+            Professional-grade monitoring across platforms. Detect risks instantly, 
+            respond effectively, and safeguard your legacy.
           </p>
 
           <div className="hero-cta-group">
@@ -166,18 +167,23 @@ const HomePage = () => {
       {/* Contact Us Section */}
       <section className="contact-us">
         <h2>Contact Us</h2>
-        <form className="contact-form">
-          <label htmlFor="name">Name</label>
-          <input type="text" id="name" name="name" required />
+        <button className="btn-contact-us" onClick={() => setShowForm(!showForm)}>
+          {showForm ? 'Hide Form' : 'Contact Us'}
+        </button>
+        {showForm && (
+          <form className="contact-form">
+            <label htmlFor="name">Name</label>
+            <input type="text" id="name" name="name" required />
 
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" name="email" required />
+            <label htmlFor="email">Email</label>
+            <input type="email" id="email" name="email" required />
 
-          <label htmlFor="message">Message</label>
-          <textarea id="message" name="message" rows="4" required></textarea>
+            <label htmlFor="message">Message</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
 
-          <button type="submit" className="btn-submit">Submit</button>
-        </form>
+            <button type="submit" className="btn-submit">Submit</button>
+          </form>
+        )}
       </section>
 
       {/* Footer */}

@@ -112,7 +112,7 @@ function LoginPage() {
                 />
                 <span className="ml-2 text-sm text-slate-400">Remember me</span>
               </label>
-              <a href="#" className="text-sm text-indigo-400 hover:text-indigo-300">
+              <a href="/reset-password" className="text-sm text-indigo-400 hover:text-indigo-300">
                 Forgot password?
               </a>
             </div>

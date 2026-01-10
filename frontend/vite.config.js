@@ -26,7 +26,7 @@ export default defineConfig({
     }
   },
   build: {
-    outDir: 'build',
+    outDir: 'build', // Vercel expects frontend/build
     sourcemap: true,
     rollupOptions: {
       output: {

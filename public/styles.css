@@ -920,6 +920,8 @@ body.nav-open {
 }
 
 /* === FOOTER === */
+
+/* === FOOTER (Redesigned) === */
 .footer-premium {
     background: var(--bg-secondary);
     border-top: 1px solid var(--border-subtle);
@@ -931,61 +933,125 @@ body.nav-open {
     margin: 0 auto;
 }
 
-.footer-grid {
+.footer-grid.redesigned-footer {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr;
     gap: 3rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
+    align-items: flex-start;
 }
 
 .footer-brand .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     margin-bottom: 1rem;
+}
+
+.footer-brand .brand-icon {
+    width: 36px;
+    height: 36px;
+}
+
+.brand-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.02em;
 }
 
 .footer-tagline {
     color: var(--text-muted);
-    max-width: 300px;
+    max-width: 320px;
+    font-size: 1rem;
+    margin-top: 0.5rem;
 }
 
 .footer-links h4 {
-    font-size: 0.875rem;
-    font-weight: 600;
+    font-size: 0.9rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     color: var(--text-secondary);
-    margin-bottom: 1rem;
+    margin-bottom: 1.1rem;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links ul li {
+    margin-bottom: 0.7rem;
 }
 
 .footer-links a {
-    display: block;
     color: var(--text-muted);
     text-decoration: none;
-    margin-bottom: 0.75rem;
+    font-size: 1rem;
     transition: color 0.2s;
 }
 
 .footer-links a:hover {
-    color: var(--text-primary);
+    color: var(--primary);
+    text-decoration: underline;
 }
 
-.footer-bottom {
-    padding-top: 2rem;
+.footer-bottom.redesigned-footer-bottom {
+    padding-top: 1.5rem;
     border-top: 1px solid var(--border-subtle);
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: var(--text-muted);
-    font-size: 0.875rem;
+    font-size: 0.95rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-bottom-left {
+    flex: 1 1 50%;
+}
+.footer-bottom-right {
+    flex: 1 1 50%;
+    text-align: right;
 }
 
 .footer-emergency {
     color: var(--text-secondary);
+    font-weight: 500;
 }
 
 .footer-emergency a {
     color: var(--error);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+    .footer-grid.redesigned-footer {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-grid.redesigned-footer {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .footer-bottom.redesigned-footer-bottom {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    .footer-bottom-left, .footer-bottom-right {
+        text-align: center;
+    }
 }
 
 /* === RESPONSIVE DESIGN === */

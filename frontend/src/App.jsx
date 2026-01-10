@@ -16,6 +16,7 @@ import SubscribePage from './pages/SubscribePage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import SecurityPage from './pages/SecurityPage';
+import OnboardingPage from './components/onboarding/OnboardingPage';
 import { useAuthStore } from './store/authStore';
 
 function App() {
@@ -32,8 +33,12 @@ function App() {
       <Route path="/terms" element={<TermsPage />} />
       <Route path="/security" element={<SecurityPage />} />
       
+
       {/* Login page */}
       <Route path="/login" element={<LoginPage />} />
+
+      {/* Onboarding portal (after admin approval) */}
+      <Route path="/onboarding/:token" element={<OnboardingPage />} />
 
       {/* Protected routes */}
       {isAuthenticated ? (

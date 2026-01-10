@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-
 function MentionsPage() {
   const [mentions, setMentions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState('all'); // all, positive, neutral, negative
-  const [sortBy, setSortBy] = useState('recent'); // recent, sentiment, relevance
 
   useEffect(() => {
     fetchMentions();
-  }, [filter, sortBy]);
+  }, []);
 
   const fetchMentions = async () => {
     try {
@@ -17,80 +14,40 @@ function MentionsPage() {
       const mockMentions = [
         {
           id: 1,
-          entity: 'John Doe',
           platform: 'Twitter',
-          author: '@techreporter',
-          content: 'John Doe\'s leadership has transformed the industry. Incredible vision!',
+          content: "Your name was mentioned in a tweet.",
           url: 'https://twitter.com/example/123',
-          sentiment: 92,
           timestamp: new Date(Date.now() - 3600000).toISOString(),
-          reach: 12500,
-          verified: true
         },
         {
           id: 2,
-          entity: 'Acme Corporation',
           platform: 'LinkedIn',
-          author: 'Sarah Johnson',
-          content: 'Had a mixed experience with Acme Corp\'s latest product release.',
+          content: "Mentioned in a LinkedIn post.",
           url: 'https://linkedin.com/posts/example',
-          sentiment: 45,
           timestamp: new Date(Date.now() - 7200000).toISOString(),
-          reach: 3200,
-          verified: false
         },
         {
           id: 3,
-          entity: 'John Doe',
           platform: 'Reddit',
-          author: 'u/industry_insider',
-          content: 'Disappointed by the recent decision from John Doe. Expected better.',
+          content: "Your name appeared in a Reddit discussion.",
           url: 'https://reddit.com/r/example',
-          sentiment: 25,
           timestamp: new Date(Date.now() - 10800000).toISOString(),
-          reach: 8900,
-          verified: false
         },
         {
           id: 4,
-          entity: 'Acme Corporation',
           platform: 'Google Reviews',
-          author: 'Mike Thompson',
-          content: 'Outstanding service! Acme Corporation exceeded all expectations.',
+          content: "Mentioned in a Google review.",
           url: 'https://google.com/reviews/example',
-          sentiment: 95,
           timestamp: new Date(Date.now() - 14400000).toISOString(),
-          reach: 450,
-          verified: true
         }
       ];
-
       setTimeout(() => {
-        let filtered = mockMentions;
-        
-        if (filter === 'positive') filtered = mockMentions.filter(m => m.sentiment >= 70);
-        else if (filter === 'neutral') filtered = mockMentions.filter(m => m.sentiment >= 40 && m.sentiment < 70);
-        else if (filter === 'negative') filtered = mockMentions.filter(m => m.sentiment < 40);
-
-        setMentions(filtered);
+        setMentions(mockMentions);
         setLoading(false);
       }, 600);
     } catch (error) {
-      console.error('Error fetching mentions:', error);
       setLoading(false);
     }
-  };
-
-  const getSentimentColor = (sentiment) => {
-    if (sentiment >= 70) return 'text-green-600 bg-green-50';
-    if (sentiment >= 40) return 'text-yellow-600 bg-yellow-50';
-    return 'text-red-600 bg-red-50';
-  };
-
-  const getSentimentLabel = (sentiment) => {
-    if (sentiment >= 70) return 'Positive';
-    if (sentiment >= 40) return 'Neutral';
-    return 'Negative';
   };
 
   const formatTimestamp = (timestamp) => {
@@ -99,23 +56,10 @@ function MentionsPage() {
     const diff = now - date;
     const hours = Math.floor(diff / 3600000);
     const days = Math.floor(diff / 86400000);
-
     if (hours < 1) return 'Just now';
     if (hours < 24) return `${hours}h ago`;
     if (days < 7) return `${days}d ago`;
     return date.toLocaleDateString();
-  };
-
-  const getPlatformIcon = (platform) => {
-    const icons = {
-      'Twitter': '🐦',
-      'LinkedIn': '💼',
-      'Reddit': '🔴',
-      'Google Reviews': '⭐',
-      'Facebook': '📘',
-      'Instagram': '📷'
-    };
-    return icons[platform] || '🌐';
   };
 
   if (loading) {
@@ -128,35 +72,24 @@ function MentionsPage() {
 
   return (
     <div className="p-6">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">Mentions</h1>
-        <p className="text-gray-600 mt-1">Track what people are saying about your entities</p>
+      <h1 className="text-3xl font-bold text-gray-900 mb-6">Mentions</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {mentions.map(mention => (
+          <div key={mention.id} className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+            <div className="font-semibold text-lg mb-2">{mention.platform}</div>
+            <div className="text-gray-800 mb-2 line-clamp-2">{mention.content}</div>
+            <div className="flex justify-between items-center text-xs text-gray-500">
+              <span>{formatTimestamp(mention.timestamp)}</span>
+              <a href={mention.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">View Source</a>
+            </div>
+          </div>
+        ))}
       </div>
+    </div>
+  );
+}
 
-      {/* Filters */}
-      <div className="bg-white rounded-lg shadow-sm p-4 mb-6 border border-gray-200">
-        <div className="flex flex-wrap gap-4 items-center justify-between">
-          <div className="flex space-x-2">
-            <button
-              onClick={() => setFilter('all')}
-              className={`px-4 py-2 rounded-lg transition ${
-                filter === 'all' 
-                  ? 'bg-blue-600 text-white' 
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              All
-            </button>
-            <button
-              onClick={() => setFilter('positive')}
-              className={`px-4 py-2 rounded-lg transition ${
-                filter === 'positive' 
-                  ? 'bg-green-600 text-white' 
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              Positive
-            </button>
+export default MentionsPage;
             <button
               onClick={() => setFilter('neutral')}
               className={`px-4 py-2 rounded-lg transition ${

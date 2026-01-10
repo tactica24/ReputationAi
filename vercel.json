@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "cd frontend && npm run build && cd .. && mkdir -p public/app && cp index.html public/ && cp styles.css public/ && cp script.js public/ && cp -r frontend/build/* public/app/",
-  "outputDirectory": "public",
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/build",
   "framework": null,
   "installCommand": "cd frontend && npm install",
   "rewrites": [

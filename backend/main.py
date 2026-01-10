@@ -29,6 +29,7 @@ from backend.database.models import UserRole as DBUserRole, ApplicationStatus
 # Import API routers
 from backend.api.auth import router as auth_router
 from backend.api.quick_onboard import router as onboard_router
+from backend.api.admin_scraping import router as admin_scraping_router
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -216,6 +217,7 @@ security_bearer = HTTPBearer()
 # Include routers
 app.include_router(auth_router, prefix="/api/v1")
 app.include_router(onboard_router, prefix="/api/v1")
+app.include_router(admin_scraping_router, prefix="/api/v1")
 
 # Initialize services (commented out for now - auth only)
 # sentiment_analyzer = SentimentAnalyzer(model_type="transformer")

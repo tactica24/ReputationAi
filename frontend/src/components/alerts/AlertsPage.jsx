@@ -27,172 +27,116 @@ function AlertsPage() {
           reach: 45000
         },
         {
-          id: 2,
-          title: 'Unusual spike in mentions',
-          description: 'Acme Corporation mentioned 300% more than usual in the last hour',
-          severity: 'high',
-          entity: 'Acme Corporation',
-          timestamp: new Date(Date.now() - 3600000).toISOString(),
-          read: false,
-          actionTaken: false,
-          sources: 8,
-          reach: 23000
-        },
-        {
-          id: 3,
-          title: 'Potential deepfake video detected',
-          description: 'AI-generated video featuring John Doe found on YouTube',
-          severity: 'critical',
-          entity: 'John Doe',
-          timestamp: new Date(Date.now() - 5400000).toISOString(),
-          read: true,
-          actionTaken: true,
-          sources: 3,
-          reach: 12000
-        },
-        {
-          id: 4,
-          title: 'Negative review surge',
-          description: '12 new negative reviews posted within 2 hours on Google',
-          severity: 'high',
-          entity: 'Acme Corporation',
-          timestamp: new Date(Date.now() - 7200000).toISOString(),
-          read: true,
-          actionTaken: false,
-          sources: 12,
-          reach: 5600
-        },
-        {
-          id: 5,
-          title: 'Positive trending topic',
-          description: 'John Doe trending positively on Twitter',
-          severity: 'low',
-          entity: 'John Doe',
-          timestamp: new Date(Date.now() - 10800000).toISOString(),
-          read: true,
-          actionTaken: false,
-          sources: 25,
-          reach: 89000
-        }
-      ];
+          function AlertsPage() {
+            const [alerts, setAlerts] = useState([]);
+            const [loading, setLoading] = useState(true);
 
-      setTimeout(() => {
-        let filtered = mockAlerts;
-        
-        if (filter === 'unread') filtered = mockAlerts.filter(a => !a.read);
-        else if (filter !== 'all') filtered = mockAlerts.filter(a => a.severity === filter);
+            useEffect(() => {
+              fetchAlerts();
+            }, []);
 
-        setAlerts(filtered);
-        setLoading(false);
-      }, 600);
-    } catch (error) {
-      console.error('Error fetching alerts:', error);
-      setLoading(false);
-    }
-  };
+            const fetchAlerts = async () => {
+              try {
+                setLoading(true);
+                // Simulate API call - replace with actual endpoint
+                const mockAlerts = [
+                  {
+                    id: 1,
+                    title: 'Negative campaign detected',
+                    severity: 'critical',
+                    timestamp: new Date(Date.now() - 1800000).toISOString(),
+                    url: 'https://twitter.com/example/123',
+                  },
+                  {
+                    id: 2,
+                    title: 'Unusual spike in mentions',
+                    severity: 'high',
+                    timestamp: new Date(Date.now() - 3600000).toISOString(),
+                    url: 'https://reddit.com/r/example',
+                  },
+                  {
+                    id: 3,
+                    title: 'Potential deepfake video detected',
+                    severity: 'critical',
+                    timestamp: new Date(Date.now() - 5400000).toISOString(),
+                    url: 'https://youtube.com/watch?v=example',
+                  },
+                  {
+                    id: 4,
+                    title: 'Negative review surge',
+                    severity: 'high',
+                    timestamp: new Date(Date.now() - 7200000).toISOString(),
+                    url: 'https://google.com/reviews/example',
+                  },
+                  {
+                    id: 5,
+                    title: 'Positive trending topic',
+                    severity: 'low',
+                    timestamp: new Date(Date.now() - 10800000).toISOString(),
+                    url: 'https://twitter.com/example/456',
+                  }
+                ];
+                setTimeout(() => {
+                  setAlerts(mockAlerts);
+                  setLoading(false);
+                }, 600);
+              } catch (error) {
+                setLoading(false);
+              }
+            };
 
-  const getSeverityColor = (severity) => {
-    switch (severity) {
-      case 'critical': return 'bg-red-100 text-red-800 border-red-200';
-      case 'high': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'low': return 'bg-green-100 text-green-800 border-green-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
-    }
-  };
+            const getSeverityColor = (severity) => {
+              switch (severity) {
+                case 'critical': return 'bg-red-100 text-red-800 border-red-200';
+                case 'high': return 'bg-orange-100 text-orange-800 border-orange-200';
+                case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+                case 'low': return 'bg-green-100 text-green-800 border-green-200';
+                default: return 'bg-gray-100 text-gray-800 border-gray-200';
+              }
+            };
 
-  const getSeverityIcon = (severity) => {
-    switch (severity) {
-      case 'critical': return '🚨';
-      case 'high': return '⚠️';
-      case 'medium': return '⚡';
-      case 'low': return '✅';
-      default: return 'ℹ️';
-    }
-  };
+            const getSeverityIcon = (severity) => {
+              switch (severity) {
+                case 'critical': return '🚨';
+                case 'high': return '⚠️';
+                case 'medium': return '⚡';
+                case 'low': return '✅';
+                default: return 'ℹ️';
+              }
+            };
 
-  const markAsRead = (id) => {
-    setAlerts(alerts.map(alert => 
-      alert.id === id ? { ...alert, read: true } : alert
-    ));
-  };
+            if (loading) {
+              return (
+                <div className="flex items-center justify-center h-96">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+                </div>
+              );
+            }
 
-  const markActionTaken = (id) => {
-    setAlerts(alerts.map(alert => 
-      alert.id === id ? { ...alert, actionTaken: true } : alert
-    ));
-  };
+            return (
+              <div className="p-6">
+                <h1 className="text-3xl font-bold text-gray-900 mb-6">Alerts</h1>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {alerts.map(alert => (
+                    <div key={alert.id} className={`bg-white rounded-lg shadow-md p-6 border-2 ${getSeverityColor(alert.severity)}`}>
+                      <div className="flex items-center mb-2">
+                        <span className="text-2xl mr-2">{getSeverityIcon(alert.severity)}</span>
+                        <div className="font-semibold text-lg">{alert.title}</div>
+                      </div>
+                      <div className="flex justify-between items-center text-xs text-gray-500 mt-2">
+                        <span>{new Date(alert.timestamp).toLocaleString()}</span>
+                        {alert.url && (
+                          <a href={alert.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">View Source</a>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          }
 
-  const deleteAlert = (id) => {
-    if (window.confirm('Are you sure you want to delete this alert?')) {
-      setAlerts(alerts.filter(alert => alert.id !== id));
-    }
-  };
-
-  const formatTimestamp = (timestamp) => {
-    const date = new Date(timestamp);
-    const now = new Date();
-    const diff = now - date;
-    const hours = Math.floor(diff / 3600000);
-    const days = Math.floor(diff / 86400000);
-
-    if (hours < 1) return 'Just now';
-    if (hours < 24) return `${hours}h ago`;
-    if (days < 7) return `${days}d ago`;
-    return date.toLocaleDateString();
-  };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-96">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
-
-  const unreadCount = alerts.filter(a => !a.read).length;
-
-  return (
-    <div className="p-6">
-      <div className="mb-6 flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Alerts</h1>
-          <p className="text-gray-600 mt-1">
-            Critical notifications and threats requiring your attention
-            {unreadCount > 0 && (
-              <span className="ml-2 px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium">
-                {unreadCount} unread
-              </span>
-            )}
-          </p>
-        </div>
-      </div>
-
-      {/* Filters */}
-      <div className="bg-white rounded-lg shadow-sm p-4 mb-6 border border-gray-200">
-        <div className="flex flex-wrap gap-2">
-          <button
-            onClick={() => setFilter('all')}
-            className={`px-4 py-2 rounded-lg transition ${
-              filter === 'all' 
-                ? 'bg-blue-600 text-white' 
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            All Alerts
-          </button>
-          <button
-            onClick={() => setFilter('unread')}
-            className={`px-4 py-2 rounded-lg transition ${
-              filter === 'unread' 
-                ? 'bg-blue-600 text-white' 
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            Unread {unreadCount > 0 && `(${unreadCount})`}
-          </button>
-          <button
-            onClick={() => setFilter('critical')}
+          export default AlertsPage;
             className={`px-4 py-2 rounded-lg transition ${
               filter === 'critical' 
                 ? 'bg-red-600 text-white' 

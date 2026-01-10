@@ -134,19 +134,16 @@ const HomePage = () => {
           <h1 className="hero-heading">
             Protect Your Reputation
             <br/>
-            <span className="gradient-text">Before It's Too Late</span>
+            <span className="gradient-text">With the Latest Technology</span>
           </h1>
           <p className="hero-description">
-            Enterprise-grade AI monitoring across every platform. Detect threats in real-time, 
+            Enterprise-grade monitoring across every platform. Detect threats in real-time, 
             respond instantly, and safeguard what took decades to build.
           </p>
 
           <div className="hero-cta-group">
             <button onClick={() => handleNavClick('subscribe')} className="btn-hero-primary">
               Start Protection Now
-            </button>
-            <button onClick={() => handleNavClick('features')} className="btn-hero-secondary">
-              See How It Works
             </button>
           </div>
 
@@ -158,7 +155,7 @@ const HomePage = () => {
             <div className="trust-divider"></div>
             <div className="trust-stat">
               <span className="trust-number">24/7</span>
-              <span className="trust-label">AI Monitoring</span>
+              <span className="trust-label">Monitoring</span>
             </div>
             <div className="trust-divider"></div>
             <div className="trust-stat">
@@ -167,6 +164,23 @@ const HomePage = () => {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Contact Us Section */}
+      <section className="contact-us">
+        <h2>Contact Us</h2>
+        <form className="contact-form">
+          <label htmlFor="name">Name</label>
+          <input type="text" id="name" name="name" required />
+
+          <label htmlFor="email">Email</label>
+          <input type="email" id="email" name="email" required />
+
+          <label htmlFor="message">Message</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+
+          <button type="submit" className="btn-submit">Submit</button>
+        </form>
       </section>
 
       {/* Footer */}

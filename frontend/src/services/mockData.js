@@ -44,7 +44,7 @@ export const mockDataService = {
           email: 'contact@verisignal.com',
           industry: 'Technology',
           company_size: '50-100',
-          use_case: 'AI-powered digital reputation monitoring for our SaaS product',
+          use_case: 'AI-powered digital reputation and identity protection for our SaaS product',
           status: 'pending',
           created_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
         },
@@ -54,7 +54,7 @@ export const mockDataService = {
           email: 'info@verisignal.com',
           industry: 'Finance',
           company_size: '100-500',
-          use_case: 'Executive digital reputation monitoring',
+          use_case: 'Executive digital reputation and identity protection',
           status: 'approved',
           created_at: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
         },

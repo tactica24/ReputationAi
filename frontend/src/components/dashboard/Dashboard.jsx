@@ -8,7 +8,7 @@ import { mockDataService } from '../../services/mockData';
 
 /**
  * Main Dashboard Component
- * Interactive reputation monitoring dashboard with real-time insights
+ * Interactive digital reputation and identity protection dashboard with real-time insights
  */
 const Dashboard = ({ entityId }) => {
   const [dashboardData, setDashboardData] = useState(null);

@@ -207,7 +207,7 @@ const HomePage = () => {
                 </svg>
                 <span className="brand-name">VeriSignal</span>
               </div>
-              <p className="footer-tagline">AI-powered digital reputation & identity protection for the modern era.</p>
+              <p className="footer-tagline">AI-powered digital reputation and identity protection for the modern era. Powered by VeriSignal.</p>
             </div>
 
             <div className="footer-links">

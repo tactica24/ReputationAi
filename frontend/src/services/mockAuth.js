@@ -15,23 +15,13 @@ const MOCK_USERS = {
     password: 'admin123',
     is_active: true
   },
-  'admin@reputation.ai': {
-    id: 2,
-    email: 'admin@reputation.ai',
-    username: 'admin',
-    name: 'System Administrator',
-    full_name: 'System Administrator',
-    role: 'admin',
-    password: 'Admin@2024!',
-    is_active: true
-  },
   'user@verisignal.com': {
-    id: 3,
+    id: 2,
     email: 'user@verisignal.com',
     username: 'user',
     name: 'Demo User',
     full_name: 'Demo User',
-    company: 'Demo Corp',
+    company: 'VeriSignal',
     role: 'user',
     password: 'user123',
     is_active: true

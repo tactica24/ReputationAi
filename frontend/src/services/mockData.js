@@ -40,31 +40,31 @@ export const mockDataService = {
       data: [
         {
           id: '1',
-          company_name: 'TechStart Inc',
-          email: 'contact@techstart.com',
+          company_name: 'VeriSignal Inc',
+          email: 'contact@verisignal.com',
           industry: 'Technology',
           company_size: '50-100',
-          use_case: 'Brand reputation monitoring for our SaaS product',
+          use_case: 'AI-powered digital reputation monitoring for our SaaS product',
           status: 'pending',
           created_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
         },
         {
           id: '2',
-          company_name: 'Global Finance Ltd',
-          email: 'info@globalfinance.com',
+          company_name: 'VeriSignal Finance',
+          email: 'info@verisignal.com',
           industry: 'Finance',
           company_size: '100-500',
-          use_case: 'Executive reputation monitoring',
+          use_case: 'Executive digital reputation monitoring',
           status: 'approved',
           created_at: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
         },
         {
           id: '3',
-          company_name: 'HealthTech Solutions',
-          email: 'hello@healthtech.io',
+          company_name: 'VeriSignal Health',
+          email: 'hello@verisignal.com',
           industry: 'Healthcare',
           company_size: '10-50',
-          use_case: 'Medical practice reputation management',
+          use_case: 'Medical practice digital reputation management',
           status: 'rejected',
           created_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
         }
@@ -87,18 +87,18 @@ export const mockDataService = {
         },
         {
           id: '2',
-          email: 'john@techcorp.com',
+          email: 'john@verisignal.com',
           name: 'John Smith',
-          company: 'Tech Corp',
+          company: 'VeriSignal',
           role: 'user',
           is_active: true,
           created_at: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString()
         },
         {
           id: '3',
-          email: 'sarah@innovation.io',
+          email: 'sarah@verisignal.com',
           name: 'Sarah Johnson',
-          company: 'Innovation Inc',
+          company: 'VeriSignal',
           role: 'user',
           is_active: true,
           created_at: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString()

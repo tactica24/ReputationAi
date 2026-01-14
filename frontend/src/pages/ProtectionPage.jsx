@@ -15,7 +15,7 @@ const ProtectionPage = () => {
         <p>Real-time monitoring and threat detection across the entire internet.</p>
         
         <section id="how-it-works" style={{ marginTop: '2rem' }}>
-          <h2>The ReputationGuard Process</h2>
+          <h2>The VeriSignal Process</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
             {['Monitor', 'Analyze', 'Protect', 'Report'].map((feature, i) => (
               <div key={i} style={{ background: '#12121a', padding: '2rem', borderRadius: '12px', border: '1px solid rgba(99, 102, 241, 0.1)' }}>

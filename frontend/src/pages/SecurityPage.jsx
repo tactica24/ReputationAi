@@ -42,7 +42,7 @@ const SecurityPage = () => {
 
         <section style={{ marginBottom: '2rem' }}>
           <h2>🚨 Report Security Issues</h2>
-          <p>Found a security vulnerability? Please report it to: security@reputationguard.com</p>
+          <p>Found a security vulnerability? Please report it to: security@verisignal.com</p>
         </section>
       </div>
     </div>

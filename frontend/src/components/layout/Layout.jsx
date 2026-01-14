@@ -57,9 +57,9 @@ function Layout({ children }) {
           <div className="flex items-center justify-between h-16 px-6 border-b border-slate-800">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">AI</span>
+                <span className="text-white font-bold text-sm">VS</span>
               </div>
-              <span className="text-white font-semibold text-lg">AI Guardian</span>
+              <span className="text-white font-semibold text-lg">VeriSignal</span>
             </div>
             <button 
               onClick={() => setSidebarOpen(false)}

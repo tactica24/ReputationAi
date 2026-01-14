@@ -80,7 +80,7 @@ const HomePage = () => {
           <a href="/" className="brand">
             <svg className="brand-icon" width="36" height="36" viewBox="0 0 36 36" fill="none">
               <rect width="36" height="36" rx="8" fill="#0a0a0f" stroke="url(#logoStroke)" strokeWidth="1.5"/>
-              <text x="18" y="25" fontFamily="Inter, sans-serif" fontSize="18" fontWeight="700" fill="url(#logoText)" textAnchor="middle">RG</text>
+              <text x="18" y="25" fontFamily="Inter, sans-serif" fontSize="18" fontWeight="700" fill="url(#logoText)" textAnchor="middle">VS</text>
               <defs>
                 <linearGradient id="logoStroke" x1="0" y1="0" x2="36" y2="36">
                   <stop offset="0%" stopColor="#6366f1"/>
@@ -92,7 +92,7 @@ const HomePage = () => {
                 </linearGradient>
               </defs>
             </svg>
-            <span className="brand-name">ReputationGuard</span>
+            <span className="brand-name">VeriSignal</span>
           </a>
 
           <div className="nav-links">
@@ -130,13 +130,12 @@ const HomePage = () => {
         <div className="hero-content-wrapper">
           <div className="hero-badge">Trusted by Industry Leaders</div>
           <h1 className="hero-heading">
-            Protect Your Reputation
+            Protect Your Digital Signal
             <br/>
-            <span className="gradient-text">With Cutting-Edge Solutions</span>
+            <span className="gradient-text">With VeriSignal AI</span>
           </h1>
           <p className="hero-description">
-            Professional-grade monitoring across platforms. Detect risks instantly, 
-            respond effectively, and safeguard your legacy.
+            AI-powered monitoring across platforms. Detect risks instantly, respond effectively, and safeguard your reputation with VeriSignal.
           </p>
 
           <div className="hero-cta-group">
@@ -194,7 +193,7 @@ const HomePage = () => {
               <div className="brand">
                 <svg className="brand-icon" width="32" height="32" viewBox="0 0 36 36" fill="none">
                   <rect width="36" height="36" rx="8" fill="#0a0a0f" stroke="url(#logoStrokeFooter)" strokeWidth="1.5"/>
-                  <text x="18" y="25" fontFamily="Inter, sans-serif" fontSize="18" fontWeight="700" fill="url(#logoTextFooter)" textAnchor="middle">RG</text>
+                  <text x="18" y="25" fontFamily="Inter, sans-serif" fontSize="18" fontWeight="700" fill="url(#logoTextFooter)" textAnchor="middle">VS</text>
                   <defs>
                     <linearGradient id="logoStrokeFooter" x1="0" y1="0" x2="36" y2="36">
                       <stop offset="0%" stopColor="#6366f1"/>
@@ -206,9 +205,9 @@ const HomePage = () => {
                     </linearGradient>
                   </defs>
                 </svg>
-                <span className="brand-name">ReputationGuard</span>
+                <span className="brand-name">VeriSignal</span>
               </div>
-              <p className="footer-tagline">Enterprise-grade reputation protection for those who can't afford risk.</p>
+              <p className="footer-tagline">AI-powered digital reputation & identity protection for the modern era.</p>
             </div>
 
             <div className="footer-links">
@@ -233,7 +232,7 @@ const HomePage = () => {
           </div>
 
           <div className="footer-bottom">
-            <p>&copy; 2025 ReputationGuard. All rights reserved.</p>
+            <p>&copy; 2025 VeriSignal. All rights reserved.</p>
             <p className="footer-emergency">🚨 Crisis Hotline: <a href="tel:+18005551234">1-800-555-1234</a></p>
           </div>
         </div>

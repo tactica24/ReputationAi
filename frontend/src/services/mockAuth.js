@@ -4,13 +4,13 @@
  */
 
 const MOCK_USERS = {
-  'admin@verisignal.com': {
+  'admin@reputationai.com': {
     id: 1,
-    email: 'admin@verisignal.com',
+    email: 'admin@reputationai.com',
     username: 'admin',
     name: 'Admin User',
     full_name: 'Admin User',
-    company: 'VeriSignal',
+    company: 'ReputationAI',
     role: 'admin',
     password: 'admin123',
     is_active: true
@@ -25,9 +25,9 @@ const MOCK_USERS = {
     password: 'Admin@2024!',
     is_active: true
   },
-  'user@verisignal.com': {
+  'user@reputationai.com': {
     id: 3,
-    email: 'user@verisignal.com',
+    email: 'user@reputationai.com',
     username: 'user',
     name: 'Demo User',
     full_name: 'Demo User',

@@ -78,9 +78,9 @@ export const mockDataService = {
       data: [
         {
           id: '1',
-          email: 'admin@reputationai.com',
+          email: 'admin@verisignal.com',
           name: 'Admin User',
-          company: 'ReputationAI',
+          company: 'VeriSignal',
           role: 'admin',
           is_active: true,
           created_at: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()

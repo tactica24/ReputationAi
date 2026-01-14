@@ -16,7 +16,7 @@ const PrivacyPage = () => {
         
         <section style={{ marginBottom: '2rem' }}>
           <h2>Overview</h2>
-          <p>VeriSignal is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and protect your information.</p>
+          <p>ReputationGuard is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and protect your information.</p>
         </section>
 
         <section style={{ marginBottom: '2rem' }}>
@@ -43,7 +43,7 @@ const PrivacyPage = () => {
 
         <section style={{ marginBottom: '2rem' }}>
           <h2>Contact Us</h2>
-          <p>For privacy concerns, please contact us at: privacy@verisignal.com</p>
+          <p>For privacy concerns, please contact us at: privacy@reputationguard.com</p>
         </section>
       </div>
     </div>

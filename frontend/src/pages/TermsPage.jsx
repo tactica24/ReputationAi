@@ -16,12 +16,12 @@ const TermsPage = () => {
         
         <section style={{ marginBottom: '2rem' }}>
           <h2>1. Acceptance of Terms</h2>
-          <p>By using VeriSignal, you agree to these terms and conditions. If you do not agree, please do not use our services.</p>
+          <p>By using ReputationGuard, you agree to these terms and conditions. If you do not agree, please do not use our services.</p>
         </section>
 
         <section style={{ marginBottom: '2rem' }}>
           <h2>2. Use License</h2>
-          <p>We grant you a limited, non-exclusive, revocable license to use VeriSignal for lawful purposes only. You may not:</p>
+          <p>We grant you a limited, non-exclusive, revocable license to use ReputationGuard for lawful purposes only. You may not:</p>
           <ul style={{ marginLeft: '2rem', color: '#a1a1aa' }}>
             <li>Reproduce or duplicate any content</li>
             <li>Use our services for illegal purposes</li>
@@ -32,12 +32,12 @@ const TermsPage = () => {
 
         <section style={{ marginBottom: '2rem' }}>
           <h2>3. Limitation of Liability</h2>
-          <p>VeriSignal is provided "as is" without warranties. We are not liable for indirect, incidental, or consequential damages arising from your use of our services.</p>
+          <p>ReputationGuard is provided "as is" without warranties. We are not liable for indirect, incidental, or consequential damages arising from your use of our services.</p>
         </section>
 
         <section style={{ marginBottom: '2rem' }}>
           <h2>4. Contact</h2>
-          <p>For questions about these terms, contact us at: legal@verisignal.com</p>
+          <p>For questions about these terms, contact us at: legal@reputationguard.com</p>
         </section>
       </div>
     </div>

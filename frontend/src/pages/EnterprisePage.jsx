@@ -11,8 +11,8 @@ const EnterprisePage = () => {
           ← Back to Home
         </button>
         
-        <h1>Enterprise Protection</h1>
-        <p>Unlimited monitoring, dedicated support, and custom solutions for enterprises.</p>
+        <h1>Enterprise Solutions</h1>
+        <p>Unlimited digital reputation and identity protection, dedicated support, and custom solutions for organizations that demand the best.</p>
         
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
           <div style={{ background: '#12121a', padding: '2rem', borderRadius: '12px', border: '1px solid rgba(99, 102, 241, 0.1)' }}>
@@ -30,7 +30,7 @@ const EnterprisePage = () => {
         </div>
         
         <button onClick={() => navigate('/subscribe')} style={{ background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)', color: '#fff', border: 'none', padding: '1rem 2rem', borderRadius: '0.5rem', marginTop: '2rem', cursor: 'pointer', fontSize: '1rem', fontWeight: '600' }}>
-          Get Enterprise Plan
+          Contact Us for Enterprise Protection
         </button>
       </div>
     </div>

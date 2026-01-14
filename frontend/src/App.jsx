@@ -13,6 +13,7 @@ import LoginPage from './components/auth/LoginPage';
 import ProtectionPage from './pages/ProtectionPage';
 import EnterprisePage from './pages/EnterprisePage';
 import SubscribePage from './pages/SubscribePage';
+import FeaturesPage from './pages/FeaturesPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import SecurityPage from './pages/SecurityPage';
@@ -26,6 +27,7 @@ function App() {
     <Routes>
       {/* Public pages */}
       <Route path="/" element={<HomePage />} />
+      <Route path="/features" element={<FeaturesPage />} />
       <Route path="/protection" element={<ProtectionPage />} />
       <Route path="/enterprise" element={<EnterprisePage />} />
       <Route path="/subscribe" element={<SubscribePage />} />

@@ -12,8 +12,8 @@ const SubscribePage = () => {
           ← Back to Home
         </button>
         
-        <h1 style={{ textAlign: 'center', marginBottom: '1rem' }}>Choose Your Plan</h1>
-        <p style={{ textAlign: 'center', color: '#a1a1aa', marginBottom: '3rem' }}>Select the perfect plan for your reputation protection needs</p>
+        <h1 style={{ textAlign: 'center', marginBottom: '1rem' }}>Get Protected with VeriSignal</h1>
+        <p style={{ textAlign: 'center', color: '#a1a1aa', marginBottom: '3rem' }}>Select the perfect plan for your digital reputation and identity protection. Start your protection instantly.</p>
         
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
           {[
@@ -44,7 +44,7 @@ const SubscribePage = () => {
                 ))}
               </ul>
               <button style={{ width: '100%', background: '#6366f1', color: '#fff', border: 'none', padding: '0.75rem', borderRadius: '0.5rem', cursor: 'pointer', fontWeight: '600' }}>
-                Choose Plan
+                {plan.id === 'starter' ? 'Start with Starter' : plan.id === 'pro' ? 'Get Pro Protection' : 'Contact for Enterprise'}
               </button>
             </div>
           ))}

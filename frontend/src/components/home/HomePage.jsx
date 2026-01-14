@@ -32,12 +32,13 @@ const HomePage = () => {
     setMobileNavOpen(false);
     document.body.classList.remove('nav-open');
     const urlMap = {
-      features: '/protection',
+      features: '/features',
       protection: '/protection',
       enterprise: '/enterprise',
       privacy: '/privacy',
       terms: '/terms',
-      security: '/security'
+      security: '/security',
+      subscribe: '/subscribe'
     };
 
     const target = urlMap[path] || path;

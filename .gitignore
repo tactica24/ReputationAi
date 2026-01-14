@@ -87,3 +87,4 @@ logs/
 .DS_Store
 Thumbs.db
 .vercel
+.env*.local

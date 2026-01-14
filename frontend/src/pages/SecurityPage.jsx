@@ -21,7 +21,7 @@ const SecurityPage = () => {
 
         <section style={{ marginBottom: '2rem' }}>
           <h2>🛡️ Security Audits</h2>
-          <p>We conduct regular security audits and penetration testing to ensure the highest standards of protection.</p>
+          <p>We conduct regular security audits and penetration testing to ensure the highest standards of protection at VeriSignal.</p>
         </section>
 
         <section style={{ marginBottom: '2rem' }}>
@@ -42,7 +42,7 @@ const SecurityPage = () => {
 
         <section style={{ marginBottom: '2rem' }}>
           <h2>🚨 Report Security Issues</h2>
-          <p>Found a security vulnerability? Please report it to: security@reputationguard.com</p>
+          <p>Found a security vulnerability? Please report it to: security@verisignal.com</p>
         </section>
       </div>
     </div>

@@ -33,7 +33,7 @@ const HomePage = () => {
     document.body.classList.remove('nav-open');
     const urlMap = {
       features: '/protection',
-      protection: '/protection',
+      protection: '/application-form',
       enterprise: '/enterprise',
       privacy: '/privacy',
       terms: '/terms',
@@ -80,19 +80,19 @@ const HomePage = () => {
           <a href="/" className="brand">
             <svg className="brand-icon" width="36" height="36" viewBox="0 0 36 36" fill="none">
               <rect width="36" height="36" rx="8" fill="#0a0a0f" stroke="url(#logoStroke)" strokeWidth="1.5"/>
-              <text x="18" y="25" fontFamily="Inter, sans-serif" fontSize="18" fontWeight="700" fill="url(#logoText)" textAnchor="middle">RG</text>
+              <g>
+                <path d="M18 7 L30 12 V19 C30 27 22 32 18 33 C14 32 6 27 6 19 V12 L18 7 Z" fill="#00c3a0" fillOpacity="0.18" stroke="#00c3a0" strokeWidth="1.5"/>
+                <circle cx="18" cy="18" r="4" fill="#6366f1" fillOpacity="0.7" />
+              </g>
+              <text x="18" y="25" fontFamily="Inter, sans-serif" fontSize="15" fontWeight="700" fill="#fff" textAnchor="middle">VS</text>
               <defs>
                 <linearGradient id="logoStroke" x1="0" y1="0" x2="36" y2="36">
-                  <stop offset="0%" stopColor="#6366f1"/>
-                  <stop offset="100%" stopColor="#8b5cf6"/>
-                </linearGradient>
-                <linearGradient id="logoText" x1="0" y1="0" x2="36" y2="36">
-                  <stop offset="0%" stopColor="#6366f1"/>
-                  <stop offset="100%" stopColor="#8b5cf6"/>
+                  <stop offset="0%" stopColor="#00c3a0"/>
+                  <stop offset="100%" stopColor="#6366f1"/>
                 </linearGradient>
               </defs>
             </svg>
-            <span className="brand-name">ReputationGuard</span>
+            <span className="brand-name">VeriSignal</span>
           </a>
 
           <div className="nav-links">
@@ -128,35 +128,35 @@ const HomePage = () => {
       {/* Hero Section */}
       <section className="hero-premium">
         <div className="hero-content-wrapper">
-          <div className="hero-badge">Trusted by Industry Leaders</div>
+          <div className="hero-badge">Reputation Security for the Age of Deepfakes</div>
           <h1 className="hero-heading">
-            Protect Your Reputation
-            <br/>
-            <span className="gradient-text">With Cutting-Edge Solutions</span>
+            VeriSignal — <span className="gradient-text">Cutting-Edge Reputation Guard</span>
           </h1>
           <p className="hero-description">
-            Professional-grade monitoring across platforms. Detect risks instantly, 
-            respond effectively, and safeguard your legacy.
+            Defend your brand, identity, and legacy with 24/7 cutting-edge technology monitoring.<br/>
+            Detect deepfakes, misinformation, and threats before they go viral.<br/>
+            <span style={{color:'#00c3a0', fontWeight:600}}>Enterprise-grade security. Real-time alerts. Peace of mind.</span>
           </p>
-
           <div className="hero-cta-group">
-            <button onClick={() => handleNavClick('subscribe')} className="btn-hero-primary">
-              Start Protection Now
+            <button onClick={() => navigate('/application-form')} className="btn-hero-primary">
+              Get Protected Now
             </button>
           </div>
-
           <div className="hero-trust-bar">
             <div className="trust-stat">
-              <span className="trust-number">500+</span>
-              <span className="trust-label">Protected Clients</span>
+              <span className="trust-icon" role="img" aria-label="shield">🛡️</span>
+              <span className="trust-number">Enterprise</span>
+              <span className="trust-label">Grade Security</span>
             </div>
             <div className="trust-divider"></div>
             <div className="trust-stat">
+              <span className="trust-icon" role="img" aria-label="clock">⏱️</span>
               <span className="trust-number">24/7</span>
-              <span className="trust-label">Monitoring</span>
+              <span className="trust-label">Cutting-Edge Monitoring</span>
             </div>
             <div className="trust-divider"></div>
             <div className="trust-stat">
+              <span className="trust-icon" role="img" aria-label="globe">🌐</span>
               <span className="trust-number">100M+</span>
               <span className="trust-label">Sources Scanned</span>
             </div>
@@ -206,9 +206,9 @@ const HomePage = () => {
                     </linearGradient>
                   </defs>
                 </svg>
-                <span className="brand-name">ReputationGuard</span>
+                <span className="brand-name">VeriSignal</span>
               </div>
-              <p className="footer-tagline">Enterprise-grade reputation protection for those who can't afford risk.</p>
+              <p className="footer-tagline">Enterprise-grade AI reputation security for those who can't afford risk.</p>
             </div>
 
             <div className="footer-links">
@@ -233,7 +233,7 @@ const HomePage = () => {
           </div>
 
           <div className="footer-bottom">
-            <p>&copy; 2025 ReputationGuard. All rights reserved.</p>
+            <p>&copy; 2025 VeriSignal. All rights reserved.</p>
             <p className="footer-emergency">🚨 Crisis Hotline: <a href="tel:+18005551234">1-800-555-1234</a></p>
           </div>
         </div>

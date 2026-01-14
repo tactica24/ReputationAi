@@ -11,18 +11,27 @@ const ProtectionPage = () => {
           ← Back to Home
         </button>
         
-        <h1>How Protection Works</h1>
-        <p>Real-time monitoring and threat detection across the entire internet.</p>
-        
+        <h1>How VeriSignal Protects You</h1>
+        <p>Cutting-edge, real-time monitoring and deepfake threat detection across the entire digital world.</p>
         <section id="how-it-works" style={{ marginTop: '2rem' }}>
-          <h2>The ReputationGuard Process</h2>
+          <h2>The VeriSignal Process</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
-            {['Monitor', 'Analyze', 'Protect', 'Report'].map((feature, i) => (
-              <div key={i} style={{ background: '#12121a', padding: '2rem', borderRadius: '12px', border: '1px solid rgba(99, 102, 241, 0.1)' }}>
-                <h3>{feature}</h3>
-                <p style={{ color: '#a1a1aa' }}>24/7 AI-powered monitoring and protection</p>
-              </div>
-            ))}
+            <div style={{ background: '#12121a', padding: '2rem', borderRadius: '12px', border: '1px solid #00c3a0' }}>
+              <h3>🔎 Cutting-Edge Monitoring</h3>
+              <p style={{ color: '#a1a1aa' }}>24/7 scanning of news, social media, and the dark web for threats and deepfakes using advanced technology.</p>
+            </div>
+            <div style={{ background: '#12121a', padding: '2rem', borderRadius: '12px', border: '1px solid #00c3a0' }}>
+              <h3>⚡ Instant Alerts</h3>
+              <p style={{ color: '#a1a1aa' }}>Get notified the moment a risk or impersonation is detected.</p>
+            </div>
+            <div style={{ background: '#12121a', padding: '2rem', borderRadius: '12px', border: '1px solid #00c3a0' }}>
+              <h3>🛡️ Automated Protection</h3>
+              <p style={{ color: '#a1a1aa' }}>Automated response tools to help you counter threats and misinformation fast.</p>
+            </div>
+            <div style={{ background: '#12121a', padding: '2rem', borderRadius: '12px', border: '1px solid #00c3a0' }}>
+              <h3>📊 Evidence & Reports</h3>
+              <p style={{ color: '#a1a1aa' }}>Actionable reports and evidence for legal, PR, or takedown requests.</p>
+            </div>
           </div>
         </section>
       </div>

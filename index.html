@@ -40,40 +40,8 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Premium Navigation -->
-    <nav class="nav-premium" role="navigation" aria-label="Main navigation">
-        <div class="nav-wrapper">
-            <a href="/" class="brand" aria-label="ReputationAI Home">
-                <svg class="brand-icon" width="36" height="36" viewBox="0 0 36 36" fill="none" role="img" aria-label="ReputationAI Logo">
-                    <!-- Professional RG monogram logo -->
-                    <rect width="36" height="36" rx="8" fill="#0a0a0f" stroke="url(#logoStroke)" stroke-width="1.5"/>
-                    <text x="18" y="25" font-family="Inter, sans-serif" font-size="18" font-weight="700" 
-                          fill="url(#logoText)" text-anchor="middle">RA</text>
-                    <defs>
-                        <linearGradient id="logoStroke" x1="0" y1="0" x2="36" y2="36">
-                            <stop offset="0%" stop-color="#6366f1"/>
-                            <stop offset="100%" stop-color="#8b5cf6"/>
-                        </linearGradient>
-                        <linearGradient id="logoText" x1="0" y1="0" x2="36" y2="36">
-                            <stop offset="0%" stop-color="#6366f1"/>
-                            <stop offset="100%" stop-color="#8b5cf6"/>
-                        </linearGradient>
-                    </defs>
-                </svg>
-                <span class="brand-name">ReputationAI</span>
-            </a>
-            <div class="nav-links">
-                <a href="protection.html">Features</a>
-                <a href="protection.html#how-it-works">Protection</a>
-                <a href="cost-of-nothing.html">Enterprise</a>
-                <a href="subscribe.html">Subscribe</a>
-                <a href="app/index.html" class="nav-link-dash">Dashboard</a>
-            </div>
-            <button class="mobile-nav-toggle" onclick="toggleMobileNav()" aria-label="Toggle navigation menu" aria-expanded="false">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </nav>
+    <!-- Shared Premium Navigation Header -->
+    <!--#include file="shared-header.html" -->
 
     <!-- Mobile Navigation -->
     <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
@@ -100,8 +68,8 @@
                 respond instantly, and safeguard what took decades to build.
             </p>
             <div class="hero-cta-group">
-                <a href="subscribe.html" class="btn-hero-primary">
-                    Start Protection Now
+                <a href="application-form.html" class="btn-hero-primary">
+                    Get Protected
                 </a>
                 <a href="protection.html" class="btn-hero-secondary">See How It Works</a>
             </div>

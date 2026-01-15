@@ -1,109 +1,104 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../../store/authStore';
 import './HomePage.css';
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuthStore();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const navigation = useMemo(
+    () => [
+      { label: 'Features', href: '/features' },
+      { label: 'Protection', href: '/protection' },
+      { label: 'Security', href: '/security' },
+      { label: 'Docs', href: '#docs' }
+    ],
+    []
+  );
+
+  const demoAlerts = [
+    {
+      title: 'Impersonation claim trending on X',
+      source: 'X / Social',
+      time: '2m ago',
+      risk: 'High',
+      score: 82,
+      confidence: 'High',
+      reasons: ['Impersonation', 'Viral velocity', 'Unverified source']
+    },
+    {
+      title: 'Blog alleges fraud investigation',
+      source: 'Blog / Finance Watch',
+      time: '12m ago',
+      risk: 'Critical',
+      score: 91,
+      confidence: 'Medium',
+      reasons: ['Accusation', 'Legal risk', 'First-time domain']
+    },
+    {
+      title: 'YouTube clip misquotes press release',
+      source: 'YouTube / Clip Digest',
+      time: '26m ago',
+      risk: 'Medium',
+      score: 68,
+      confidence: 'High',
+      reasons: ['Fake quote', 'High engagement', 'New channel']
+    }
+  ];
+
   const toggleMobileNav = () => {
-    setMobileNavOpen(!mobileNavOpen);
+    setMobileNavOpen((prev) => !prev);
     document.body.classList.toggle('nav-open');
   };
 
-  const handleNavClick = (path) => {
+  const handleNav = (href) => {
     setMobileNavOpen(false);
     document.body.classList.remove('nav-open');
-    const urlMap = {
-      features: '/features',
-      protection: '/protection',
-      enterprise: '/enterprise',
-      privacy: '/privacy',
-      terms: '/terms',
-      security: '/security',
-      subscribe: '/subscribe'
-    };
-
-    const target = urlMap[path] || path;
-
-    if (target.startsWith('#')) {
-      const element = document.querySelector(target);
+    if (href.startsWith('#')) {
+      const element = document.querySelector(href);
       element?.scrollIntoView({ behavior: 'smooth' });
-    } else if (target.startsWith('http')) {
-      window.location.href = target;
     } else {
-      navigate(target);
+      navigate(href);
     }
   };
 
-  const handleDashboard = () => {
-    setMobileNavOpen(false);
-    document.body.classList.remove('nav-open');
-    if (isAuthenticated) {
-      if (user?.role === 'admin') {
-        navigate('/admin');
-      } else {
-        navigate('/dashboard');
-      }
-    } else {
-      navigate('/login');
-    }
-  };
-
-  const handleLogin = () => {
-    setMobileNavOpen(false);
-    document.body.classList.remove('nav-open');
-    navigate('/login');
+  const handleApply = () => {
+    window.location.href = '/application-form.html';
   };
 
   return (
     <div className="homepage-container">
-      {/* Premium Navigation */}
       <nav className={`nav-premium ${scrolled ? 'scrolled' : ''}`}>
         <div className="nav-wrapper">
-          <a href="/" className="brand">
-            <svg className="brand-icon" width="36" height="36" viewBox="0 0 36 36" fill="none">
-              <rect width="36" height="36" rx="8" fill="#0a0a0f" stroke="url(#logoStroke)" strokeWidth="1.5"/>
-              <text x="18" y="25" fontFamily="Inter, sans-serif" fontSize="18" fontWeight="700" fill="url(#logoText)" textAnchor="middle">VS</text>
-              <defs>
-                <linearGradient id="logoStroke" x1="0" y1="0" x2="36" y2="36">
-                  <stop offset="0%" stopColor="#6366f1"/>
-                  <stop offset="100%" stopColor="#8b5cf6"/>
-                </linearGradient>
-                <linearGradient id="logoText" x1="0" y1="0" x2="36" y2="36">
-                  <stop offset="0%" stopColor="#6366f1"/>
-                  <stop offset="100%" stopColor="#8b5cf6"/>
-                </linearGradient>
-              </defs>
-            </svg>
+          <a className="brand" href="#top">
+            <span className="brand-mark">
+              <span className="brand-mark-glow"></span>
+              <span className="brand-mark-text">VS</span>
+            </span>
             <span className="brand-name">VeriSignal</span>
           </a>
-
           <div className="nav-links">
-            <button onClick={() => handleNavClick('features')} className="nav-link">Features</button>
-            <button onClick={() => handleNavClick('protection')} className="nav-link">Protection</button>
-            <button onClick={() => handleNavClick('enterprise')} className="nav-link">Enterprise</button>
-            <button onClick={handleDashboard} className="nav-link-dash">Dashboard</button>
+            {navigation.map((link) => (
+              <button
+                key={link.label}
+                className="nav-link"
+                onClick={() => handleNav(link.href)}
+              >
+                {link.label}
+              </button>
+            ))}
+            <button className="nav-link nav-cta" onClick={handleApply}>
+              Get Protected
+            </button>
           </div>
-
-          <button 
+          <button
             className={`mobile-nav-toggle ${mobileNavOpen ? 'active' : ''}`}
             onClick={toggleMobileNav}
             aria-label="Menu"
@@ -115,126 +110,174 @@ const HomePage = () => {
         </div>
       </nav>
 
-      {/* Mobile Navigation */}
       <div className={`mobile-nav ${mobileNavOpen ? 'active' : ''}`}>
         <button className="mobile-nav-close" onClick={toggleMobileNav}>&times;</button>
         <div className="mobile-nav-content">
-          <button onClick={() => handleNavClick('features')} className="mobile-nav-link">Features</button>
-          <button onClick={() => handleNavClick('protection')} className="mobile-nav-link">Protection</button>
-          <button onClick={() => handleNavClick('enterprise')} className="mobile-nav-link">Enterprise</button>
-          <button onClick={handleDashboard} className="mobile-nav-link">Dashboard</button>
+          {navigation.map((link) => (
+            <button
+              key={link.label}
+              className="mobile-nav-link"
+              onClick={() => handleNav(link.href)}
+            >
+              {link.label}
+            </button>
+          ))}
+          <button className="mobile-nav-link" onClick={handleApply}>
+            Get Protected
+          </button>
         </div>
       </div>
 
-      {/* Hero Section */}
-      <section className="hero-premium">
+      <section className="hero-premium" id="top">
         <div className="hero-content-wrapper">
-          <div className="hero-badge">Trusted by Industry Leaders</div>
+          <div className="hero-badge">
+            <span className="badge-dot"></span>
+            Secure-by-design reputation intelligence
+          </div>
           <h1 className="hero-heading">
-            Protect Your Digital Signal
-            <br/>
-            <span className="gradient-text">With VeriSignal AI</span>
+            Prevent reputational damage
+            <br />
+            <span className="gradient-text">before it spreads.</span>
           </h1>
           <p className="hero-description">
-            AI-powered monitoring across platforms. Detect risks instantly, respond effectively, and safeguard your reputation with VeriSignal.
+            AI-powered monitoring across platforms. Detect risks instantly, respond effectively, and
+            safeguard your reputation with VeriSignal.
           </p>
-
           <div className="hero-cta-group">
-            <button onClick={() => handleNavClick('subscribe')} className="btn-hero-primary">
-              Start Protection Now
+            <button className="btn-hero-primary" onClick={handleApply}>
+              Get Protected
+            </button>
+            <button className="btn-hero-secondary" onClick={() => handleNav('/features')}>
+              Explore features
             </button>
           </div>
-
-          <div className="hero-trust-bar">
-            <div className="trust-stat">
-              <span className="trust-number">500+</span>
-              <span className="trust-label">Protected Clients</span>
+          <div className="hero-metrics">
+            <div>
+              <strong>15 min</strong>
+              <span>fastest scan interval</span>
             </div>
-            <div className="trust-divider"></div>
-            <div className="trust-stat">
-              <span className="trust-number">24/7</span>
-              <span className="trust-label">Monitoring</span>
+            <div>
+              <strong>100M+</strong>
+              <span>signals monitored</span>
             </div>
-            <div className="trust-divider"></div>
-            <div className="trust-stat">
-              <span className="trust-number">100M+</span>
-              <span className="trust-label">Sources Scanned</span>
+            <div>
+              <strong>99.9%</strong>
+              <span>alert delivery SLA</span>
+            </div>
+          </div>
+        </div>
+        <div className="hero-visual">
+          <div className="hero-orbit"></div>
+          <div className="hero-stack">
+            <div className="hero-card primary">
+              <div className="card-header">
+                <span className="chip chip-danger">Critical</span>
+                <span className="muted">Just now</span>
+              </div>
+              <h4>Impersonation spike detected</h4>
+              <p className="muted">News / Social · Confidence High</p>
+              <div className="badge-row">
+                <span className="badge">Impersonation</span>
+                <span className="badge">Viral velocity</span>
+                <span className="badge">Unverified source</span>
+              </div>
+              <div className="action-row">
+                <button className="ghost-button">Escalate</button>
+                <button className="ghost-button">Mark safe</button>
+              </div>
+            </div>
+            <div className="hero-card secondary">
+              <div className="card-header">
+                <span className="chip chip-info">Monitoring</span>
+                <span className="muted">2m ago</span>
+              </div>
+              <p className="muted">Global scan cycle completed · 438 sources checked</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contact Us Section */}
-      <section className="contact-us">
-        <h2>Contact Us</h2>
-        <button className="btn-contact-us" onClick={() => setShowForm(!showForm)}>
-          {showForm ? 'Hide Form' : 'Contact Us'}
-        </button>
-        {showForm && (
-          <form className="contact-form">
-            <label htmlFor="name">Name</label>
-            <input type="text" id="name" name="name" required />
-
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" required />
-
-            <label htmlFor="message">Message</label>
-            <textarea id="message" name="message" rows="4" required></textarea>
-
-            <button type="submit" className="btn-submit">Submit</button>
-          </form>
-        )}
+      <section className="section" id="demo">
+        <div className="section-heading">
+          <h2>Demo alert cards</h2>
+          <p>Risk chips, explainability, and fast actions in one glance.</p>
+        </div>
+        <div className="demo-cards">
+          {demoAlerts.map((alert, index) => (
+            <div key={alert.title} className={`card demo-card demo-card-${index + 1}`}>
+              <div className="card-header">
+                <span className={`chip chip-${alert.risk.toLowerCase()}`}>{alert.risk}</span>
+                <span className="muted">{alert.time}</span>
+              </div>
+              <h4>{alert.title}</h4>
+              <p className="muted">{alert.source}</p>
+              <div className="score-row">
+                <div>
+                  <strong>Risk score</strong>
+                  <span>{alert.score}/100</span>
+                </div>
+                <div>
+                  <strong>Confidence</strong>
+                  <span>{alert.confidence}</span>
+                </div>
+              </div>
+              <div className="badge-row">
+                {alert.reasons.map((reason) => (
+                  <span key={reason} className="badge">{reason}</span>
+                ))}
+              </div>
+              <div className="action-row">
+                <button className="ghost-button">Mark safe</button>
+                <button className="ghost-button">Escalate</button>
+                <button className="ghost-button">Add evidence</button>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
-      {/* Footer */}
+      <section className="cta-strip" id="docs">
+        <div>
+          <h3>Get started in 2 minutes</h3>
+          <p>Share your monitoring goals and let our team activate your coverage.</p>
+        </div>
+        <div className="cta-actions">
+          <button className="btn-hero-primary" onClick={handleApply}>
+            Get Protected
+          </button>
+        </div>
+      </section>
+
       <footer className="footer-premium">
         <div className="footer-container">
           <div className="footer-grid">
-            <div className="footer-brand">
+            <div>
               <div className="brand">
-                <svg className="brand-icon" width="32" height="32" viewBox="0 0 36 36" fill="none">
-                  <rect width="36" height="36" rx="8" fill="#0a0a0f" stroke="url(#logoStrokeFooter)" strokeWidth="1.5"/>
-                  <text x="18" y="25" fontFamily="Inter, sans-serif" fontSize="18" fontWeight="700" fill="url(#logoTextFooter)" textAnchor="middle">VS</text>
-                  <defs>
-                    <linearGradient id="logoStrokeFooter" x1="0" y1="0" x2="36" y2="36">
-                      <stop offset="0%" stopColor="#6366f1"/>
-                      <stop offset="100%" stopColor="#8b5cf6"/>
-                    </linearGradient>
-                    <linearGradient id="logoTextFooter" x1="0" y1="0" x2="36" y2="36">
-                      <stop offset="0%" stopColor="#6366f1"/>
-                      <stop offset="100%" stopColor="#8b5cf6"/>
-                    </linearGradient>
-                  </defs>
-                </svg>
+                <span className="brand-mark">
+                  <span className="brand-mark-glow"></span>
+                  <span className="brand-mark-text">VS</span>
+                </span>
                 <span className="brand-name">VeriSignal</span>
               </div>
-              <p className="footer-tagline">AI-powered digital reputation and identity protection for the modern era. Powered by VeriSignal.</p>
             </div>
-
-            <div className="footer-links">
+            <div>
               <h4>Product</h4>
-              <button onClick={() => handleNavClick('features')} className="footer-link">Features</button>
-              <button onClick={() => handleNavClick('protection')} className="footer-link">How It Works</button>
-              <button onClick={() => handleNavClick('enterprise')} className="footer-link">Enterprise</button>
+              <button onClick={() => handleNav('/features')} className="footer-link">Features</button>
+              <button onClick={() => handleNav('/protection')} className="footer-link">Protection</button>
+              <button onClick={() => handleNav('/security')} className="footer-link">Security</button>
             </div>
-
-            <div className="footer-links">
+            <div>
               <h4>Company</h4>
-              <button onClick={handleDashboard} className="footer-link">Dashboard</button>
-              <a href="tel:+18005551234" className="footer-link">Contact</a>
+              <button onClick={handleApply} className="footer-link">Get Protected</button>
             </div>
-
-            <div className="footer-links">
-              <h4>Legal</h4>
-              <button onClick={() => handleNavClick('privacy')} className="footer-link">Privacy Policy</button>
-              <button onClick={() => handleNavClick('terms')} className="footer-link">Terms of Service</button>
-              <button onClick={() => handleNavClick('security')} className="footer-link">Security</button>
+            <div>
+              <h4>Resources</h4>
+              <button onClick={() => handleNav('#docs')} className="footer-link">Docs</button>
             </div>
           </div>
-
           <div className="footer-bottom">
-            <p>&copy; 2025 VeriSignal. All rights reserved.</p>
-            <p className="footer-emergency">🚨 Crisis Hotline: <a href="tel:+18005551234">1-800-555-1234</a></p>
+            <p>© 2025 VeriSignal. All rights reserved.</p>
+            <p className="muted">Secure by design · GDPR-style commitments · Audit logs</p>
           </div>
         </div>
       </footer>

@@ -1,27 +1,10 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import PublicHeader from '../public/PublicHeader';
 import './HomePage.css';
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const navigation = useMemo(
-    () => [
-      { label: 'Features', href: '/features' },
-      { label: 'Protection', href: '/protection' },
-      { label: 'Security', href: '/security' },
-      { label: 'Docs', href: '#docs' }
-    ],
-    []
-  );
 
   const demoAlerts = [
     {
@@ -31,7 +14,8 @@ const HomePage = () => {
       risk: 'High',
       score: 82,
       confidence: 'High',
-      reasons: ['Impersonation', 'Viral velocity', 'Unverified source']
+      reasons: ['Impersonation', 'Viral velocity', 'Unverified source'],
+      url: 'https://x.com/sample-alert'
     },
     {
       title: 'Blog alleges fraud investigation',
@@ -40,7 +24,8 @@ const HomePage = () => {
       risk: 'Critical',
       score: 91,
       confidence: 'Medium',
-      reasons: ['Accusation', 'Legal risk', 'First-time domain']
+      reasons: ['Accusation', 'Legal risk', 'First-time domain'],
+      url: 'https://financewatch.example.com/story'
     },
     {
       title: 'YouTube clip misquotes press release',
@@ -49,25 +34,10 @@ const HomePage = () => {
       risk: 'Medium',
       score: 68,
       confidence: 'High',
-      reasons: ['Fake quote', 'High engagement', 'New channel']
+      reasons: ['Fake quote', 'High engagement', 'New channel'],
+      url: 'https://youtube.com/watch?v=example'
     }
   ];
-
-  const toggleMobileNav = () => {
-    setMobileNavOpen((prev) => !prev);
-    document.body.classList.toggle('nav-open');
-  };
-
-  const handleNav = (href) => {
-    setMobileNavOpen(false);
-    document.body.classList.remove('nav-open');
-    if (href.startsWith('#')) {
-      const element = document.querySelector(href);
-      element?.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      navigate(href);
-    }
-  };
 
   const handleApply = () => {
     window.location.href = '/application-form.html';
@@ -75,58 +45,7 @@ const HomePage = () => {
 
   return (
     <div className="homepage-container">
-      <nav className={`nav-premium ${scrolled ? 'scrolled' : ''}`}>
-        <div className="nav-wrapper">
-          <a className="brand" href="#top">
-            <span className="brand-mark">
-              <span className="brand-mark-glow"></span>
-              <span className="brand-mark-text">VS</span>
-            </span>
-            <span className="brand-name">VeriSignal</span>
-          </a>
-          <div className="nav-links">
-            {navigation.map((link) => (
-              <button
-                key={link.label}
-                className="nav-link"
-                onClick={() => handleNav(link.href)}
-              >
-                {link.label}
-              </button>
-            ))}
-            <button className="nav-link nav-cta" onClick={handleApply}>
-              Get Protected
-            </button>
-          </div>
-          <button
-            className={`mobile-nav-toggle ${mobileNavOpen ? 'active' : ''}`}
-            onClick={toggleMobileNav}
-            aria-label="Menu"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
-      </nav>
-
-      <div className={`mobile-nav ${mobileNavOpen ? 'active' : ''}`}>
-        <button className="mobile-nav-close" onClick={toggleMobileNav}>&times;</button>
-        <div className="mobile-nav-content">
-          {navigation.map((link) => (
-            <button
-              key={link.label}
-              className="mobile-nav-link"
-              onClick={() => handleNav(link.href)}
-            >
-              {link.label}
-            </button>
-          ))}
-          <button className="mobile-nav-link" onClick={handleApply}>
-            Get Protected
-          </button>
-        </div>
-      </div>
+      <PublicHeader />
 
       <section className="hero-premium" id="top">
         <div className="hero-content-wrapper">
@@ -147,7 +66,7 @@ const HomePage = () => {
             <button className="btn-hero-primary" onClick={handleApply}>
               Get Protected
             </button>
-            <button className="btn-hero-secondary" onClick={() => handleNav('/features')}>
+            <button className="btn-hero-secondary" onClick={() => navigate('/features')}>
               Explore features
             </button>
           </div>
@@ -176,6 +95,12 @@ const HomePage = () => {
               </div>
               <h4>Impersonation spike detected</h4>
               <p className="muted">News / Social · Confidence High</p>
+              <div className="trust-row">
+                <a className="trust-link" href="https://x.com/sample-alert">Source link</a>
+                <span>Capture time: 2m ago</span>
+                <span>Snapshot</span>
+                <span>Reason codes</span>
+              </div>
               <div className="badge-row">
                 <span className="badge">Impersonation</span>
                 <span className="badge">Viral velocity</span>
@@ -221,13 +146,19 @@ const HomePage = () => {
                   <span>{alert.confidence}</span>
                 </div>
               </div>
+              <div className="trust-row">
+                <a className="trust-link" href={alert.url}>Source link</a>
+                <span>Captured {alert.time}</span>
+                <span>Snapshot</span>
+                <span>Confidence: {alert.confidence}</span>
+              </div>
               <div className="badge-row">
                 {alert.reasons.map((reason) => (
                   <span key={reason} className="badge">{reason}</span>
                 ))}
               </div>
               <div className="action-row">
-                <button className="ghost-button">Mark safe</button>
+                <button className="ghost-button">Open</button>
                 <button className="ghost-button">Escalate</button>
                 <button className="ghost-button">Add evidence</button>
               </div>
@@ -262,9 +193,9 @@ const HomePage = () => {
             </div>
             <div>
               <h4>Product</h4>
-              <button onClick={() => handleNav('/features')} className="footer-link">Features</button>
-              <button onClick={() => handleNav('/protection')} className="footer-link">Protection</button>
-              <button onClick={() => handleNav('/security')} className="footer-link">Security</button>
+              <button onClick={() => navigate('/features')} className="footer-link">Features</button>
+              <button onClick={() => navigate('/protection')} className="footer-link">Protection</button>
+              <button onClick={() => navigate('/security')} className="footer-link">Security</button>
             </div>
             <div>
               <h4>Company</h4>
@@ -272,7 +203,7 @@ const HomePage = () => {
             </div>
             <div>
               <h4>Resources</h4>
-              <button onClick={() => handleNav('#docs')} className="footer-link">Docs</button>
+              <button onClick={() => { window.location.hash = 'docs'; }} className="footer-link">Docs</button>
             </div>
           </div>
           <div className="footer-bottom">

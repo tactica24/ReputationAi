@@ -1,24 +1,17 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import PublicHeader from '../components/public/PublicHeader';
 
 const PrivacyPage = () => {
-  const navigate = useNavigate();
-
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#0a0a0f', color: '#fff', fontFamily: 'Inter, sans-serif', padding: '6rem 2rem 2rem' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#0a0a0f', color: '#fff', fontFamily: 'Inter, sans-serif', padding: '7rem 2rem 2rem' }}>
+      <PublicHeader />
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-        <button onClick={() => navigate('/')} style={{ background: '#6366f1', color: '#fff', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.5rem', marginBottom: '2rem', cursor: 'pointer' }}>
-          ← Back to Home
-        </button>
-        
         <h1>Privacy Policy</h1>
         <p style={{ color: '#a1a1aa', marginBottom: '2rem' }}>Last updated: December 28, 2025</p>
-        
         <section style={{ marginBottom: '2rem' }}>
           <h2>Overview</h2>
           <p>VeriSignal is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and protect your information.</p>
         </section>
-
         <section style={{ marginBottom: '2rem' }}>
           <h2>Information We Collect</h2>
           <p>We collect information you provide directly to us, such as:</p>
@@ -29,7 +22,6 @@ const PrivacyPage = () => {
             <li>Communication preferences</li>
           </ul>
         </section>
-
         <section style={{ marginBottom: '2rem' }}>
           <h2>How We Use Your Information</h2>
           <p>We use your information to:</p>
@@ -40,10 +32,13 @@ const PrivacyPage = () => {
             <li>Comply with legal obligations</li>
           </ul>
         </section>
-
+        <section style={{ marginBottom: '2rem' }}>
+          <h2>Data Security</h2>
+          <p>We implement strong security measures to protect your data, including encryption, access controls, and regular audits.</p>
+        </section>
         <section style={{ marginBottom: '2rem' }}>
           <h2>Contact Us</h2>
-          <p>For privacy concerns, please contact us at: privacy@verisignal.com</p>
+          <p>Questions about privacy? Contact us at privacy@verisignal.com</p>
         </section>
       </div>
     </div>

@@ -1,0 +1,136 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SourceType {
+  RSS
+  WEBPAGE
+}
+
+enum ClaimType {
+  FACTUAL
+  PREDICTION
+  OPINION
+}
+
+enum RiskLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum EvidenceStance {
+  SUPPORTS
+  CONTRADICTS
+  NEUTRAL
+}
+
+enum BulletinStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model Source {
+  id          String   @id @default(cuid())
+  type        SourceType
+  url         String   @unique
+  enabled     Boolean  @default(true)
+  sectionHint String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  rawItems RawItem[]
+}
+
+model RawItem {
+  id          String   @id @default(cuid())
+  sourceId    String
+  url         String
+  title       String
+  publishedAt DateTime?
+  fetchedAt   DateTime @default(now())
+  rawText     String
+  rawHtml     String?
+  hash        String   @unique
+  createdAt   DateTime @default(now())
+
+  source Source @relation(fields: [sourceId], references: [id])
+  claims Claim[]
+}
+
+model Claim {
+  id        String    @id @default(cuid())
+  rawItemId String
+  subject   String
+  claimText String
+  claimType ClaimType
+  riskLevel RiskLevel
+  createdAt DateTime  @default(now())
+
+  rawItem    RawItem     @relation(fields: [rawItemId], references: [id])
+  evidence   Evidence[]
+  assessment Assessment?
+}
+
+model Evidence {
+  id              String        @id @default(cuid())
+  claimId         String
+  url             String
+  title           String
+  snippet         String
+  stance          EvidenceStance
+  credibilityTier Int
+  createdAt       DateTime      @default(now())
+
+  claim Claim @relation(fields: [claimId], references: [id])
+}
+
+model Assessment {
+  id                  String   @id @default(cuid())
+  claimId             String   @unique
+  confidenceAccurate  Int
+  confidenceInaccurate Int
+  uncertainty         Int
+  reasonCodes         String[]
+  explanation         String
+  needsHumanReview    Boolean  @default(false)
+  model               String
+  promptVersion       String
+  createdAt           DateTime @default(now())
+
+  claim Claim @relation(fields: [claimId], references: [id])
+}
+
+model Bulletin {
+  id          String         @id @default(cuid())
+  date        DateTime       @unique
+  publishTime DateTime?
+  status      BulletinStatus
+  sectionsJson Json
+  publicUrl   String?
+  pdfUrl      String?
+  createdAt   DateTime       @default(now())
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  entityType String
+  entityId   String
+  action     String
+  actor      String
+  diffJson   Json
+  createdAt  DateTime @default(now())
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
